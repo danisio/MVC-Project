@@ -7,18 +7,11 @@
 
     using AutoMapper;
 
-    public class AutoMapperConfig
+    public static class AutoMapperConfig
     {
-        private readonly Assembly assembly;
-
-        public AutoMapperConfig(Assembly assembly)
+        public static void Execute()
         {
-            this.assembly = assembly;
-        }
-
-        public void Execute()
-        {
-            var types = this.assembly.GetExportedTypes();
+            var types = Assembly.GetCallingAssembly().GetExportedTypes();
 
             LoadStandardMappings(types);
 
@@ -36,7 +29,7 @@
 
             foreach (var map in maps)
             {
-                Mapper.CreateMap(map.Source, map.Destination);
+                Mapper.CreateMap(map.Source, map.Destination); // TODO 
             }
         }
 

@@ -1,16 +1,14 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
-using Owin;
-using MySurveys.Web.Models;
-using MySurveys.Data;
-using MySurveys.Models;
-
-namespace MySurveys.Web
+﻿namespace MySurveys.Web
 {
+    using System;
+    using Data;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security.Cookies;
+    using MySurveys.Models;
+    using Owin;
+
     public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
@@ -36,7 +34,7 @@ namespace MySurveys.Web
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
