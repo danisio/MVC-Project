@@ -58,9 +58,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\DeletableEntityRepository.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\IDeletableEntityRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MySurveys.Data.Common\MySurveys.Data.Common.csproj">
+      <Project>{f7403e59-5bfc-4a34-859c-675c4e1d3c39}</Project>
+      <Name>MySurveys.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MySurveys.Models\MySurveys.Models.csproj">
       <Project>{ad5791cc-286f-4e27-83e8-bcfda1952df9}</Project>
       <Name>MySurveys.Models</Name>
