@@ -183,6 +183,8 @@
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.journal.css" />
+    <Content Include="Content\bootstrap.journal.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -258,6 +260,10 @@
     <ProjectReference Include="..\..\Data\MySurveys.Models\MySurveys.Models.csproj">
       <Project>{ad5791cc-286f-4e27-83e8-bcfda1952df9}</Project>
       <Name>MySurveys.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MySurveys.Data.Common\MySurveys.Data.Common.csproj">
+      <Project>{f7403e59-5bfc-4a34-859c-675c4e1d3c39}</Project>
+      <Name>MySurveys.Data.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
