@@ -1,7 +1,15 @@
-﻿@{
+﻿@model IEnumerable<MySurveys.Models.Question>
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <h1>My surveys</h1>
+</div>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <p>@item.Title</p>
+    }
 </div>

@@ -8,20 +8,20 @@
     using Migrations;
     using Models;
 
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class MySurveysDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext()
+        public MySurveysDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
         }
 
-        public static ApplicationDbContext Create()
+        public static MySurveysDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new MySurveysDbContext();
         }
 
-        // public IDbSet<Question> Questions { get; set; }
+        public IDbSet<Question> Questions { get; set; }
 
         public override int SaveChanges()
         {
