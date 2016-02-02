@@ -10,6 +10,12 @@
 
     public class User : IdentityUser, IAuditInfo, IDeletableEntity
     {
+        public User()
+        {
+            // This will prevent UserManager.CreateAsync from causing exception
+            this.CreatedOn = DateTime.Now;
+        }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? DeletedOn { get; set; }

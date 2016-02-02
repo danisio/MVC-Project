@@ -274,6 +274,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\MySurveys.Data.Common\MySurveys.Data.Common.csproj">
+      <Project>{f7403e59-5bfc-4a34-859c-675c4e1d3c39}</Project>
+      <Name>MySurveys.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\MySurveys.Data\MySurveys.Data.csproj">
       <Project>{0584f75c-9e76-4c0e-9a5a-6db1b37ede11}</Project>
       <Name>MySurveys.Data</Name>
@@ -281,10 +285,6 @@
     <ProjectReference Include="..\..\Data\MySurveys.Models\MySurveys.Models.csproj">
       <Project>{ad5791cc-286f-4e27-83e8-bcfda1952df9}</Project>
       <Name>MySurveys.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MySurveys.Data.Common\MySurveys.Data.Common.csproj">
-      <Project>{f7403e59-5bfc-4a34-859c-675c4e1d3c39}</Project>
-      <Name>MySurveys.Data.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

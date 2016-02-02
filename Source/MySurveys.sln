@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Web", "Web\MySurv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21266C21-87F4-445E-B0A9-B4EBF2D390FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Data.Common", "MySurveys.Data.Common\MySurveys.Data.Common.csproj", "{F7403E59-5BFC-4A34-859C-675C4E1D3C39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Data.Common", "Data\MySurveys.Data.Common\MySurveys.Data.Common.csproj", "{F7403E59-5BFC-4A34-859C-675C4E1D3C39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
