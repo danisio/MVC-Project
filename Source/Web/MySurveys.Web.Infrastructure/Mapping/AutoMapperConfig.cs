@@ -29,6 +29,7 @@
 
             foreach (var map in maps)
             {
+                //var conf = new MapperConfiguration(b=>b.CreateMap(map.Source, map.Destination)); 
                 Mapper.CreateMap(map.Source, map.Destination); // TODO 
             }
         }
