@@ -16,12 +16,12 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
         }
 
+        public IDbSet<Question> Questions { get; set; }
+
         public static MySurveysDbContext Create()
         {
             return new MySurveysDbContext();
         }
-
-        public IDbSet<Question> Questions { get; set; }
 
         public override int SaveChanges()
         {

@@ -15,8 +15,8 @@
 
         public ActionResult Index()
         {
-            var all = Questions.All().ProjectTo<QuesionViewModel>().ToList();
-            return View(all);
+            var all = this.Questions.All().ProjectTo<QuesionViewModel>().ToList();
+            return this.View(all);
         }
     }
 }

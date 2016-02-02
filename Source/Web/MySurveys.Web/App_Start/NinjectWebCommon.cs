@@ -6,36 +6,34 @@ namespace MySurveys.Web.App_Start
     using System;
     using System.Data.Entity;
     using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Data;
+    using Data.Repository;
+    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-    using Data.Repository;
-    using MySurveys.Models;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -65,14 +63,10 @@ namespace MySurveys.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbContext>().To<MySurveysDbContext>();
-
-            kernel.Bind(typeof(IRepository<Question>)).To(typeof(DeletableEntityRepository<Question>));
-
+            kernel.Bind(typeof(IRepository<>)).To(typeof(DeletableEntityRepository<>));
             kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
 
-            kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
-
-           //kernel.Bind<ISanitizer>().To<HtmlSanitizerAdapter>();
-        }        
+            //// kernel.Bind<ISanitizer>().To<HtmlSanitizerAdapter>();
+        }
     }
 }
