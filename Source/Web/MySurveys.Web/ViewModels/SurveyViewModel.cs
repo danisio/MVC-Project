@@ -5,9 +5,10 @@
     using System.Linq;
     using System.Net.Http;
     using System.Web;
-    using System.Web.Http;
+    using Infrastructure.Mapping;
+    using MySurveys.Models;
 
-    public class SurveyViewModel
+    public class SurveyViewModel: IMapFrom<Survey>
     {
 
     }

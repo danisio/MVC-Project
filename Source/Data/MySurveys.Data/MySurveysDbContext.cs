@@ -16,7 +16,13 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
         }
 
-        public IDbSet<Question> Questions { get; set; }
+        public virtual IDbSet<Question> Questions { get; set; }
+
+        public virtual IDbSet<Answer> Answers { get; set; }
+
+        public virtual IDbSet<PossibleAnswer> PossibleAnswers { get; set; }
+
+        public virtual IDbSet<Survey> Surveys { get; set; }
 
         public static MySurveysDbContext Create()
         {

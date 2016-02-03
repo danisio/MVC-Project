@@ -1,6 +1,7 @@
 ﻿namespace MySurveys.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -10,22 +11,31 @@
 
     public class User : IdentityUser, IAuditInfo, IDeletableEntity
     {
+        private ICollection<Survey> surveys;
+
         public User()
         {
             // This will prevent UserManager.CreateAsync from causing exception
             this.CreatedOn = DateTime.Now;
+            this.surveys = new HashSet<Survey>();
         }
 
         public DateTime CreatedOn { get; set; }
 
-        public DateTime? DeletedOn { get; set; }
-
         [Index]
         public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
 
         public bool PreserveCreatedOn { get; set; }
+
+        public ICollection<Survey> Surveys
+        {
+            get { return this.surveys; }
+            set { this.surveys = value; }
+        }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

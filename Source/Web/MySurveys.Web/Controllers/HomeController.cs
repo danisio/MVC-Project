@@ -18,5 +18,10 @@
             var all = this.Questions.All().ProjectTo<QuesionViewModel>().ToList();
             return this.View(all);
         }
+
+        public ActionResult Error()
+        {
+            return this.View();
+        }
     }
 }

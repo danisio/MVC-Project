@@ -1,11 +1,11 @@
 ﻿namespace MySurveys.Models
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Data.Common;
 
-    public class Survey
+    public class Survey : DeletableEntity
     {
         private ICollection<Question> questions;
 
@@ -19,12 +19,6 @@
         public int Id { get; set; }
 
         public string Title { get; set; }
-
-        public int CategoryId { get; set; }
-
-        public virtual Category Category { get; set; }
-
-        public string MyProperty { get; set; }
 
         public string AuthorId { get; set; }
 
