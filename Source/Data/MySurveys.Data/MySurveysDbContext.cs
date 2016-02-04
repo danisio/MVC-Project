@@ -5,7 +5,6 @@
     using System.Linq;
     using Common;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Migrations;
     using Models;
 
     public class MySurveysDbContext : IdentityDbContext<User>
@@ -13,7 +12,6 @@
         public MySurveysDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
         }
 
         public virtual IDbSet<Question> Questions { get; set; }
