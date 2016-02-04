@@ -33,8 +33,8 @@
 - **Create tables with data with server-side paging and sorting for every model entity**
 	- **You can use Kendo UI grid, jqGrid, any other library or generate your own HTML tables**
 - Create beautiful and responsive UI
-- You may use Bootstrap or Materialize
-- You may change the standard theme and modify it to apply own web design and visual styles
+	- You may use Bootstrap or Materialize
+	- You may change the standard theme and modify it to apply own web design and visual styles
 - Use the standard ASP.NET Identity System for managing users and roles
 - Your registered users should have at least one of the two roles: user and administrator
 - **Use AJAX form and/or SignalR communication in some parts of your application**
@@ -54,4 +54,4 @@
 - **Originality of the idea (uniqueness)**
 - **Using some king of machine learning (AI)**
 - **Using external devices (e.g. Raspberry Pi)**
-- **Host your application in Azure (or any other public hosting provider)**
+- Host your application in Azure (or any other public hosting provider)
