@@ -1,7 +1,7 @@
 # ASP.NET MVC Final Project
 A repository containing my individual project for the course "ASP.NET MVC" 2016 @ TelerikAcademy
 
-[http://mysurveys.apphb.com/](http://mysurveys.apphb.com/ "LIVE DEMO")
+[LIVE DEMO](http://mysurveys.apphb.com/)
 
 ----------
 ## Requirements

@@ -6,12 +6,18 @@
     using Common;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
+    using Migrations;
 
     public class MySurveysDbContext : IdentityDbContext<User>
     {
         public MySurveysDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
         }
 
         public virtual IDbSet<Question> Questions { get; set; }
