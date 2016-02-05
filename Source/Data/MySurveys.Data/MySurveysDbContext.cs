@@ -8,7 +8,7 @@
     using Models;
     using Migrations;
 
-    public class MySurveysDbContext : IdentityDbContext<User, IdentityRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>
+    public class MySurveysDbContext : IdentityDbContext<User>
     {
         public MySurveysDbContext()
             : base("DefaultConnection")
@@ -17,7 +17,6 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
             //modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             //modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
