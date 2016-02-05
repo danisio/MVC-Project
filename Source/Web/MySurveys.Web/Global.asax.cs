@@ -21,8 +21,8 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
-
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
+            Database.SetInitializer<MySurveysDbContext>(null);
         }
     }
 }
