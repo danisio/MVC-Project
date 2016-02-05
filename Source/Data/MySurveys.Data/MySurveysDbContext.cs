@@ -5,8 +5,8 @@
     using System.Linq;
     using Common;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Models;
     using Migrations;
+    using Models;
 
     public class MySurveysDbContext : IdentityDbContext<User>
     {
