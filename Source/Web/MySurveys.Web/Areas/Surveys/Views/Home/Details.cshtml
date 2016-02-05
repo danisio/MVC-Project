@@ -1,0 +1,29 @@
+﻿@model MySurveys.Models.Survey
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="jumbotron text-center">
+    <h1>Details <span class="glyphicon glyphicon-info-sign"></span></h1>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div>
+                @Html.LabelFor(m => m.Title)
+                @Html.DisplayFor(m => m.Title)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.CreatedOn)
+                @Html.DisplayFor(m => m.CreatedOn)
+            </div>
+           <div>
+               @Html.LabelFor(m => m.Author.UserName)
+               @Html.DisplayFor(m => m.Author.UserName)
+           </div>
+            <div>
+                <label>Total questions: </label>
+                @Html.DisplayFor(m=>m.Questions.Count)
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IService.cs" />
+    <Compile Include="Contracts\ISurveyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SurveyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MySurveys.Data.Common\MySurveys.Data.Common.csproj">

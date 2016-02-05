@@ -5,17 +5,23 @@
     using AutoMapper.QueryableExtensions;
     using Data.Repository;
     using MySurveys.Models;
+    using Services.Contracts;
     using Ninject;
     using ViewModels;
 
     public class HomeController : Controller
     {
-        [Inject]
-        public IRepository<Question> Questions { get; set; }
+        private ISurveyService surveys;
+
+        public HomeController(ISurveyService surveys)
+        {
+            this.surveys = surveys;
+        }
 
         public ActionResult Index()
         {
-            return this.View();
+            var all = this.surveys.GetAll().ToList();
+            return this.View(all);
         }
 
         public ActionResult Error()

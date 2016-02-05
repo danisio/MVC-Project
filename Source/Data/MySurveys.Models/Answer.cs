@@ -1,9 +1,21 @@
 ﻿namespace MySurveys.Models
 {
-    public class Answer
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using Data.Common;
+
+    public class Answer : DeletableEntity
     {
+        public Answer()
+        {
+            this.CreatedOn = DateTime.Now;
+        }
+
+        [Key]
         public int Id { get; set; }
 
+        [Required]
+        [StringLength(200), MinLength(5)]
         public string Content { get; set; }
 
         public int QuestionId { get; set; }

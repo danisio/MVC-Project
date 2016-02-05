@@ -1,5 +1,7 @@
 namespace MySurveys.Data.Migrations
 {
+    using System;
+    using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Microsoft.AspNet.Identity;
@@ -18,6 +20,72 @@ namespace MySurveys.Data.Migrations
         {
             this.SeedRoles(context);
             this.SeedUsers(context);
+            this.SeedSurveys(context);
+        }
+
+        private void SeedSurveys(MySurveysDbContext context)
+        {
+            if (!context.Surveys.Any())
+            {
+                var newSurvey = new Survey()
+                {
+                    AuthorId = context.Users.FirstOrDefault().Id,
+                    Title = "Short Survey Test"
+                };
+
+                context.Surveys.Add(newSurvey);
+                context.SaveChanges();
+
+                var firstQuestion = new Question() { Content = "Male or Female?" };
+                var maleAnswer = new PossibleAnswer() { Content = "Male" };
+                var femaleAnswer = new PossibleAnswer() { Content = "Female" };
+
+                firstQuestion.PossibleAnswers.Add(maleAnswer);
+                firstQuestion.PossibleAnswers.Add(femaleAnswer);
+
+                newSurvey.Questions.Add(firstQuestion);
+                context.SaveChanges();
+
+                var secondQuestion = new Question()
+                {
+                    Content = "Do you smoke?",
+                    ParentPossibleAnswerId = firstQuestion.PossibleAnswers.FirstOrDefault().Id
+                };
+
+                secondQuestion.IsDependsOn = true;
+                var yesAnswer = new PossibleAnswer() { Content = "Yes" };
+                var noAnswer = new PossibleAnswer() { Content = "No" };
+
+                secondQuestion.PossibleAnswers.Add(yesAnswer);
+                secondQuestion.PossibleAnswers.Add(noAnswer);
+
+                newSurvey.Questions.Add(secondQuestion);
+                context.SaveChanges();
+
+                var thirdQuestion = new Question()
+                {
+                    Content = "What's your age?",
+                    ParentPossibleAnswerId = yesAnswer.Id
+                };
+
+                var underAnswer = new PossibleAnswer() { Content = "Under 25" };
+                var overAnswer = new PossibleAnswer() { Content = "Over 25" };
+
+                thirdQuestion.PossibleAnswers.Add(underAnswer);
+                thirdQuestion.PossibleAnswers.Add(overAnswer);
+
+                newSurvey.Questions.Add(thirdQuestion);
+                context.SaveChanges();
+
+                var fourthQuestion = new Question()
+                {
+                    Content = "Sorry, you are not suitable for this survey.",
+                    ParentPossibleAnswerId = noAnswer.Id
+                };
+
+                newSurvey.Questions.Add(fourthQuestion);
+                context.SaveChanges();
+            }
         }
 
         private void SeedUsers(MySurveysDbContext context)
