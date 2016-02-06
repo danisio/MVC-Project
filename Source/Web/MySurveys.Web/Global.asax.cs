@@ -10,7 +10,7 @@
     {
         protected void Application_Start()
         {
-            ViewEnginesConfiguration.RegisterViewEngines(ViewEngines.Engines);
+            ViewEnginesConfig.RegisterViewEngines(ViewEngines.Engines);
             AutoMapperConfig.Execute();
 
             AreaRegistration.RegisterAllAreas();

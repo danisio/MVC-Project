@@ -1,5 +1,5 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MySurveys.Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MySurveys.Web.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MySurveys.Web.App_Start.NinjectConfig), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MySurveys.Web.App_Start.NinjectConfig), "Stop")]
 
 namespace MySurveys.Web.App_Start
 {
@@ -10,9 +10,11 @@ namespace MySurveys.Web.App_Start
     using Data.Repository;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
+    using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
+    using Services.Contracts;
 
-    public static class NinjectWebCommon
+    public static class NinjectConfig
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
@@ -62,11 +64,13 @@ namespace MySurveys.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbContext>().To<MySurveysDbContext>();
+            kernel.Bind<DbContext>().To<MySurveysDbContext>().InRequestScope();
             kernel.Bind(typeof(IRepository<>)).To(typeof(DeletableEntityRepository<>));
-            kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
 
-            //// kernel.Bind<ISanitizer>().To<HtmlSanitizerAdapter>();
+            kernel.Bind(k => k.FromAssemblyContaining<IService>()
+                                .SelectAllClasses()
+                                .BindDefaultInterfaces()
+                                .Configure(b => b.InRequestScope()));
         }
     }
 }

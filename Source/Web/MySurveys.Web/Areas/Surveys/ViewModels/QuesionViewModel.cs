@@ -1,4 +1,4 @@
-﻿namespace MySurveys.Web.ViewModels
+﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
 {
     using System;
     using AutoMapper;

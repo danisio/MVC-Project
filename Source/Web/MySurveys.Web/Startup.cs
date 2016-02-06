@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(MySurveys.Web.Startup))]
+
 namespace MySurveys.Web
 {
     public partial class Startup
