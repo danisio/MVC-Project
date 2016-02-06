@@ -26,9 +26,9 @@
             return this.View();
         }
 
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
-            return this.View(this.surveys.GetById(2));
+            return this.View(this.surveys.GetById(id));
         }
     }
 }
