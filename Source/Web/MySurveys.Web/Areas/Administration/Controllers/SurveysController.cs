@@ -21,7 +21,7 @@
         public ActionResult Index()
         {
             //var conf = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Survey, SurveyViewModel>());
-            //var all = this.SurveyService.GetAll().ProjectTo<SurveyViewModel>(conf);
+            //var all = this.SurveyService.GetAll().ProjectTo<SurveyViewModel>(conf).ToList();
             return this.View();
         }
 
