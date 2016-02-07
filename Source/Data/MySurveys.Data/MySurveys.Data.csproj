@@ -66,6 +66,10 @@
     <Compile Include="Repository\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\MySurveys.Common\MySurveys.Common.csproj">
+      <Project>{5acb35a6-ebe2-4b56-ba1c-e6f2e1aabb89}</Project>
+      <Name>MySurveys.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MySurveys.Data.Common\MySurveys.Data.Common.csproj">
       <Project>{f7403e59-5bfc-4a34-859c-675c4e1d3c39}</Project>
       <Name>MySurveys.Data.Common</Name>

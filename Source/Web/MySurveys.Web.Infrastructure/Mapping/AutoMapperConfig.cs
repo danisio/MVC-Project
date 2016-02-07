@@ -19,6 +19,7 @@
 
         private static void LoadStandardMappings(IEnumerable<Type> types)
         {
+            IConfiguration conf;
             var maps = from t in types
                        from i in t.GetInterfaces()
                        where
@@ -28,8 +29,8 @@
 
             foreach (var map in maps)
             {
-                //// var conf = new MapperConfiguration(b=>b.CreateMap(map.Source, map.Destination)); 
-                Mapper.CreateMap(map.Source, map.Destination); // TODO 
+                conf = new MapperConfiguration(b => b.CreateMap(map.Source, map.Destination));
+                //Mapper.Map(map.Source, map.Destination); // TODO 
             }
         }
 
@@ -42,7 +43,7 @@
 
             foreach (var map in maps)
             {
-                map.CreateMappings(Mapper.Configuration);
+                map.CreateMappings();
             }
         }
     }

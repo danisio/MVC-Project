@@ -215,10 +215,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
-    <Compile Include="Areas\Administration\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\SurveysController.cs" />
+    <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Administration\ViewModels\Base\AdministrationViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\SurveyViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\UserViewModel.cs" />
     <Compile Include="Areas\Surveys\SurveysAreaRegistration.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\Surveys\Controllers\HomeController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
@@ -260,9 +266,9 @@
     <Content Include="Areas\Surveys\Views\Home\List.cshtml" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Administration\Views\Home\Users.cshtml" />
-    <Content Include="Areas\Administration\Views\Home\Surveys.cshtml" />
     <Content Include="Areas\Surveys\Views\Home\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Surveys\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Users\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -310,6 +316,8 @@
     <Content Include="Views\Account\SetPassword.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_AdminNavPartial.cshtml" />
+    <Content Include="Views\Shared\_LoggedInUsersNavPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
@@ -317,11 +325,16 @@
     <Folder Include="Areas\Users\Controllers\" />
     <Folder Include="Areas\Users\ViewModels\" />
     <Folder Include="Areas\Users\Views\Shared\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\MySurveys.Common\MySurveys.Common.csproj">
+      <Project>{5acb35a6-ebe2-4b56-ba1c-e6f2e1aabb89}</Project>
+      <Name>MySurveys.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\MySurveys.Data.Common\MySurveys.Data.Common.csproj">
       <Project>{f7403e59-5bfc-4a34-859c-675c4e1d3c39}</Project>
       <Name>MySurveys.Data.Common</Name>
