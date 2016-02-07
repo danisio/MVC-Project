@@ -1,0 +1,69 @@
+﻿@using Kendo.Mvc.UI;
+@functions{
+    private const string ControllerName = "Surveys";
+}
+@{
+    ViewBag.Title = "Surveys";
+}
+
+<h2>Edit/delete surveys</h2>
+
+@(Html.Kendo()
+    .Grid<MySurveys.Web.Areas.Administration.ViewModels.SurveyViewModel>()
+    .Name("grid-surveys")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id);
+        columns.Bound(model => model.Title);
+        columns.Bound(model => model.AuthorUsername);
+        columns.Bound(model => model.CreatedOn).ClientTemplate("#= kendo.toString(CreatedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
+        columns.Bound(model => model.ModifiedOn).ClientTemplate("#= kendo.toString(ModifiedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
+        columns.Bound(model => model.TotalQuestions);
+        columns.Command(command =>
+        {
+            command.Edit();
+            command.Destroy();
+        }).Title("Options");
+    })
+    .Pageable(page =>
+    {
+        page.Refresh(true);
+        page.PreviousNext(true);
+        page.Numeric(true);
+    })
+    .Sortable(sort =>
+    {
+        sort.AllowUnsort(false);
+        sort.SortMode(GridSortMode.SingleColumn);
+    })
+    .Editable(edit =>
+    {
+        edit.Mode(GridEditMode.PopUp);
+    })
+    .Filterable()
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(data =>
+    {
+        data.Ajax()
+            .Model(m =>
+            {
+                m.Id(b => b.Id);
+                m.Field(b => b.TotalQuestions).Editable(false);
+            })
+            .PageSize(5)
+            .ServerOperation(true)
+            .Events(ev => ev.Error("errorAlert"))
+            .Read("Read", ControllerName)
+            .Update("Update", ControllerName)
+            .Destroy("Destroy", ControllerName)
+            .Sort(sort => sort.Add("Id").Ascending());
+    }))
+
+<div id="selected">
+</div>
+<script>
+    function errorAlert(test) {
+        console.log(test);
+        alert("An error occurred");
+    }
+</script>

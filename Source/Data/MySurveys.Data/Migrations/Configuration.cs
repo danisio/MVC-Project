@@ -7,6 +7,7 @@ namespace MySurveys.Data.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
+    using MySurveys.Common;
 
     public sealed class Configuration : DbMigrationsConfiguration<MySurveysDbContext>
     {
@@ -99,10 +100,11 @@ namespace MySurveys.Data.Migrations
             var admin = new User()
             {
                 UserName = "admin@site.com",
+                Email = "admin@site.com"
             };
 
             userManager.Create(admin, "admin123456");
-            userManager.AddToRole(admin.Id, "Administrator");
+            userManager.AddToRole(admin.Id, GlobalConstants.AdminRoleName);
 
             context.SaveChanges();
         }
