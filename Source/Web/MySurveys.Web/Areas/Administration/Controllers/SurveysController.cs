@@ -20,9 +20,9 @@
         //// GET: Administration/Surveys
         public ActionResult Index()
         {
-            var conf = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Survey, SurveyViewModel>());
-            var all = this.SurveyService.GetAll().ProjectTo<SurveyViewModel>(conf);
-            return this.View(all);
+            //var conf = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Survey, SurveyViewModel>());
+            //var all = this.SurveyService.GetAll().ProjectTo<SurveyViewModel>(conf);
+            return this.View();
         }
 
         //// Create 
