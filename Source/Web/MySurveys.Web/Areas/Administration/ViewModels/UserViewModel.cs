@@ -7,12 +7,33 @@
     using System.Web;
     using Base;
     using Models;
-    using Infrastructure.Mapping;
     using System.Web.Mvc;
+    using AutoMapper;
 
-    public class UserViewModel : AdministrationViewModel, IMapFrom<User>
+    public class UserViewModel : AdministrationViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int? UserId { get; set; }
+        public string Id { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Email { get; set; }
+
+        public int TotalSurveys { get; set; }
+
+        public static MapperConfiguration Configuration
+        {
+            get
+            {
+                return new MapperConfiguration(cfg =>
+               {
+                   cfg.CreateMap<User, UserViewModel>()
+                   .ForMember(m => m.TotalSurveys, opt => opt.MapFrom(r => r.Surveys.Count))
+                   .ReverseMap();
+               });
+            }
+        }
     }
+
+
 }

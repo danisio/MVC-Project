@@ -5,10 +5,14 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using AutoMapper;
+
     using AutoMapper.QueryableExtensions;
     using ViewModels;
     using Services.Contracts;
     using Models;
+    using Kendo.Mvc.UI;
+    using Kendo.Mvc.Extensions;
 
     public class SurveysController : AdminController
     {
@@ -20,15 +24,15 @@
         //// GET: Administration/Surveys
         public ActionResult Index()
         {
-            //var conf = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Survey, SurveyViewModel>());
-            //var all = this.SurveyService.GetAll().ProjectTo<SurveyViewModel>(conf).ToList();
             return this.View();
         }
 
-        //// Create 
+        public JsonResult Read([DataSourceRequest]DataSourceRequest request)
+        {
+            var result = this.SurveyService.GetAll()
+                           .ProjectTo<SurveyViewModel>(SurveyViewModel.Configuration);
 
-        //// Update 
-
-        //// Destroy 
+            return this.Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
     }
 }

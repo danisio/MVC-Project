@@ -5,7 +5,7 @@
     using Data.Repository;
     using Models;
 
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private IRepository<User> users;
 
@@ -22,6 +22,14 @@
         public User GetById(int id)
         {
             return this.users.GetById(id);
+        }
+
+        public User Add(User user)
+        {
+            this.users.Add(user);
+            this.users.SaveChanges();
+
+            return user;
         }
     }
 }

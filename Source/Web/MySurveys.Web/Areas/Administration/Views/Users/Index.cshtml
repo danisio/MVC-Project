@@ -1,7 +1,74 @@
-﻿@using MySurveys.Web.Areas.Administration.ViewModels
+﻿@using Kendo.Mvc.UI;
+@functions{
+    private const string ControllerName = "Users";
+}
 @{
     ViewBag.Title = "Users";
 }
 
-<h2>Edit/Delete users</h2>
+<h2>Edit/delete users</h2>
 
+@(Html.Kendo()
+    .Grid<MySurveys.Web.Areas.Administration.ViewModels.UserViewModel>()
+    .Name("grid-users")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id);
+        columns.Bound(model => model.UserName);
+        columns.Bound(model => model.Email);
+        columns.Bound(model => model.CreatedOn).ClientTemplate("#= kendo.toString(CreatedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
+        columns.Bound(model => model.ModifiedOn).ClientTemplate("#= kendo.toString(ModifiedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
+        columns.Bound(model => model.TotalSurveys);
+        columns.Command(command =>
+        {
+            command.Edit();
+            command.Destroy();
+        }).Title("Options");
+    })
+    .Pageable(page =>
+    {
+        page.Refresh(true);
+        page.PreviousNext(true);
+        page.Numeric(true);
+    })
+    .ToolBar(tool =>
+    {
+        tool.Create();
+    })
+    .Sortable(sort =>
+    {
+        sort.AllowUnsort(false);
+        sort.SortMode(GridSortMode.SingleColumn);
+    })
+    .Editable(edit =>
+    {
+        edit.Mode(GridEditMode.PopUp);
+    })
+    .Filterable()
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(data =>
+    {
+        data.Ajax()
+            .Model(m =>
+            {
+                m.Id(b => b.Id);
+                m.Field(b => b.TotalSurveys).Editable(false);
+            })
+            .PageSize(5)
+            .ServerOperation(true)
+            .Events(ev => ev.Error("errorAlert"))
+            .Read("Read", ControllerName)
+            .Create("Create", ControllerName)
+            .Update("Update", ControllerName)
+            .Destroy("Destroy", ControllerName)
+            .Sort(sort => sort.Add("Id").Ascending());
+    }))
+
+<div id="selected">
+</div>
+<script>
+    function errorAlert(test) {
+        console.log(test);
+        alert("An error occurred");
+    }
+</script>

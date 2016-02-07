@@ -1,21 +1,15 @@
 ﻿namespace MySurveys.Web.Areas.Administration.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Web;
     using System.Web.Mvc;
-    using Models;
-    using Infrastructure.Mapping;
-    using Base;
     using AutoMapper;
+    using Base;
+    using Models;
 
-    public class SurveyViewModel : AdministrationViewModel, IMapFrom<Survey>, IHaveCustomMappings
+    public class SurveyViewModel : AdministrationViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int? SurveyId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100), MinLength(3)]
@@ -27,14 +21,17 @@
 
         public int TotalQuestions { get; set; }
 
-        public void CreateMappings()
+        public static MapperConfiguration Configuration
         {
-            IConfiguration configuration = new MapperConfiguration(cfg =>
+            get
             {
-                cfg.CreateMap<Survey, SurveyViewModel>()
-                    .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
-                    .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName));
-            });
+                return new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<Survey, SurveyViewModel>()
+                            .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
+                            .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName));
+                    });
+            }
         }
     }
 }
