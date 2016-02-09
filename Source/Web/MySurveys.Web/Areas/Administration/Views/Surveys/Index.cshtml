@@ -16,8 +16,8 @@
         columns.Bound(model => model.Id);
         columns.Bound(model => model.Title);
         columns.Bound(model => model.AuthorUsername);
-        columns.Bound(model => model.CreatedOn).ClientTemplate("#= kendo.toString(CreatedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
-        columns.Bound(model => model.ModifiedOn).ClientTemplate("#= kendo.toString(ModifiedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
+        columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm}");
+        columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Bound(model => model.TotalQuestions);
         columns.Command(command =>
         {
@@ -59,11 +59,9 @@
             .Sort(sort => sort.Add("Id").Ascending());
     }))
 
-<div id="selected">
-</div>
 <script>
-    function errorAlert(test) {
-        console.log(test);
+    function errorAlert(err) {
+        //console.log(err);
         alert("An error occurred");
     }
 </script>
