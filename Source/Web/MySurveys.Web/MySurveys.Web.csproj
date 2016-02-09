@@ -766,7 +766,6 @@
     <Content Include="Views\Account\ChangeEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Surveys\Views\Shared\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>

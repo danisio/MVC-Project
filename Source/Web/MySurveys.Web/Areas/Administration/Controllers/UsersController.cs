@@ -1,17 +1,21 @@
 ﻿namespace MySurveys.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+    using System.Collections.Generic;
     using System.Web.Mvc;
+    using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
+    using Models;
     using Services.Contracts;
     using ViewModels;
-    using Model = Models.User;
-    using ViewModel = ViewModels.UserViewModel;
 
     public class UsersController : AdminController
     {
-        public UsersController(ISurveyService surveyService, IUserService userService)
+        private IMapper mapper { get; set; }
+                        
+            public UsersController(ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
         }
@@ -21,7 +25,7 @@
         {
             return this.View();
         }
-
+        
         public JsonResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var result = this.UserService.GetAll()
@@ -31,19 +35,30 @@
         }
 
         [HttpPost]
-        public ActionResult Create([DataSourceRequest]
-                                   DataSourceRequest request, ViewModel model)
+        public ActionResult Update([DataSourceRequest]
+                                   DataSourceRequest request, UserViewModel model)
         {
-            if (model != null && ModelState.IsValid)
-            {
-                var mapper = UserViewModel.Configuration.CreateMapper();
-                var dbModel = mapper.Map<UserViewModel, Model>(model);
-                this.UserService.Add(dbModel);
+            var list = new List<UserViewModel>();
 
-                if (dbModel != null)
-                {
-                    model.Id = dbModel.Id;
-                }
+            if (model != null && this.ModelState.IsValid)
+            {
+                var dbModel = this.UserService.GetById(model.Id);
+                mapper = UserViewModel.Configuration.CreateMapper();
+                var mapped = mapper.Map<UserViewModel, User>(model, dbModel);
+                this.UserService.Update(mapped);
+                list.Add(model);
+            }
+
+            return this.Json(list.ToDataSourceResult(request));
+        }
+
+        [HttpPost]
+        public ActionResult Destroy([DataSourceRequest]
+                                    DataSourceRequest request, UserViewModel model)
+        {
+            if (model != null && this.ModelState.IsValid)
+            {
+                this.UserService.Delete(model.Id);
             }
 
             return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));

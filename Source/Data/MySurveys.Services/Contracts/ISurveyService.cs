@@ -8,5 +8,9 @@
         IQueryable<Survey> GetAll();
 
         Survey GetById(int id);
+
+        Survey Update(Survey survey);
+
+        void Delete(int id);
     }
 }

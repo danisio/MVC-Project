@@ -23,5 +23,19 @@
         {
             return this.surveys.GetById(id);
         }
+
+        public Survey Update(Survey survey)
+        {
+            this.surveys.Update(survey);
+            this.surveys.SaveChanges();
+
+            return survey;
+        }
+
+        public void Delete(int id)
+        {
+            this.surveys.Delete(id);
+            this.surveys.SaveChanges();
+        }
     }
 }
