@@ -20,7 +20,7 @@
             return this.users.All();
         }
 
-        public User GetById(string id)
+        public User GetById(object id)
         {
             return this.users.GetById(id);
         }
@@ -33,7 +33,7 @@
             return user;
         }
 
-        public void Delete(string id)
+        public void Delete(object id)
         {
             this.users.Delete(id);
             this.users.SaveChanges();

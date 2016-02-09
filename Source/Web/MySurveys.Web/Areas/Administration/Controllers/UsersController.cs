@@ -1,22 +1,19 @@
 ﻿namespace MySurveys.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
-    using System.Collections.Generic;
+    using System.Collections;
     using System.Web.Mvc;
-    using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
-    using Models;
     using Services.Contracts;
     using ViewModels;
 
+    using Model = Models.User;
+    using ViewModel = ViewModels.UserViewModel;
+
     public class UsersController : AdminController
     {
-        private IMapper mapper { get; set; }
-                        
-            public UsersController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public UsersController(ISurveyService surveyService, IUserService userService)
+              : base(surveyService, userService)
         {
         }
 
@@ -25,43 +22,39 @@
         {
             return this.View();
         }
-        
-        public JsonResult Read([DataSourceRequest]DataSourceRequest request)
-        {
-            var result = this.UserService.GetAll()
-                             .ProjectTo<UserViewModel>(UserViewModel.Configuration);
 
-            return this.Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        protected override IEnumerable GetData()
+        {
+            return this.UserService
+                       .GetAll()
+                       .ProjectTo<ViewModel>(ViewModel.Configuration);
         }
 
         [HttpPost]
-        public ActionResult Update([DataSourceRequest]
-                                   DataSourceRequest request, UserViewModel model)
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel model)
         {
-            var list = new List<UserViewModel>();
-
             if (model != null && this.ModelState.IsValid)
             {
                 var dbModel = this.UserService.GetById(model.Id);
-                mapper = UserViewModel.Configuration.CreateMapper();
-                var mapped = mapper.Map<UserViewModel, User>(model, dbModel);
+                mapper = ViewModel.Configuration.CreateMapper();
+                var mapped = mapper.Map<ViewModel, Model>(model, dbModel);
                 this.UserService.Update(mapped);
-                list.Add(model);
             }
 
-            return this.Json(list.ToDataSourceResult(request));
+            return this.GridOperation(model, request);
         }
 
         [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]
-                                    DataSourceRequest request, UserViewModel model)
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
-            if (model != null && this.ModelState.IsValid)
-            {
-                this.UserService.Delete(model.Id);
-            }
+            base.Destroy<ViewModel>(request, model, model.Id);
 
-            return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));
+            return this.GridOperation(model, request);
+        }
+
+        protected override void Delete<T>(object id)
+        {
+            this.UserService.Delete(id);
         }
     }
 }

@@ -1,15 +1,14 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
     using System.Web.Mvc;
+    using Web.Controllers.Base;
     using Services.Contracts;
 
-    public class SurveysController : Controller
+    public class SurveysController : BaseController
     {
-        private ISurveyService surveys;
-
-        public SurveysController(ISurveyService surveys)
+        public SurveysController(ISurveyService surveyService, IUserService userService)
+            :base(surveyService, userService)
         {
-            this.surveys = surveys;
         }
 
         //// GET: Surveys/Surveys/All
@@ -21,7 +20,7 @@
         //// GET: Surveys/Surveys/Details
         public ActionResult Details(int id)
         {
-            return this.View(this.surveys.GetById(id));
+            return this.View(this.SurveyService.GetById(id));
         }
     }
 }

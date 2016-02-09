@@ -19,7 +19,7 @@
             return this.surveys.All();
         }
 
-        public Survey GetById(int id)
+        public Survey GetById(object id)
         {
             return this.surveys.GetById(id);
         }
@@ -32,7 +32,7 @@
             return survey;
         }
 
-        public void Delete(int id)
+        public void Delete(object id)
         {
             this.surveys.Delete(id);
             this.surveys.SaveChanges();

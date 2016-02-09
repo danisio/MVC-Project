@@ -1,13 +1,16 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
+    using Services.Contracts;
+    using Web.Controllers.Base;
 
-    public class MySurveysController : Controller
+    public class MySurveysController : BaseController
     {
+        public MySurveysController(ISurveyService surveyService, IUserService userService)
+            :base(surveyService, userService)
+        {
+        }
+
         //// GET: Surveys/MySurveys/All
         public ActionResult Index()
         {

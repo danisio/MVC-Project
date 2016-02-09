@@ -7,10 +7,10 @@
     {
         IQueryable<User> GetAll();
 
-        User GetById(string id);
+        User GetById(object id);
 
         User Update(User user);
 
-        void Delete(string id);
+        void Delete(object id);
     }
 }

@@ -1,19 +1,17 @@
 ﻿namespace MySurveys.Web.Areas.Administration.Controllers
 {
-    using System.Collections.Generic;
+    using System.Collections;
     using System.Web.Mvc;
-    using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
-    using Models;
     using Services.Contracts;
     using ViewModels;
 
+    using Model = Models.Survey;
+    using ViewModel = ViewModels.SurveyViewModel;
+
     public class SurveysController : AdminController
     {
-        private IMapper mapper { get; set; }
-
         public SurveysController(ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
@@ -25,42 +23,38 @@
             return this.View();
         }
 
-        public JsonResult Read([DataSourceRequest]DataSourceRequest request)
+        protected override IEnumerable GetData()
         {
-            var result = this.SurveyService.GetAll()
-                           .ProjectTo<SurveyViewModel>(SurveyViewModel.Configuration);
-
-            return this.Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return this.SurveyService
+                       .GetAll()
+                       .ProjectTo<ViewModel>(ViewModel.Configuration);
         }
 
         [HttpPost]
-        public ActionResult Update([DataSourceRequest]
-                                   DataSourceRequest request, SurveyViewModel model)
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, SurveyViewModel model)
         {
-            var list = new List<SurveyViewModel>();
-
             if (model != null && this.ModelState.IsValid)
             {
                 var dbModel = this.SurveyService.GetById(model.Id);
-                mapper = SurveyViewModel.Configuration.CreateMapper();
-                var mapped = mapper.Map<SurveyViewModel, Survey>(model, dbModel);
+                mapper = ViewModel.Configuration.CreateMapper();
+                var mapped = mapper.Map<ViewModel, Model>(model, dbModel);
                 this.SurveyService.Update(mapped);
-                list.Add(model);
             }
 
-            return this.Json(list.ToDataSourceResult(request));
+            return this.GridOperation(model, request);
         }
 
         [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]
-                                    DataSourceRequest request, SurveyViewModel model)
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
-            if (model != null && this.ModelState.IsValid)
-            {
-                this.SurveyService.Delete(model.Id);
-            }
+            base.Destroy<ViewModel>(request, model, model.Id);
 
-            return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));
+            return this.GridOperation(model, request);
+        }
+
+        protected override void Delete<T>(object id)
+        {
+            this.SurveyService.Delete(id);
         }
     }
 }
