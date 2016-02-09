@@ -2,20 +2,19 @@
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Base;
     using Services.Contracts;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private ISurveyService surveys;
-
-        public HomeController(ISurveyService surveys)
+        public HomeController(ISurveyService surveyService, IUserService userService)
+            : base(surveyService, userService)
         {
-            this.surveys = surveys;
         }
 
         public ActionResult Index()
         {
-            var all = this.surveys.GetAll().ToList();
+            var all = this.SurveyService.GetAll().ToList();
             return this.View(all);
         }
 

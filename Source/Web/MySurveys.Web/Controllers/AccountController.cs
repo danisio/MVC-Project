@@ -8,7 +8,6 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
     using Models;
-    using Services.Contracts;
     using ViewModels.Account;
 
     [Authorize]
@@ -72,8 +71,6 @@
                 return this.View(model);
             }
 
-            //// This doesn't count login failures towards account lockout
-            //// To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await this.SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
@@ -111,12 +108,6 @@
                 {
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    //// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com///fwlink/?LinkID=320771
-                    //// Send an email with this link
-                    //// string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: //Request.Url.Scheme);
-                    //// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return this.RedirectToAction("Index", "Home");
                 }
 
@@ -144,7 +135,7 @@
                 : message == ManageMessageId.ChangeEmailSuccess ? "Your email has been changed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : string.Empty;
-            
+
             var user = this.UserManager.FindById(User.Identity.GetUserId());
 
             var model = new IndexViewModel
@@ -205,7 +196,7 @@
             {
                 if (this.UserManager.Users.Any(x => x.Email == model.NewEmail))
                 {
-                    this.AddErrors(new IdentityResult(new string[] { "This email is already registered."}));
+                    this.AddErrors(new IdentityResult(new string[] { "This email is already registered." }));
                 }
 
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
