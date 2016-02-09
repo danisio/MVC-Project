@@ -1,5 +1,6 @@
 ﻿@if (User.Identity.IsAuthenticated && !User.IsInRole(MySurveys.Common.GlobalConstants.AdminRoleName))
 {
-    <li>@Html.ActionLink("Create Survey", "Create", "Home", new { area = "Surveys" }, null)</li>
-    <li>@Html.ActionLink("All Surveys", "List", "Home", new { area = "Surveys" }, null)</li>
+    <li>@Html.ActionLink("Surveys", "Index", "Surveys", new { area = "Surveys" }, null)</li>
+    <li>@Html.ActionLink("Create new Survey", "Create", "MySurveys", new { area = "Surveys" }, null)</li>
+    <li>@Html.ActionLink("My Surveys", "Index", "MySurveys", new { area = "Surveys" }, null)</li>
 }

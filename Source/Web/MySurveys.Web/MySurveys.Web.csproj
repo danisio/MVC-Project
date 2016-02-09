@@ -224,21 +224,25 @@
     <Compile Include="Areas\Administration\ViewModels\Base\AdministrationViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\SurveyViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserViewModel.cs" />
+    <Compile Include="Areas\Surveys\Controllers\MySurveysController.cs" />
     <Compile Include="Areas\Surveys\SurveysAreaRegistration.cs" />
-    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Areas\Surveys\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Surveys\Controllers\SurveysController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Surveys\ViewModels\QuesionViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\SurveyViewModel.cs" />
+    <Compile Include="ViewModels\Account\ChangeEmailViewModel.cs" />
+    <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -595,15 +599,14 @@
     <Content Include="Libraries\Kendo.Mvc.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Users\Views\web.config" />
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\Surveys\Views\web.config" />
     <Content Include="Areas\Surveys\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Surveys\Views\Home\Create.cshtml" />
-    <Content Include="Areas\Surveys\Views\Home\List.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\Create.cshtml" />
+    <Content Include="Areas\Surveys\Views\Surveys\Index.cshtml" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Surveys\Views\Home\Details.cshtml" />
+    <Content Include="Areas\Surveys\Views\Surveys\Details.cshtml" />
     <Content Include="Areas\Administration\Views\Surveys\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Users\Index.cshtml" />
     <Content Include="Content\kendo\fonts\DejaVu\DejaVuSans-Bold.ttf" />
@@ -714,6 +717,7 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\CustomString.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -753,21 +757,19 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_AdminNavPartial.cshtml" />
     <Content Include="Views\Shared\_LoggedInUsersNavPartial.cshtml" />
     <Content Include="Scripts\kendo\jquery.min.map" />
     <Content Include="Scripts\kendo\kendo.all.min.js.map" />
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js.map" />
+    <Content Include="Views\Account\ChangeEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Surveys\Views\Shared\" />
-    <Folder Include="Areas\Users\Controllers\" />
-    <Folder Include="Areas\Users\ViewModels\" />
-    <Folder Include="Areas\Users\Views\Shared\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

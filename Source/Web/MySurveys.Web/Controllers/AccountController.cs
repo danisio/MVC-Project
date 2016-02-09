@@ -8,6 +8,7 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
     using Models;
+    using Services.Contracts;
     using ViewModels.Account;
 
     [Authorize]
@@ -136,18 +137,22 @@
         }
 
         //// GET: /Account/Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.ChangeEmailSuccess ? "Your email has been changed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : string.Empty;
+            
+            var user = this.UserManager.FindById(User.Identity.GetUserId());
 
-            var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
-                HasPassword = this.HasPassword(),
-                BrowserRemembered = await this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                UserName = user.UserName,
+                Email = user.Email,
+                CreateOn = user.CreatedOn,
+                TotalSurveys = user.Surveys.Count
             };
 
             return this.View(model);
@@ -180,6 +185,51 @@
             else
             {
                 this.AddErrors(result);
+            }
+
+            return this.View(model);
+        }
+
+        //// GET: /Account/Manage/ChangeEmail
+        public ActionResult ChangeEmail()
+        {
+            return this.View();
+        }
+
+        //// POST: /Account/Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                if (this.UserManager.Users.Any(x => x.Email == model.NewEmail))
+                {
+                    this.AddErrors(new IdentityResult(new string[] { "This email is already registered."}));
+                }
+
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+                var passwordVerificationResult = this.UserManager.PasswordHasher.VerifyHashedPassword(user.PasswordHash, model.Password);
+
+                if (passwordVerificationResult != PasswordVerificationResult.Success)
+                {
+                    this.AddErrors(new IdentityResult(new string[] { "Incorrect password." }));
+                }
+
+                if (this.ModelState.IsValid)
+                {
+                    var result = await this.UserManager.SetEmailAsync(User.Identity.GetUserId(), model.NewEmail);
+
+                    if (result.Succeeded)
+                    {
+                        return this.RedirectToAction("Index", new { Message = ManageMessageId.ChangeEmailSuccess });
+                    }
+                    else
+                    {
+                        this.AddErrors(result);
+                    }
+                }
             }
 
             return this.View(model);
@@ -235,12 +285,8 @@
 
         public enum ManageMessageId
         {
-            AddPhoneSuccess,
+            ChangeEmailSuccess,
             ChangePasswordSuccess,
-            SetTwoFactorSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
             Error
         }
 

@@ -2,12 +2,7 @@
 {
     using System.Linq;
     using System.Web.Mvc;
-    using AutoMapper.QueryableExtensions;
-    using Data.Repository;
-    using MySurveys.Models;
     using Services.Contracts;
-    using Ninject;
-    using ViewModels;
 
     public class HomeController : Controller
     {
