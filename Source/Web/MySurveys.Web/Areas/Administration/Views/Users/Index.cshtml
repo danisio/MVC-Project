@@ -16,8 +16,8 @@
         columns.Bound(model => model.Id);
         columns.Bound(model => model.UserName);
         columns.Bound(model => model.Email);
-        columns.Bound(model => model.CreatedOn).ClientTemplate("#= kendo.toString(CreatedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
-        columns.Bound(model => model.ModifiedOn).ClientTemplate("#= kendo.toString(ModifiedOn, \"MM/dd/yyyy hh:mm:ss tt\") #");
+        columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm:ss}");
+        columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm:ss}");
         columns.Bound(model => model.TotalSurveys);
         columns.Command(command =>
         {
@@ -31,10 +31,6 @@
         page.PreviousNext(true);
         page.Numeric(true);
     })
-    .ToolBar(tool =>
-    {
-        tool.Create();
-    })
     .Sortable(sort =>
     {
         sort.AllowUnsort(false);
@@ -43,6 +39,7 @@
     .Editable(edit =>
     {
         edit.Mode(GridEditMode.PopUp);
+        edit.Window(w => w.Title(ViewBag.Title));
     })
     .Filterable()
     .Resizable(resize => resize.Columns(true))
@@ -58,17 +55,14 @@
             .ServerOperation(true)
             .Events(ev => ev.Error("errorAlert"))
             .Read("Read", ControllerName)
-            .Create("Create", ControllerName)
             .Update("Update", ControllerName)
             .Destroy("Destroy", ControllerName)
             .Sort(sort => sort.Add("Id").Ascending());
     }))
 
-<div id="selected">
-</div>
 <script>
-    function errorAlert(test) {
-        console.log(test);
+    function errorAlert(err) {
+        //console.log(err);
         alert("An error occurred");
     }
 </script>

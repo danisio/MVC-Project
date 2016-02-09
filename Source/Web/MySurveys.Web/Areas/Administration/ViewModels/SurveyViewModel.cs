@@ -13,12 +13,15 @@
 
         [Required]
         [StringLength(100), MinLength(3)]
+        [UIHint("CustomString")]
         public string Title { get; set; }
 
         [Required]
         [Display(Name = "Author")]
+        [HiddenInput(DisplayValue = false)]
         public string AuthorUsername { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         public int TotalQuestions { get; set; }
 
         public static MapperConfiguration Configuration
@@ -29,7 +32,8 @@
                     {
                         cfg.CreateMap<Survey, SurveyViewModel>()
                             .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
-                            .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName));
+                            .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
+                            .ReverseMap();
                     });
             }
         }

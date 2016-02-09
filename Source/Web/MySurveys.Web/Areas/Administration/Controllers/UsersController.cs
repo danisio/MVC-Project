@@ -12,8 +12,6 @@
     using Kendo.Mvc.Extensions;
     using Model = Models.User;
     using ViewModel = ViewModels.UserViewModel;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
 
 
     public class UsersController : AdminController
