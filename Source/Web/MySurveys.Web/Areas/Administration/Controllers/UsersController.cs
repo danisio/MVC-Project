@@ -1,18 +1,13 @@
 ﻿namespace MySurveys.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
-    using Kendo.Mvc.UI;
-    using ViewModels;
-    using Services.Contracts;
     using AutoMapper.QueryableExtensions;
     using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
+    using Services.Contracts;
+    using ViewModels;
     using Model = Models.User;
     using ViewModel = ViewModels.UserViewModel;
-
 
     public class UsersController : AdminController
     {
@@ -46,10 +41,12 @@
                 this.UserService.Add(dbModel);
 
                 if (dbModel != null)
+                {
                     model.Id = dbModel.Id;
+                }
             }
 
-            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+            return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));
         }
     }
 }

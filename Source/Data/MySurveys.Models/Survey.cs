@@ -9,13 +9,13 @@
     public class Survey : DeletableEntity
     {
         private ICollection<Question> questions;
-        //private ICollection<Answer> answers;
+        //// private ICollection<Answer> answers;
 
         public Survey()
         {
             this.CreatedOn = DateTime.Now;
             this.questions = new HashSet<Question>();
-            //this.answers = new HashSet<Answer>();
+            //// this.answers = new HashSet<Answer>();
         }
 
         [Key]
@@ -35,10 +35,10 @@
             set { this.questions = value; }
         }
 
-        //public virtual ICollection<Answer> Answers
-        //{
-        //    get { return this.answers; }
-        //    set { this.answers = value; }
-        //}
+        //// public virtual ICollection<Answer> Answers
+        //// {
+        ////    get { return this.answers; }
+        ////    set { this.answers = value; }
+        ////}
     }
 }

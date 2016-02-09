@@ -9,7 +9,7 @@
     public abstract class AdminController : BaseController
     {
         public AdminController(ISurveyService surveyService, IUserService userService)
-            :base(surveyService, userService)
+            : base(surveyService, userService)
         {
         }
     }

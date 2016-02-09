@@ -8,6 +8,20 @@
 
     public class SurveyViewModel : AdministrationViewModel
     {
+        public static MapperConfiguration Configuration
+        {
+            get
+            {
+                return new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<Survey, SurveyViewModel>()
+                        .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
+                        .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
+                        .ReverseMap();
+                });
+            }
+        }
+
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
@@ -23,19 +37,5 @@
 
         [HiddenInput(DisplayValue = false)]
         public int TotalQuestions { get; set; }
-
-        public static MapperConfiguration Configuration
-        {
-            get
-            {
-                return new MapperConfiguration(cfg =>
-                    {
-                        cfg.CreateMap<Survey, SurveyViewModel>()
-                            .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
-                            .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
-                            .ReverseMap();
-                    });
-            }
-        }
     }
 }

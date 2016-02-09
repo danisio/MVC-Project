@@ -11,7 +11,7 @@
         //// GET: Surveys/MySurveys/All
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         //// GET: Surveys/MySurveys/Create
