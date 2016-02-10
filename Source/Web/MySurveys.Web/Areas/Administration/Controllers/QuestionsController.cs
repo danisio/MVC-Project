@@ -11,35 +11,28 @@
 
     public class QuestionsController : AdminController
     {
-        public IQuestionService QuestionService { get; set; }
-
         public QuestionsController(IQuestionService questionService, ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
             this.QuestionService = questionService;
         }
 
+        public IQuestionService QuestionService { get; set; }
+
         //// GET: Administration/Questions
         public ActionResult Index()
         {
             return this.View();
         }
-
-        protected override IEnumerable GetData()
-        {
-            return this.QuestionService
-                       .GetAll()
-                       .ProjectTo<ViewModel>(ViewModel.Configuration);
-        }
-
+        
         [HttpPost]
         public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             if (model != null && this.ModelState.IsValid)
             {
                 var dbModel = this.QuestionService.GetById(model.Id);
-                mapper = ViewModel.Configuration.CreateMapper();
-                var mapped = mapper.Map<ViewModel, Model>(model, dbModel);
+                this.Mapper = ViewModel.Configuration.CreateMapper();
+                var mapped = Mapper.Map<ViewModel, Model>(model, dbModel);
                 this.QuestionService.Update(mapped);
             }
 
@@ -52,6 +45,13 @@
             base.Destroy<ViewModel>(request, model, model.Id);
 
             return this.GridOperation(model, request);
+        }
+
+        protected override IEnumerable GetData()
+        {
+            return this.QuestionService
+                       .GetAll()
+                       .ProjectTo<ViewModel>(ViewModel.Configuration);
         }
 
         protected override void Delete<T>(object id)

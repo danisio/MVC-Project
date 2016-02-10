@@ -22,21 +22,14 @@
             return this.View();
         }
 
-        protected override IEnumerable GetData()
-        {
-            return this.SurveyService
-                       .GetAll()
-                       .ProjectTo<ViewModel>(ViewModel.Configuration);
-        }
-
         [HttpPost]
         public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             if (model != null && this.ModelState.IsValid)
             {
                 var dbModel = this.SurveyService.GetById(model.Id);
-                mapper = ViewModel.Configuration.CreateMapper();
-                var mapped = mapper.Map<ViewModel, Model>(model, dbModel);
+                this.Mapper = ViewModel.Configuration.CreateMapper();
+                var mapped = Mapper.Map<ViewModel, Model>(model, dbModel);
                 this.SurveyService.Update(mapped);
             }
 
@@ -49,6 +42,13 @@
             base.Destroy<ViewModel>(request, model, model.Id);
 
             return this.GridOperation(model, request);
+        }
+
+        protected override IEnumerable GetData()
+        {
+            return this.SurveyService
+                       .GetAll()
+                       .ProjectTo<ViewModel>(ViewModel.Configuration);
         }
 
         protected override void Delete<T>(object id)

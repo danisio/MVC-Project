@@ -7,7 +7,7 @@
     public class MySurveysController : BaseController
     {
         public MySurveysController(ISurveyService surveyService, IUserService userService)
-            :base(surveyService, userService)
+            : base(surveyService, userService)
         {
         }
 

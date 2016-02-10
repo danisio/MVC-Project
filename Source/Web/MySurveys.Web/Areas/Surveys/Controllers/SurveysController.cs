@@ -1,13 +1,13 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
     using System.Web.Mvc;
-    using Web.Controllers.Base;
     using Services.Contracts;
+    using Web.Controllers.Base;
 
     public class SurveysController : BaseController
     {
         public SurveysController(ISurveyService surveyService, IUserService userService)
-            :base(surveyService, userService)
+            : base(surveyService, userService)
         {
         }
 

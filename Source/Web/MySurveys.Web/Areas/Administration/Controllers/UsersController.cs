@@ -23,21 +23,14 @@
             return this.View();
         }
 
-        protected override IEnumerable GetData()
-        {
-            return this.UserService
-                       .GetAll()
-                       .ProjectTo<ViewModel>(ViewModel.Configuration);
-        }
-
         [HttpPost]
         public ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel model)
         {
             if (model != null && this.ModelState.IsValid)
             {
                 var dbModel = this.UserService.GetById(model.Id);
-                mapper = ViewModel.Configuration.CreateMapper();
-                var mapped = mapper.Map<ViewModel, Model>(model, dbModel);
+                this.Mapper = ViewModel.Configuration.CreateMapper();
+                var mapped = Mapper.Map<ViewModel, Model>(model, dbModel);
                 this.UserService.Update(mapped);
             }
 
@@ -50,6 +43,13 @@
             base.Destroy<ViewModel>(request, model, model.Id);
 
             return this.GridOperation(model, request);
+        }
+
+        protected override IEnumerable GetData()
+        {
+            return this.UserService
+                       .GetAll()
+                       .ProjectTo<ViewModel>(ViewModel.Configuration);
         }
 
         protected override void Delete<T>(object id)

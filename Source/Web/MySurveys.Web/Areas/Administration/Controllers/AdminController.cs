@@ -12,12 +12,12 @@
     [Authorize(Roles = GlobalConstants.AdminRoleName)]
     public abstract class AdminController : BaseController
     {
-        protected IMapper mapper { get; set; }
-
         public AdminController(ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
         }
+
+        protected IMapper Mapper { get; set; }
 
         [HttpPost]
         public ActionResult Read([DataSourceRequest]
