@@ -1,5 +1,6 @@
 ﻿namespace MySurveys.Services
 {
+    using System;
     using System.Linq;
     using Contracts;
     using Data.Repository;
@@ -19,17 +20,23 @@
             return this.users.All();
         }
 
-        public User GetById(int id)
+        public User GetById(object id)
         {
             return this.users.GetById(id);
         }
 
-        public User Add(User user)
+        public User Update(User user)
         {
-            this.users.Add(user);
+            this.users.Update(user);
             this.users.SaveChanges();
 
             return user;
+        }
+
+        public void Delete(object id)
+        {
+            this.users.Delete(id);
+            this.users.SaveChanges();
         }
     }
 }

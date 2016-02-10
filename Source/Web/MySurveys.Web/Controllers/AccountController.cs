@@ -169,7 +169,7 @@
             if (result.Succeeded)
             {
                 var user = await this.UserManager.FindByIdAsync(User.Identity.GetUserId());
-                await SignInAsync(user, isPersistent: false);
+                await this.SignInAsync(user, isPersistent: false);
 
                 return this.RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
@@ -199,7 +199,7 @@
                     this.AddErrors(new IdentityResult(new string[] { "This email is already registered." }));
                 }
 
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
 
                 var passwordVerificationResult = this.UserManager.PasswordHasher.VerifyHashedPassword(user.PasswordHash, model.Password);
 
@@ -240,8 +240,8 @@
 
         private async Task SignInAsync(User user, bool isPersistent)
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
+            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            this.AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(this.UserManager));
         }
 
         private void AddErrors(IdentityResult result)

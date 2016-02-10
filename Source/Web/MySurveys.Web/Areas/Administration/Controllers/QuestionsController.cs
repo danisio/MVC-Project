@@ -5,33 +5,35 @@
     using AutoMapper.QueryableExtensions;
     using Kendo.Mvc.UI;
     using Services.Contracts;
-    using ViewModels;
 
-    using Model = Models.User;
-    using ViewModel = ViewModels.UserViewModel;
+    using Model = Models.Question;
+    using ViewModel = ViewModels.QuestionViewModel;
 
-    public class UsersController : AdminController
+    public class QuestionsController : AdminController
     {
-        public UsersController(ISurveyService surveyService, IUserService userService)
-              : base(surveyService, userService)
+        public QuestionsController(IQuestionService questionService, ISurveyService surveyService, IUserService userService)
+            : base(surveyService, userService)
         {
+            this.QuestionService = questionService;
         }
 
-        //// GET: Administration/Users
+        public IQuestionService QuestionService { get; set; }
+
+        //// GET: Administration/Questions
         public ActionResult Index()
         {
             return this.View();
         }
-
+        
         [HttpPost]
-        public ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel model)
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             if (model != null && this.ModelState.IsValid)
             {
-                var dbModel = this.UserService.GetById(model.Id);
+                var dbModel = this.QuestionService.GetById(model.Id);
                 this.Mapper = ViewModel.Configuration.CreateMapper();
                 var mapped = Mapper.Map<ViewModel, Model>(model, dbModel);
-                this.UserService.Update(mapped);
+                this.QuestionService.Update(mapped);
             }
 
             return this.GridOperation(model, request);
@@ -47,14 +49,14 @@
 
         protected override IEnumerable GetData()
         {
-            return this.UserService
+            return this.QuestionService
                        .GetAll()
                        .ProjectTo<ViewModel>(ViewModel.Configuration);
         }
 
         protected override void Delete<T>(object id)
         {
-            this.UserService.Delete(id);
+            this.QuestionService.Delete(id);
         }
     }
 }

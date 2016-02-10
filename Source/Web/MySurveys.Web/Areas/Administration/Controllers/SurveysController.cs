@@ -1,18 +1,13 @@
 ﻿namespace MySurveys.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
+    using System.Collections;
     using System.Web.Mvc;
-    using AutoMapper;
-
     using AutoMapper.QueryableExtensions;
-    using ViewModels;
-    using Services.Contracts;
-    using Models;
     using Kendo.Mvc.UI;
-    using Kendo.Mvc.Extensions;
+    using Services.Contracts;
+
+    using Model = Models.Survey;
+    using ViewModel = ViewModels.SurveyViewModel;
 
     public class SurveysController : AdminController
     {
@@ -27,12 +22,38 @@
             return this.View();
         }
 
-        public JsonResult Read([DataSourceRequest]DataSourceRequest request)
+        [HttpPost]
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
-            var result = this.SurveyService.GetAll()
-                           .ProjectTo<SurveyViewModel>(SurveyViewModel.Configuration);
+            if (model != null && this.ModelState.IsValid)
+            {
+                var dbModel = this.SurveyService.GetById(model.Id);
+                this.Mapper = ViewModel.Configuration.CreateMapper();
+                var mapped = Mapper.Map<ViewModel, Model>(model, dbModel);
+                this.SurveyService.Update(mapped);
+            }
 
-            return this.Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return this.GridOperation(model, request);
+        }
+
+        [HttpPost]
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        {
+            base.Destroy<ViewModel>(request, model, model.Id);
+
+            return this.GridOperation(model, request);
+        }
+
+        protected override IEnumerable GetData()
+        {
+            return this.SurveyService
+                       .GetAll()
+                       .ProjectTo<ViewModel>(ViewModel.Configuration);
+        }
+
+        protected override void Delete<T>(object id)
+        {
+            this.SurveyService.Delete(id);
         }
     }
 }

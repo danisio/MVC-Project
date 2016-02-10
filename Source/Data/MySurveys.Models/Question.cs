@@ -26,6 +26,7 @@
 
         public int SurveyId { get; set; }
 
+        [Required]
         public virtual Survey Survey { get; set; }
 
         public int? ParentPossibleAnswerId { get; set; }

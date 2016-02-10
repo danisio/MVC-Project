@@ -7,6 +7,10 @@
     {
         IQueryable<Survey> GetAll();
 
-        Survey GetById(int id);
+        Survey GetById(object id);
+
+        Survey Update(Survey survey);
+
+        void Delete(object id);
     }
 }

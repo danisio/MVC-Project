@@ -19,9 +19,10 @@
                    .Include("~/Content/bootstrap.journal.css"));
 
             bundles.Add(new StyleBundle("~/Content/kendo/css")
-                   .Include("~/Content/kendo/kendo.common.min.css",
-                            "~/Content/kendo/kendo.common-bootstrap.min.css",
-                            "~/Content/kendo/kendo.nova.min.css"));
+                   .Include(
+                        "~/Content/kendo/kendo.common.min.css",
+                        "~/Content/kendo/kendo.common-bootstrap.min.css",
+                        "~/Content/kendo/kendo.nova.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/custom")
                    .Include("~/Content/site.css"));
@@ -31,7 +32,6 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                    .Include("~/Scripts/kendo/jquery.min.js"));
-            //.Include("~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval")
                    .Include("~/Scripts/jquery.validate*"));
@@ -40,12 +40,14 @@
                    .Include("~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap")
-                   .Include("~/Scripts/bootstrap.js",
+                   .Include(
+                        "~/Scripts/bootstrap.js",
                          "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo")
-                   .Include("~/Scripts/kendo/kendo.all.min.js",
-                            "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
+                   .Include(
+                        "~/Scripts/kendo/kendo.all.min.js",
+                        "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
         }
     }
 }

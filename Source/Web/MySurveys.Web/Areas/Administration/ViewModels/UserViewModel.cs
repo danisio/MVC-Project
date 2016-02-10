@@ -1,18 +1,26 @@
 ﻿namespace MySurveys.Web.Areas.Administration.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Web;
-    using Base;
-    using Models;
+    using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
     using AutoMapper;
-    using System.ComponentModel.DataAnnotations;
+    using Base;
+    using Models;
 
     public class UserViewModel : AdministrationViewModel
     {
+        public static MapperConfiguration Configuration
+        {
+            get
+            {
+                return new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<User, UserViewModel>()
+                    .ForMember(m => m.TotalSurveys, opt => opt.MapFrom(r => r.Surveys.Count))
+                    .ReverseMap();
+                });
+            }
+        }
+
         [HiddenInput(DisplayValue = false)]
         public string Id { get; set; }
 
@@ -24,20 +32,5 @@
 
         [HiddenInput(DisplayValue = false)]
         public int TotalSurveys { get; set; }
-
-        public static MapperConfiguration Configuration
-        {
-            get
-            {
-                return new MapperConfiguration(cfg =>
-               {
-                   cfg.CreateMap<User, UserViewModel>()
-                   .ForMember(m => m.TotalSurveys, opt => opt.MapFrom(r => r.Surveys.Count))
-                   .ReverseMap();
-               });
-            }
-        }
     }
-
-
 }
