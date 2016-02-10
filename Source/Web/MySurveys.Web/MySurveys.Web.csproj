@@ -219,9 +219,11 @@
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\QuestionsController.cs" />
     <Compile Include="Areas\Administration\Controllers\SurveysController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
     <Compile Include="Areas\Administration\ViewModels\Base\AdministrationViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\QuestionViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\SurveyViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserViewModel.cs" />
     <Compile Include="Areas\Surveys\Controllers\MySurveysController.cs" />
@@ -718,6 +720,7 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\CustomString.cshtml" />
     <Content Include="Areas\Surveys\Views\MySurveys\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Questions\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

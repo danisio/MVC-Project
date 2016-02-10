@@ -6,17 +6,20 @@
     using Kendo.Mvc.UI;
     using Services.Contracts;
 
-    using Model = Models.Survey;
-    using ViewModel = ViewModels.SurveyViewModel;
+    using Model = Models.Question;
+    using ViewModel = ViewModels.QuestionViewModel;
 
-    public class SurveysController : AdminController
+    public class QuestionsController : AdminController
     {
-        public SurveysController(ISurveyService surveyService, IUserService userService)
+        public IQuestionService QuestionService { get; set; }
+
+        public QuestionsController(IQuestionService questionService, ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
+            this.QuestionService = questionService;
         }
 
-        //// GET: Administration/Surveys
+        //// GET: Administration/Questions
         public ActionResult Index()
         {
             return this.View();
@@ -24,7 +27,7 @@
 
         protected override IEnumerable GetData()
         {
-            return this.SurveyService
+            return this.QuestionService
                        .GetAll()
                        .ProjectTo<ViewModel>(ViewModel.Configuration);
         }
@@ -34,10 +37,10 @@
         {
             if (model != null && this.ModelState.IsValid)
             {
-                var dbModel = this.SurveyService.GetById(model.Id);
+                var dbModel = this.QuestionService.GetById(model.Id);
                 mapper = ViewModel.Configuration.CreateMapper();
                 var mapped = mapper.Map<ViewModel, Model>(model, dbModel);
-                this.SurveyService.Update(mapped);
+                this.QuestionService.Update(mapped);
             }
 
             return this.GridOperation(model, request);
@@ -53,7 +56,7 @@
 
         protected override void Delete<T>(object id)
         {
-            this.SurveyService.Delete(id);
+            this.QuestionService.Delete(id);
         }
     }
 }

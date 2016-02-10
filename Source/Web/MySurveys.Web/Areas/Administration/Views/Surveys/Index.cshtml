@@ -19,10 +19,10 @@
     {
         columns.Bound(model => model.Id);
         columns.Bound(model => model.Title);
+        columns.Bound(model => model.TotalQuestions);
         columns.Bound(model => model.AuthorUsername);
         columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm}");
-        columns.Bound(model => model.TotalQuestions);
         columns.Command(command =>
         {
             command.Edit();

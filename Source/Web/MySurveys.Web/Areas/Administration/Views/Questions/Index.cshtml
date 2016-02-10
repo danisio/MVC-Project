@@ -1,28 +1,30 @@
 ﻿@using Kendo.Mvc.UI;
 @functions{
-    private const string ControllerName = "Users";
+    private const string ControllerName = "Questions";
 }
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Questions";
 }
 
 <div class="row">
     <div class="text-center">
-        <h2>Users</h2>
+        <h2>Questions</h2>
     </div>
 
     <div>
         @(Html.Kendo()
-    .Grid<MySurveys.Web.Areas.Administration.ViewModels.UserViewModel>()
-    .Name("grid-users")
+    .Grid<MySurveys.Web.Areas.Administration.ViewModels.QuestionViewModel>()
+    .Name("grid-questions")
     .Columns(columns =>
     {
         columns.Bound(model => model.Id);
-        columns.Bound(model => model.UserName);
-        columns.Bound(model => model.Email);
-        columns.Bound(model => model.TotalSurveys);
-        columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm:ss}");
-        columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm:ss}");
+        columns.Bound(model => model.Content);
+        columns.Bound(model => model.SurveyTitle);
+        columns.Bound(model => model.PossibleParentId);
+        columns.Bound(model => model.IsDependsOn);
+        columns.Bound(model => model.TotalPossibleAnswers);
+        columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm}");
+        columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Command(command =>
         {
             command.Edit();
@@ -43,7 +45,6 @@
     .Editable(edit =>
     {
         edit.Mode(GridEditMode.PopUp);
-        edit.Window(w => w.Title(ViewBag.Title));
     })
     .Filterable()
     .Resizable(resize => resize.Columns(true))
@@ -53,7 +54,8 @@
             .Model(m =>
             {
                 m.Id(b => b.Id);
-                m.Field(b => b.TotalSurveys).Editable(false);
+                m.Field(b => b.TotalPossibleAnswers).Editable(false);
+                m.Field(b => b.PossibleParentId).Editable(false);
             })
             .PageSize(5)
             .ServerOperation(true)
@@ -68,7 +70,7 @@
 
 <script>
     function errorAlert(err) {
-        //console.log(err);
+        console.log(err);
         alert("An error occurred");
     }
 </script>
