@@ -1,8 +1,7 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
     using AutoMapper;
+    using Infrastructure.IdBinder;
     using Models;
 
     public class SurveyViewModel
@@ -31,5 +30,14 @@
         public int TotalQuestions { get; set; }
 
         public int TotalAnswers { get; set; }
+
+        public string Url
+        {
+            get
+            {
+                IIdentifierProvider identifier = new IdentifierProvider();
+                return $"/Surveys/Public/Details/{identifier.EncodeId(this.Id)}";
+            }
+        }
     }
 }

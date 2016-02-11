@@ -8,7 +8,7 @@
     {
         IQueryable<Survey> GetAll();
 
-        Survey GetById(object id);
+        Survey GetById(string id);
 
         Survey Update(Survey survey);
 

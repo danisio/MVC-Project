@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="Caching\HttpCacheService.cs" />
     <Compile Include="Caching\ICacheService.cs" />
+    <Compile Include="IdBinder\IdentifierProvider.cs" />
+    <Compile Include="IdBinder\IIdentifierProvider.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

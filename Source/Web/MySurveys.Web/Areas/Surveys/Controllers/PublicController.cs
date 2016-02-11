@@ -21,7 +21,7 @@
         }
 
         //// GET: Surveys/Public/Details
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             var model = this.SurveyService.GetById(id);
             if (model == null)
