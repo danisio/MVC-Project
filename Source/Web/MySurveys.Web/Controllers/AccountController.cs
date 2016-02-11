@@ -238,6 +238,26 @@
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.userManager != null)
+                {
+                    this.userManager.Dispose();
+                    this.userManager = null;
+                }
+
+                if (this.signInManager != null)
+                {
+                    this.signInManager.Dispose();
+                    this.signInManager = null;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+
         private async Task SignInAsync(User user, bool isPersistent)
         {
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
@@ -321,26 +341,6 @@
 
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (this.userManager != null)
-                {
-                    this.userManager.Dispose();
-                    this.userManager = null;
-                }
-
-                if (this.signInManager != null)
-                {
-                    this.signInManager.Dispose();
-                    this.signInManager = null;
-                }
-            }
-
-            base.Dispose(disposing);
         }
         #endregion
     }

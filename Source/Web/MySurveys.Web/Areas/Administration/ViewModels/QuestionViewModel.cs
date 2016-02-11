@@ -5,24 +5,10 @@
     using AutoMapper;
     using Base;
     using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
 
-    public class QuestionViewModel : AdministrationViewModel
+    public class QuestionViewModel : AdministrationViewModel, IMapFrom<Question>, IHaveCustomMappings
     {
-        public static MapperConfiguration Configuration
-        {
-            get
-            {
-                return new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<Question, QuestionViewModel>()
-                        .ForMember(s => s.SurveyTitle, opt => opt.MapFrom(q => q.Survey.Title))
-                        .ForMember(s => s.TotalPossibleAnswers, opt => opt.MapFrom(a => a.PossibleAnswers.Count))
-                        .ForMember(s => s.PossibleParentId, opt => opt.MapFrom(p => p.ParentPossibleAnswerId))
-                        .ReverseMap();
-                });
-            }
-        }
-
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
@@ -46,5 +32,14 @@
         [Display(Name = "Is Dynamic?")]
         [HiddenInput(DisplayValue = false)]
         public bool IsDependsOn { get; set; }
+
+        public void CreateMappings(IMapperConfiguration configuration)
+        {
+            configuration.CreateMap<Question, QuestionViewModel>()
+                         .ForMember(s => s.SurveyTitle, opt => opt.MapFrom(q => q.Survey.Title))
+                         .ForMember(s => s.TotalPossibleAnswers, opt => opt.MapFrom(a => a.PossibleAnswers.Count))
+                         .ForMember(s => s.PossibleParentId, opt => opt.MapFrom(p => p.ParentPossibleAnswerId))
+                         .ReverseMap();
+        }
     }
 }
