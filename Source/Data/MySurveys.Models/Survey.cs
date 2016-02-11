@@ -1,6 +1,5 @@
 ﻿namespace MySurveys.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Data.Common;
@@ -12,7 +11,6 @@
 
         public Survey()
         {
-            this.CreatedOn = DateTime.Now;
             this.questions = new HashSet<Question>();
             this.answers = new HashSet<Answer>();
         }

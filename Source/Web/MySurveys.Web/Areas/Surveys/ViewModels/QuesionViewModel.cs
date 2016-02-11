@@ -1,6 +1,5 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
 {
-    using System;
     using AutoMapper;
     using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
@@ -11,7 +10,6 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            
         }
     }
 }
