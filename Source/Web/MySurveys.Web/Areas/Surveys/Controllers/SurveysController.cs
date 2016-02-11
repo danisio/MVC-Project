@@ -4,6 +4,7 @@
     using Services.Contracts;
     using Web.Controllers.Base;
 
+    [Authorize]
     public class SurveysController : BaseController
     {
         public SurveysController(ISurveyService surveyService, IUserService userService)
@@ -15,12 +16,6 @@
         public ActionResult Index()
         {
             return this.View();
-        }
-
-        //// GET: Surveys/Surveys/Details
-        public ActionResult Details(int id)
-        {
-            return this.View(this.SurveyService.GetById(id));
         }
     }
 }

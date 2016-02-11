@@ -1,0 +1,23 @@
+﻿@model IList<MySurveys.Web.Areas.Surveys.ViewModels.SurveyViewModel>
+@{ var surveys = Model.Count; }
+<div class="row">
+    @for (int i = 0; i < surveys; i++)
+    {
+        <div class="col-md-4 text-center">
+            <h2>@Model[i].Title</h2>
+            <div>
+                <strong>Author: </strong> @Model[i].AuthorUsername
+            </div>
+            <div>
+                <strong>Total questions: </strong> @Model[i].TotalQuestions
+            </div>
+            <div>
+                <strong>Total participants: </strong> @Model[i].TotalAnswers
+            </div><br />
+            <a href="@Model[i].Url" class="btn btn-default">
+                More Details...
+            </a>
+            @*<a href="/Surveys/Public/Details/@Model[i].Id" class="btn btn-default">More Details...</a>*@
+        </div>
+    }
+</div>

@@ -17,8 +17,6 @@
         {
         }
 
-        protected IMapper Mapper { get; set; }
-
         [HttpPost]
         public ActionResult Read([DataSourceRequest]
                                  DataSourceRequest request)

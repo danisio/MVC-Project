@@ -4,6 +4,7 @@
     using Services.Contracts;
     using Web.Controllers.Base;
 
+    [Authorize]
     public class MySurveysController : BaseController
     {
         public MySurveysController(ISurveyService surveyService, IUserService userService)
