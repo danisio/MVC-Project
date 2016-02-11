@@ -5,6 +5,7 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using AutoMapper;
     using Models;
     using Services.Contracts;
 
@@ -16,6 +17,8 @@
             this.UserService = userService;
             this.SurveyService = surveyService;
         }
+
+        protected IMapper Mapper { get; set; }
 
         protected IUserService UserService { get; set; }
 

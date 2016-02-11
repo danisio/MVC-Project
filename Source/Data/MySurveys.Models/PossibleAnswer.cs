@@ -18,9 +18,6 @@
         [StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
-        [Required]
-        public int QuestionId { get; set; }
-
         public virtual Question Question { get; set; }
     }
 }

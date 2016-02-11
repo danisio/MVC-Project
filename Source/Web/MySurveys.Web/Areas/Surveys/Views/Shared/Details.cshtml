@@ -1,8 +1,7 @@
-﻿@model MySurveys.Models.Survey
+﻿@model MySurveys.Web.Areas.Surveys.ViewModels.SurveyViewModel
 @{
     ViewBag.Title = "Details";
 }
-
 <div class="jumbotron text-center">
     <h1>Details <span class="glyphicon glyphicon-info-sign"></span></h1>
     <div class="row">
@@ -12,17 +11,18 @@
                 @Html.DisplayFor(m => m.Title)
             </div>
             <div>
-                @Html.LabelFor(m => m.CreatedOn)
-                @Html.DisplayFor(m => m.CreatedOn)
+                @Html.LabelFor(m => m.AuthorUsername)
+                @Html.DisplayFor(m => m.AuthorUsername)
             </div>
            <div>
-               @Html.LabelFor(m => m.Author.UserName)
-               @Html.DisplayFor(m => m.Author.UserName)
+               @Html.LabelFor(m => m.TotalQuestions)
+               @Html.DisplayFor(m => m.TotalQuestions)
            </div>
             <div>
-                <label>Total questions: </label>
-                @Html.DisplayFor(m=>m.Questions.Count)
+                @Html.LabelFor(m => m.TotalAnswers)
+                @Html.DisplayFor(m => m.TotalAnswers)
             </div>
+            
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 ﻿namespace MySurveys.Services.Contracts
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Models;
 
@@ -12,5 +13,7 @@
         Survey Update(Survey survey);
 
         void Delete(object id);
+
+        IQueryable<Survey> GetMostPopular(int numberOfSurveys);
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace MySurveys.Services
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Contracts;
     using Data.Repository;
@@ -36,6 +38,15 @@
         {
             this.surveys.Delete(id);
             this.surveys.SaveChanges();
+        }
+
+        public IQueryable<Survey> GetMostPopular(int numberOfSurveys)
+        {
+            return this.surveys
+                                .All()
+                                .Where(x => x.IsPublic == true)
+                                .OrderByDescending(x => x.Answers.Count)
+                                .Take(numberOfSurveys);
         }
     }
 }
