@@ -2,7 +2,6 @@
 {
     using System.Web;
     using System.Web.Mvc;
-    using Infrastructure.Mapping;
     using Services.Contracts;
     using ViewModels;
     using Web.Controllers.Base;
@@ -29,9 +28,8 @@
                 throw new HttpException(404, "Survey not found");
             }
 
-            var viewModel = AutoMapperConfig.Configuration
-                                            .CreateMapper()
-                                            .Map<SurveyViewModel>(survey);
+            var viewModel = this.Mapper.Map<SurveyViewModel>(survey);
+
             return this.View(viewModel);
         }
     }

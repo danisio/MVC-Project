@@ -11,7 +11,7 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
