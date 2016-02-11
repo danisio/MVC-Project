@@ -26,6 +26,13 @@
             this.SignInManager = signInManager;
         }
 
+        public enum ManageMessageId
+        {
+            ChangeEmailSuccess,
+            ChangePasswordSuccess,
+            Error
+        }
+
         public ApplicationSignInManager SignInManager
         {
             get
@@ -49,6 +56,14 @@
             private set
             {
                 this.userManager = value;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -226,18 +241,6 @@
             return this.View(model);
         }
 
-        #region Helpers
-        //// Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -272,35 +275,6 @@
             }
         }
 
-        private bool HasPassword()
-        {
-            var user = this.UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-
-            return false;
-        }
-
-        private bool HasPhoneNumber()
-        {
-            var user = this.UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PhoneNumber != null;
-            }
-
-            return false;
-        }
-
-        public enum ManageMessageId
-        {
-            ChangeEmailSuccess,
-            ChangePasswordSuccess,
-            Error
-        }
-
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -313,6 +287,9 @@
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
+            //// Used for XSRF protection when adding external logins
+            private const string XsrfKey = "XsrfId";
+
             public ChallengeResult(string provider, string redirectUri)
                 : this(provider, redirectUri, null)
             {
@@ -342,6 +319,5 @@
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);
             }
         }
-        #endregion
     }
 }
