@@ -2,10 +2,16 @@
 {
     using System;
     using AutoMapper;
-    using MySurveys.Models;
+    using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
 
-    public class QuesionViewModel
+    public class QuesionViewModel : IMapFrom<Question>, IHaveCustomMappings
     {
         public string Title { get; set; }
+
+        public void CreateMappings(IMapperConfiguration configuration)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

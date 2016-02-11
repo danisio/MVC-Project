@@ -1,11 +1,11 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
-    using System.Web.Mvc;
-    using ViewModels;
-    using Services.Contracts;
-    using Web.Controllers.Base;
     using System.Web;
-    using Models;
+    using System.Web.Mvc;
+    using Infrastructure.Mapping;
+    using Services.Contracts;
+    using ViewModels;
+    using Web.Controllers.Base;
 
     public class PublicController : BaseController
     {
@@ -17,21 +17,22 @@
         //// GET: Surveys/Public/Index
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         //// GET: Surveys/Public/Details
         public ActionResult Details(string id)
         {
-            var model = this.SurveyService.GetById(id);
-            if (model == null)
+            var survey = this.SurveyService.GetById(id);
+            if (survey == null)
             {
                 throw new HttpException(404, "Survey not found");
             }
 
-            this.Mapper = SurveyViewModel.Configuration.CreateMapper();
-            var mapped = this.Mapper.Map<Survey,SurveyViewModel>(model);
-            return this.View(mapped);
+            var viewModel = AutoMapperConfig.Configuration
+                                            .CreateMapper()
+                                            .Map<SurveyViewModel>(survey);
+            return this.View(viewModel);
         }
     }
 }

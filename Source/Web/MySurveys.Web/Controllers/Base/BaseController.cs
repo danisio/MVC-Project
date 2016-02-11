@@ -6,10 +6,11 @@
     using System.Web.Mvc;
     using System.Web.Routing;
     using AutoMapper;
-    using Models;
     using Infrastructure.Caching;
-    using Services.Contracts;
+    using Infrastructure.Mapping;
+    using Models;
     using Ninject;
+    using Services.Contracts;
 
     [HandleError]
     public class BaseController : Controller
@@ -23,7 +24,13 @@
         [Inject]
         public ICacheService Cache { get; set; }
 
-        protected IMapper Mapper { get; set; }
+        protected IMapper Mapper
+        {
+            get
+            {
+                return AutoMapperConfig.Configuration.CreateMapper();
+            }
+        }
 
         protected IUserService UserService { get; set; }
 

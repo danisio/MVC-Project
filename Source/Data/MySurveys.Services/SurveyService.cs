@@ -1,7 +1,5 @@
 ﻿namespace MySurveys.Services
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Contracts;
     using Data.Repository;
@@ -24,6 +22,11 @@
             return this.surveys.All();
         }
 
+        public Survey GetById(int id)
+        {
+            return this.surveys.GetById(id);
+        }
+
         public Survey GetById(string id)
         {
             var idAsInt = this.identifierProvider.DecodeId(id);
@@ -43,7 +46,7 @@
             this.surveys.Delete(id);
             this.surveys.SaveChanges();
         }
-
+        
         public IQueryable<Survey> GetMostPopular(int numberOfSurveys)
         {
             return this.surveys

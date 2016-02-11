@@ -2,13 +2,12 @@
 {
     using System.Collections;
     using System.Web.Mvc;
-    using AutoMapper.QueryableExtensions;
+    using Infrastructure.Mapping;
     using Kendo.Mvc.UI;
+    using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
     using ViewModels;
-
-    using Model = Models.User;
-    using ViewModel = ViewModels.UserViewModel;
 
     public class UsersController : AdminController
     {
@@ -29,8 +28,8 @@
             if (model != null && this.ModelState.IsValid)
             {
                 var dbModel = this.UserService.GetById(model.Id);
-                this.Mapper = ViewModel.Configuration.CreateMapper();
-                var mapped = Mapper.Map<ViewModel, Model>(model, dbModel);
+                var mapped = this.Mapper.Map(model, dbModel);
+
                 this.UserService.Update(mapped);
             }
 
@@ -38,9 +37,9 @@
         }
 
         [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, UserViewModel model)
         {
-            base.Destroy<ViewModel>(request, model, model.Id);
+            base.Destroy<UserViewModel>(request, model, model.Id);
 
             return this.GridOperation(model, request);
         }
@@ -49,7 +48,7 @@
         {
             return this.UserService
                        .GetAll()
-                       .ProjectTo<ViewModel>(ViewModel.Configuration);
+                       .To<UserViewModel>();
         }
 
         protected override void Delete<T>(object id)

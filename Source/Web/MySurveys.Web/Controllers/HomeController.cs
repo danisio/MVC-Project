@@ -2,11 +2,10 @@
 {
     using System.Linq;
     using System.Web.Mvc;
-    using AutoMapper.QueryableExtensions;
-    using Base;
     using Areas.Surveys.ViewModels;
+    using Base;
+    using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
-    using Infrastructure.Caching;
 
     public class HomeController : BaseController
     {
@@ -33,11 +32,11 @@
                 "mostPopular",
                 () => this.SurveyService
                             .GetMostPopular(5)
-                            .ProjectTo<SurveyViewModel>(SurveyViewModel.Configuration)
+                            .To<SurveyViewModel>()
                             .ToList(),
-                30 * 60);
+                            30 * 60);
 
-            return PartialView("_MostPopularSurveysPartial", surveys);
+            return this.PartialView("_MostPopularSurveysPartial", surveys);
         }
     }
 }
