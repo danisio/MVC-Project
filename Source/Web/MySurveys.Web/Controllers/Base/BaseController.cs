@@ -7,7 +7,9 @@
     using System.Web.Routing;
     using AutoMapper;
     using Models;
+    using Infrastructure.Caching;
     using Services.Contracts;
+    using Ninject;
 
     [HandleError]
     public class BaseController : Controller
@@ -17,6 +19,9 @@
             this.UserService = userService;
             this.SurveyService = surveyService;
         }
+
+        [Inject]
+        public ICacheService Cache { get; set; }
 
         protected IMapper Mapper { get; set; }
 

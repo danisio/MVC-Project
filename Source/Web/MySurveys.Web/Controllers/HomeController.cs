@@ -10,12 +10,9 @@
 
     public class HomeController : BaseController
     {
-        private ICacheService cacheService;
-
-        public HomeController(ISurveyService surveyService, IUserService userService, ICacheService cacheService)
+        public HomeController(ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
-            this.cacheService = cacheService;
         }
 
         public ActionResult Index()
@@ -30,10 +27,9 @@
         }
 
         [ChildActionOnly]
-        //[OutputCache(Duration = 60 * 60)]
         public ActionResult MostPopularSurveys()
         {
-            var surveys = this.cacheService.Get(
+            var surveys = this.Cache.Get(
                 "mostPopular",
                 () => this.SurveyService
                             .GetMostPopular(5)
