@@ -37,5 +37,21 @@
             this.questions.Delete(id);
             this.questions.SaveChanges();
         }
+
+        public Question GetNext(Question question, int possibleAnswerId)
+        {
+            if (question.IsDependsOn)
+            {
+                return this.questions.All()
+                                    .Where(q => q.ParentPossibleAnswerId == possibleAnswerId)
+                                    .FirstOrDefault();
+            }
+            else
+            {
+                //var all = this.questions.All();
+                //var possibleId = question.PossibleAnswers.First().Id;
+                return this.questions.All().FirstOrDefault(q => q.ParentPossibleAnswerId == question.PossibleAnswers.First().Id);
+            }
+        }
     }
 }

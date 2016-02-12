@@ -1,11 +1,13 @@
-﻿@*@model MySurveys.Web.Areas.Surveys.ViewModels.SurveyViewModel*@
+﻿@model IList<MySurveys.Web.Areas.Surveys.ViewModels.SurveyViewModel>
 @{
-    ViewBag.Title = "Public";
+    ViewBag.Title = "Public Surveys";
 }
 
 <div class="row">
     <div class="text-center">
-        <h2>Public Surveys</h2>
+        <h2>@ViewBag.Title</h2>
     </div>
+
+
 </div>
 

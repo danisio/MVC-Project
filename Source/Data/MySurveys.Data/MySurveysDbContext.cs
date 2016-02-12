@@ -24,6 +24,8 @@
 
         public virtual IDbSet<Survey> Surveys { get; set; }
 
+        public virtual IDbSet<Response> Responses { get; set; }
+
         public static MySurveysDbContext Create()
         {
             return new MySurveysDbContext();

@@ -7,12 +7,12 @@
     public class Survey : DeletableEntity
     {
         private ICollection<Question> questions;
-        private ICollection<Answer> answers;
+        private ICollection<Response> responses;
 
         public Survey()
         {
             this.questions = new HashSet<Question>();
-            this.answers = new HashSet<Answer>();
+            this.responses = new HashSet<Response>();
         }
 
         [Key]
@@ -34,10 +34,10 @@
             set { this.questions = value; }
         }
 
-        public virtual ICollection<Answer> Answers
+        public virtual ICollection<Response> Responses
         {
-            get { return this.answers; }
-            set { this.answers = value; }
+            get { return this.responses; }
+            set { this.responses = value; }
         }
     }
 }

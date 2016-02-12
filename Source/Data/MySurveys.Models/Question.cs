@@ -8,10 +8,12 @@
     public class Question : DeletableEntity
     {
         private ICollection<PossibleAnswer> possibleAnswers;
+        private ICollection<Answer> answers;
 
         public Question()
         {
             this.possibleAnswers = new HashSet<PossibleAnswer>();
+            this.answers = new HashSet<Answer>();
         }
 
         [Key]
@@ -21,6 +23,8 @@
         [Required]
         [StringLength(200), MinLength(3)]
         public string Content { get; set; }
+
+        public int SurveyId { get; set; }
 
         public virtual Survey Survey { get; set; }
 
@@ -32,6 +36,12 @@
         {
             get { return this.possibleAnswers; }
             set { this.possibleAnswers = value; }
+        }
+
+        public virtual ICollection<Answer> Answers
+        {
+            get { return this.answers; }
+            set { this.answers = value; }
         }
     }
 }

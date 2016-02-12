@@ -21,6 +21,7 @@
         columns.Bound(model => model.UserName);
         columns.Bound(model => model.Email);
         columns.Bound(model => model.TotalSurveys);
+        columns.Bound(model => model.TotalResponses);
         columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm:ss}");
         columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm:ss}");
         columns.Command(command =>
@@ -54,6 +55,7 @@
             {
                 m.Id(b => b.Id);
                 m.Field(b => b.TotalSurveys).Editable(false);
+                m.Field(b => b.TotalResponses).Editable(false);
             })
             .PageSize(5)
             .ServerOperation(true)

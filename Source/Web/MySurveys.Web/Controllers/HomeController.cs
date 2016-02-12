@@ -2,10 +2,10 @@
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Areas.Surveys.ViewModels;
     using Base;
     using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
+    using ViewModels;
 
     public class HomeController : BaseController
     {
@@ -31,7 +31,7 @@
             var surveys = this.Cache.Get(
                 "mostPopular",
                 () => this.SurveyService
-                            .GetMostPopular(5)
+                            .GetMostPopular(3)
                             .To<SurveyViewModel>()
                             .ToList(),
                             30 * 60);

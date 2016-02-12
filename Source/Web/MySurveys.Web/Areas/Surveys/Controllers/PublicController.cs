@@ -2,8 +2,8 @@
 {
     using System.Web;
     using System.Web.Mvc;
+    using Web.ViewModels;
     using Services.Contracts;
-    using ViewModels;
     using Web.Controllers.Base;
 
     public class PublicController : BaseController

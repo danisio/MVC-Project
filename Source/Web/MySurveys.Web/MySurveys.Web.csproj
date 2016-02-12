@@ -229,6 +229,11 @@
     <Compile Include="Areas\Surveys\Controllers\MySurveysController.cs" />
     <Compile Include="Areas\Surveys\Controllers\PublicController.cs" />
     <Compile Include="Areas\Surveys\SurveysAreaRegistration.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\AnswerViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\PossibleAnswerViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\SurveyViewModel.cs" />
+    <Compile Include="Attributes\NoCacheAttribute.cs" />
+    <Compile Include="Attributes\ValidateModelStateAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -239,11 +244,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Areas\Surveys\ViewModels\QuesionViewModel.cs" />
-    <Compile Include="Areas\Surveys\ViewModels\SurveyViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\QuestionViewModel.cs" />
+    <Compile Include="ViewModels\SurveyViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangeEmailViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
-    <Compile Include="ViewModels\Account\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Account\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
   </ItemGroup>
@@ -723,7 +728,7 @@
     <Content Include="Areas\Surveys\Views\MySurveys\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Questions\Index.cshtml" />
     <Content Include="Areas\Surveys\Views\Public\Index.cshtml" />
-    <Content Include="Areas\Surveys\Views\Shared\_ListSurveys.cshtml" />
+    <Content Include="Areas\Surveys\Views\Surveys\FillingUp.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -773,6 +778,7 @@
     <Content Include="Views\Home\_MostPopularSurveysPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>

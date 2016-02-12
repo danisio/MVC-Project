@@ -11,6 +11,8 @@
 
         Question Update(Question question);
 
+        Question GetNext(Question question, int possibleAnswerId);
+
         void Delete(object id);
     }
 }

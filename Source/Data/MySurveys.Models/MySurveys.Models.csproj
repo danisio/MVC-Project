@@ -61,6 +61,7 @@
     <Compile Include="PossibleAnswer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
+    <Compile Include="Response.cs" />
     <Compile Include="Survey.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

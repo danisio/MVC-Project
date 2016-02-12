@@ -25,10 +25,14 @@
         [HiddenInput(DisplayValue = false)]
         public int TotalQuestions { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int TotalResponses{ get; set; }
+
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Survey, SurveyViewModel>()
                          .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
+                         .ForMember(s => s.TotalResponses, opt => opt.MapFrom(q => q.Responses.Count))
                          .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
                          .ReverseMap();
         }
