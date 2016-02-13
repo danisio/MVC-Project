@@ -7,6 +7,8 @@
     {
         IQueryable<Survey> GetAll();
 
+        IQueryable<Survey> GetAllPublic();
+
         Survey GetById(int id);
 
         Survey GetById(string id);

@@ -27,9 +27,7 @@
 
         public ICollection<QuestionViewModel> Questions { get; set; }
 
-        public ICollection<AnswerViewModel> Answers { get; set; }
-
-        public string IpAddress { get; set; }
+        public ICollection<ResponseViewModel> Responses { get; set; }
 
         public string Url
         {

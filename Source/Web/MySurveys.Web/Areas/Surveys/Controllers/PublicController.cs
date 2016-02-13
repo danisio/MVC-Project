@@ -5,9 +5,14 @@
     using Web.ViewModels;
     using Services.Contracts;
     using Web.Controllers.Base;
+    using MvcTemplate.Web.Infrastructure.Mapping;
+    using System.Linq;
+    using Models;
 
     public class PublicController : BaseController
     {
+        IQueryable<Survey> query = null;
+
         public PublicController(ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
@@ -16,7 +21,11 @@
         //// GET: Surveys/Public/Index
         public ActionResult Index()
         {
-            return this.View();
+            var surveys = this.SurveyService
+                              .GetAllPublic()
+                              .To<ViewModels.SurveyViewModel>();
+
+            return this.View(surveys);
         }
 
         //// GET: Surveys/Public/Details

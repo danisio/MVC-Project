@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MySurveys.Web.Areas.Surveys.ViewModels.SurveyViewModel>
+<table id="survey-list" class="table table-striped table-responsive table-hover">
+    <thead>
+        <tr>
+            <th class="span8">Title</th>
+            <th class="span2">Author</th>
+            <th class="span1">Total Questions</th>
+            <th class="span1">Total Participants</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.AuthorUsername</td>
+                <td>@item.Questions.Count</td>
+                <td>@item.Responses.Count</td>
+                <td>
+                    <a href="@Url.Action("FillingUp", "Surveys", new { id = item.Url.Substring(item.Url.LastIndexOf('/')), area = "Surveys" })" class = "btn btn-lg btn-primary">
+                        <i class="glyphicon glyphicon-pencil">Start</i>
+                        <span class="sr-only">Start</span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

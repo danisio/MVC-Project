@@ -6,31 +6,35 @@
 
 <div class="row">
     <div class="text-center">
-        <h2>Filling up the survey</h2>
+       <h2>Questions</h2>
     </div>
-
+    <hr />
     @using (Ajax.BeginForm("FillingUp", null,
-                                new AjaxOptions
-                                {
-                                    HttpMethod = "POST",
-                                    InsertionMode = InsertionMode.Replace,
-                                    UpdateTargetId = "survey",
-                                }, new { id = "fillingUpForm" }))
+                                        new AjaxOptions
+                                        {
+                                            HttpMethod = "POST",
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "survey",
+                                        }, new { id = "fillingUpForm" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(m=>m.Id, new { @Value = Model.Id})
-        
-        <div class="col-md-offset-5">
-            @Html.DisplayFor(m => m.Content)
-            @foreach (var item in Model.PossibleAnswers)
-                {
-                <div>
-                    @Html.RadioButtonFor(m => item.Id, item.Id)
-                    <label for="@item.Id">@item.Content</label>
-                </div>
-            }
-            @*@Html.ValidationMessageFor(m => m.)*@
+        @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
 
+        <div class="jumbotron col-md-offset-3 col-lg-6">
+            <div>
+                <h4><u>@Html.DisplayFor(m => m.Content)</u></h4>
+            </div>
+            <hr />
+            <div>
+                @foreach (var item in Model.PossibleAnswers)
+                {
+                    <div>
+                        @Html.RadioButtonFor(m => item.Id, item.Id, new { @checked = false})
+                        <label>@item.Content</label>
+                    </div>
+                }
+                @*@Html.ValidationMessageFor(m => m.)*@
+            </div>
             <br />
             <input type="submit" value="Next" />
         </div>

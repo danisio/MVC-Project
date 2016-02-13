@@ -22,6 +22,13 @@
             return this.surveys.All();
         }
 
+        public IQueryable<Survey> GetAllPublic()
+        {
+            return this.surveys
+                       .All()
+                       .Where(s => s.IsPublic == true);
+        }
+
         public Survey GetById(int id)
         {
             return this.surveys.GetById(id);
@@ -46,7 +53,7 @@
             this.surveys.Delete(id);
             this.surveys.SaveChanges();
         }
-        
+
         public IQueryable<Survey> GetMostPopular(int numberOfSurveys)
         {
             return this.surveys

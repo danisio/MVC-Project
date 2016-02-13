@@ -231,6 +231,7 @@
     <Compile Include="Areas\Surveys\SurveysAreaRegistration.cs" />
     <Compile Include="Areas\Surveys\ViewModels\AnswerViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\PossibleAnswerViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\ResponseViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\SurveyViewModel.cs" />
     <Compile Include="Attributes\NoCacheAttribute.cs" />
     <Compile Include="Attributes\ValidateModelStateAttribute.cs" />
@@ -729,6 +730,7 @@
     <Content Include="Areas\Administration\Views\Questions\Index.cshtml" />
     <Content Include="Areas\Surveys\Views\Public\Index.cshtml" />
     <Content Include="Areas\Surveys\Views\Surveys\FillingUp.cshtml" />
+    <Content Include="Areas\Surveys\Views\Shared\_AllSurveysPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

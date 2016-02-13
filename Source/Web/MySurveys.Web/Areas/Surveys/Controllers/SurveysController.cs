@@ -9,6 +9,7 @@
     using Services.Contracts;
     using ViewModels;
     using Web.Controllers.Base;
+    using MvcTemplate.Web.Infrastructure.Mapping;
 
     [Authorize]
     public class SurveysController : BaseController
@@ -24,7 +25,11 @@
         //// GET: Surveys/Surveys/Index
         public ActionResult Index()
         {
-            return this.View();
+            var surveys = this.SurveyService
+                              .GetAll()
+                              .To<SurveyViewModel>();
+
+            return this.View(surveys);
         }
 
         //// GET: Surveys/Surveys/FillingUp
@@ -38,9 +43,9 @@
                 throw new HttpException(404, "Survey not found");
             }
 
-            if (!survey.IsPublic && this.CurrentUser != null)
+            if (!survey.IsPublic && this.CurrentUser == null)
             {
-                return this.RedirectToAction("Login", "Account");
+                return this.RedirectToAction("Login", "Account", new { area = String.Empty });
             }
 
             var viewModel = this.Mapper.Map<SurveyViewModel>(survey);
@@ -98,18 +103,6 @@
             }
 
             throw new HttpException(404, "Question not found");
-        }
-
-        private string GetUserIP()
-        {
-            string ipList = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
-            if (!string.IsNullOrEmpty(ipList))
-            {
-                return ipList.Split(',')[0];
-            }
-
-            return Request.ServerVariables["REMOTE_ADDR"];
         }
     }
 }

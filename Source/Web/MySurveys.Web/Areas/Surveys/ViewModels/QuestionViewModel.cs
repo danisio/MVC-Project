@@ -7,7 +7,7 @@
 
     public class QuestionViewModel : IMapFrom<Question>
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         [StringLength(200), MinLength(3)]
