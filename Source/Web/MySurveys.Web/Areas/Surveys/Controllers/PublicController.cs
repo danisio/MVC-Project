@@ -11,8 +11,6 @@
 
     public class PublicController : BaseController
     {
-        IQueryable<Survey> query = null;
-
         public PublicController(ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {

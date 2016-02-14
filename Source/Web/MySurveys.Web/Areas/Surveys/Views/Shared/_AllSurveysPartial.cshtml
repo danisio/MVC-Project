@@ -1,5 +1,6 @@
-﻿@model IEnumerable<MySurveys.Web.Areas.Surveys.ViewModels.SurveyViewModel>
-<table id="survey-list" class="table table-striped table-responsive table-hover">
+﻿@using MySurveys.Web.Areas.Surveys.ViewModels
+
+<table id="survey-list" class="table table-striped table-responsive table-hover table-bordered infinite-scroll">
     <thead>
         <tr>
             <th class="span8">Title</th>
@@ -9,20 +10,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Title</td>
-                <td>@item.AuthorUsername</td>
-                <td>@item.Questions.Count</td>
-                <td>@item.Responses.Count</td>
-                <td>
-                    <a href="@Url.Action("FillingUp", "Surveys", new { id = item.Url.Substring(item.Url.LastIndexOf('/')), area = "Surveys" })" class = "btn btn-lg btn-primary">
-                        <i class="glyphicon glyphicon-pencil">Start</i>
-                        <span class="sr-only">Start</span>
-                    </a>
-                </td>
-            </tr>
-        }
+        @Html.Partial("_SurveysPartial", (ViewBag.Surveys as Dictionary<int, SurveyViewModel>))
     </tbody>
 </table>
+@Html.Partial("_Loading")
+@section scripts{
+    <script src="~/Scripts/infiniteScroll.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("div#loading").hide();
+        });
+        var moreRowsUrl = '@Url.RouteUrl("SurveysList")';
+        $(window).scroll(scrollHandler);
+    </script>
+}
