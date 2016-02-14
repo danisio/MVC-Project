@@ -26,7 +26,7 @@ namespace MySurveys.Data.Migrations
 
         private void SeedSurveys(MySurveysDbContext context)
         {
-            if (!context.Surveys.Any())
+            if (context.Surveys.Any())
             {
                 var newSurvey = new Survey()
                 {
@@ -163,9 +163,16 @@ namespace MySurveys.Data.Migrations
                 Email = "admin@site.com"
             };
 
-            userManager.Create(admin, "admin123456");
-            userManager.AddToRole(admin.Id, GlobalConstants.AdminRoleName);
+            var anonimous = new User()
+            {
+                UserName = "AnonimousUser",
+                Email = "AnonimousUser@site.com"
+            };
 
+            userManager.Create(admin, "admin123456");
+            userManager.Create(anonimous, "123456");
+
+            userManager.AddToRole(admin.Id, GlobalConstants.AdminRoleName);
             context.SaveChanges();
         }
 

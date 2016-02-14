@@ -38,6 +38,16 @@
 
         protected User CurrentUser { get; private set; }
 
+        protected User AnonimousUser
+        {
+            get
+            {
+                return this.UserService
+                           .GetAll()
+                           .FirstOrDefault(u => u.UserName == "AnonimousUser");
+            }
+        }
+
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
             this.CurrentUser = this.UserService

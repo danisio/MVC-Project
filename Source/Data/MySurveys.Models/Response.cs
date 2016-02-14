@@ -4,11 +4,11 @@
     using System.ComponentModel.DataAnnotations;
     using Data.Common;
 
-    public class PossibleAnswer : DeletableEntity
+    public class Response : DeletableEntity
     {
         private ICollection<Answer> answers;
 
-        public PossibleAnswer()
+        public Response()
         {
             this.answers = new HashSet<Answer>();
         }
@@ -16,11 +16,13 @@
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(200), MinLength(2)]
-        public string Content { get; set; }
+        public string AuthorId { get; set; }
 
-        public virtual Question Question { get; set; }
+        public virtual User Author { get; set; }
+
+        public string SurveyId { get; set; }
+
+        public virtual Survey Survey { get; set; }
 
         public virtual ICollection<Answer> Answers
         {

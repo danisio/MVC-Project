@@ -153,7 +153,7 @@
 
             var user = this.UserManager.FindById(User.Identity.GetUserId());
 
-            var model = new IndexViewModel
+            var model = new ProfileViewModel
             {
                 UserName = user.UserName,
                 Email = user.Email,

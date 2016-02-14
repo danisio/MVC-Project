@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class IndexViewModel
+    public class ProfileViewModel
     {
         [Display(Name = "Username")]
         public string UserName { get; set; }

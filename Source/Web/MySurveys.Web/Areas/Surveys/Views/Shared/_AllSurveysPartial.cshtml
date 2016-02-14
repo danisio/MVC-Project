@@ -1,0 +1,26 @@
+﻿@using MySurveys.Web.Areas.Surveys.ViewModels
+
+<table id="survey-list" class="table table-striped table-responsive table-hover table-bordered infinite-scroll">
+    <thead>
+        <tr>
+            <th class="span8">Title</th>
+            <th class="span2">Author</th>
+            <th class="span1">Total Questions</th>
+            <th class="span1">Total Participants</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.Partial("_SurveysPartial", (ViewBag.Surveys as Dictionary<int, SurveyViewModel>))
+    </tbody>
+</table>
+@Html.Partial("_Loading")
+@section scripts{
+    <script src="~/Scripts/infiniteScroll.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("div#loading").hide();
+        });
+        var moreRowsUrl = '@Url.RouteUrl("SurveysList")';
+        $(window).scroll(scrollHandler);
+    </script>
+}

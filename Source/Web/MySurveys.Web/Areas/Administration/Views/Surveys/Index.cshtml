@@ -20,6 +20,7 @@
         columns.Bound(model => model.Id);
         columns.Bound(model => model.Title);
         columns.Bound(model => model.TotalQuestions);
+        columns.Bound(model => model.TotalResponses);
         columns.Bound(model => model.AuthorUsername);
         columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm}");
@@ -53,6 +54,7 @@
             {
                 m.Id(b => b.Id);
                 m.Field(b => b.TotalQuestions).Editable(false);
+                m.Field(b => b.TotalResponses).Editable(false);
             })
             .PageSize(5)
             .ServerOperation(true)
