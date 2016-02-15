@@ -1,4 +1,4 @@
-﻿@model MySurveys.Web.ViewModels.SurveyViewModel
+﻿@model MySurveys.Web.Areas.Surveys.ViewModels.SurveyViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -25,7 +25,7 @@
             </div>
             @if (Model.IsPublic || (!Model.IsPublic && this.User.Identity.IsAuthenticated))
             {
-                @Html.ActionLink("Start", "FillingUp", "Surveys", new { id = Model.Url.Substring(Model.Url.LastIndexOf('/')), area = "Surveys" }, new { @class = "btn btn-lg btn-success" })
+                @Html.ActionLink("Start", "FillingUp", "Surveys", new { id = Model.Url.Substring(Model.Url.LastIndexOf('/') + 1), area = "Surveys" }, new { @class = "btn btn-lg btn-success" })
             }
         </div>
     </div>

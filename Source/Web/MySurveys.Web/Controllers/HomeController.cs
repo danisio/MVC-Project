@@ -16,7 +16,7 @@
 
         public ActionResult Index()
         {
-            var all = this.SurveyService.GetAll().ToList();
+            var all = this.SurveyService.GetAllPublic().ToList();
             return this.View(all);
         }
 

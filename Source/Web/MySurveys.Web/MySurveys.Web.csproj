@@ -226,6 +226,7 @@
     <Compile Include="Areas\Administration\ViewModels\QuestionViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\SurveyViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserViewModel.cs" />
+    <Compile Include="Areas\Surveys\Controllers\Base\BaseScrollController.cs" />
     <Compile Include="Areas\Surveys\Controllers\MySurveysController.cs" />
     <Compile Include="Areas\Surveys\Controllers\PublicController.cs" />
     <Compile Include="Areas\Surveys\SurveysAreaRegistration.cs" />
@@ -614,7 +615,7 @@
     <Content Include="Areas\Surveys\Views\web.config" />
     <Content Include="Areas\Surveys\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Surveys\Views\MySurveys\Create.cshtml" />
-    <Content Include="Areas\Surveys\Views\Surveys\Index.cshtml" />
+    <Content Include="Areas\Surveys\Views\Shared\Index.cshtml" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Surveys\Views\Shared\Details.cshtml" />
@@ -730,12 +731,9 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\CustomString.cshtml" />
     <Content Include="Areas\Surveys\Views\MySurveys\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Questions\Index.cshtml" />
-    <Content Include="Areas\Surveys\Views\Public\Index.cshtml" />
     <Content Include="Areas\Surveys\Views\Surveys\FillingUp.cshtml" />
-    <Content Include="App_Data\Customers.csv" />
     <Content Include="Areas\Surveys\Views\Shared\_SurveysPartial.cshtml" />
     <Content Include="Areas\Surveys\Views\Shared\_Loading.cshtml" />
-    <Content Include="Areas\Surveys\Views\Shared\_AllSurveysPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infiniteScroll.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -754,7 +752,9 @@
     <Content Include="Scripts\kendo\kendo.all.min.js" />
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -778,10 +778,10 @@
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js.map" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Home\_MostPopularSurveysPartial.cshtml" />
-    <Content Include="Views\InfiniteScrollDemo\_CustomerRow.cshtml" />
-    <Content Include="Views\InfiniteScrollDemo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Surveys\Views\BaseScroll\" />
+    <Folder Include="Areas\Surveys\Views\Public\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>

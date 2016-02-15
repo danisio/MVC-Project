@@ -26,7 +26,7 @@ namespace MySurveys.Data.Migrations
 
         private void SeedSurveys(MySurveysDbContext context)
         {
-            if (context.Surveys.Any())
+            if (!context.Surveys.Any())
             {
                 var newSurvey = new Survey()
                 {
