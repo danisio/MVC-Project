@@ -2,10 +2,10 @@
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Areas.Surveys.ViewModels;
     using Base;
     using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
-    using ViewModels;
 
     public class HomeController : BaseController
     {
@@ -34,7 +34,7 @@
                             .GetMostPopular(3)
                             .To<SurveyViewModel>()
                             .ToList(),
-                            30 * 60);
+                            15 * 60);
 
             return this.PartialView("_MostPopularSurveysPartial", surveys);
         }

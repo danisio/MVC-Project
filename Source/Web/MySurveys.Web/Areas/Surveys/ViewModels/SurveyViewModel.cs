@@ -21,6 +21,7 @@
         [Required]
         [Display(Name = "Author")]
         [HiddenInput(DisplayValue = false)]
+        [UIHint("CustomString")]
         public string AuthorUsername { get; set; }
 
         public bool IsPublic { get; set; }
@@ -49,7 +50,7 @@
             configuration.CreateMap<Survey, SurveyViewModel>()
                 .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
                 .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
-                .ForMember(s => s.TotalResponses, opt => opt.MapFrom(q => q.Responses.Count))
+                .ForMember(s => s.TotalResponses, opt => opt.MapFrom(r => r.Responses.Count))
                 .ReverseMap();
         }
     }

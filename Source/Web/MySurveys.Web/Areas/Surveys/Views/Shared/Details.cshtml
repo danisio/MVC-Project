@@ -22,10 +22,12 @@
             <div>
                 @Html.LabelFor(m => m.TotalResponses)
                 @Html.DisplayFor(m => m.TotalResponses)
-            </div>
+            </div> <br /><br /><br />
             @if (Model.IsPublic || (!Model.IsPublic && this.User.Identity.IsAuthenticated))
             {
-                @Html.ActionLink("Start", "FillingUp", "Surveys", new { id = Model.Url.Substring(Model.Url.LastIndexOf('/') + 1), area = "Surveys" }, new { @class = "btn btn-lg btn-success" })
+                <div class="col-sm-offset-3 col-sm-6">
+                    @Html.ActionLink("Start", "FillingUp", "Surveys", new { id = Model.Url.Substring(Model.Url.LastIndexOf('/') + 1), area = "Surveys" }, new { @class = "btn btn-lg btn-primary btn-block" })
+                </div>
             }
         </div>
     </div>

@@ -58,7 +58,6 @@
         {
             return this.surveys
                                 .All()
-                                .Where(x => x.IsPublic == true)
                                 .OrderByDescending(x => x.Responses.Count)
                                 .Take(numberOfSurveys);
         }
