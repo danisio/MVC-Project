@@ -1,43 +1,39 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using Models;
     using Attributes;
+    using Base;
+    using Models;
     using Services.Contracts;
     using ViewModels;
-    using Web.Controllers.Base;
-    using MvcTemplate.Web.Infrastructure.Mapping;
-    using System.Collections.Generic;
 
     [Authorize]
-    public class SurveysController : BaseController
+    public class SurveysController : BaseScrollController
     {
-        public const int RecordsPerPage = 20;
+        private static ICollection<AnswerViewModel> currentAnswers =
+            new List<AnswerViewModel>();
 
-        public SurveysController(ISurveyService surveyService, IUserService userService, IQuestionService questionService)
+        public SurveysController(ISurveyService surveyService, IUserService userService, IQuestionService questionService, IResponseService responseService)
             : base(surveyService, userService)
         {
             this.QuestionService = questionService;
+            this.ResponseService = responseService;
         }
 
         public IQuestionService QuestionService { get; set; }
 
-        //// GET: Surveys/Surveys/Index
-        public ActionResult Index()
-        {
-            ViewBag.RecordsPerPage = RecordsPerPage;
-            return RedirectToAction("GetSurveys");
-        }
+        public IResponseService ResponseService { get; set; }
 
         //// GET: Surveys/Surveys/FillingUp
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult FillingUp(string id)
+        public ActionResult FillingUp(string Id)
         {
-            var survey = this.SurveyService.GetById(id); // TODO Get all data to map viewModel
+            var survey = this.SurveyService.GetById(Id);
             if (survey == null)
             {
                 throw new HttpException(404, "Survey not found");
@@ -49,7 +45,6 @@
             }
 
             var viewModel = this.Mapper.Map<SurveyViewModel>(survey);
-            //viewModel.IpAddress = this.GetUserIP();
             var firstQuestion = viewModel.Questions.ToList()[0];
             return this.View(firstQuestion);
         }
@@ -77,13 +72,13 @@
                     throw new HttpException(404, "Answer not found");
                 }
 
-                var newAnswer = new Answer()
+                var newAnswer = new AnswerViewModel()
                 {
-                    PossibleAnswerId = possibleAnswerId,
-                    ResponseId = 1
+                    QuestionId = dbQuestion.Id,
+                    PossibleAnswerId = possibleAnswerId
                 };
-
-                //dbQuestion.Answers.Add(newAnswer);
+                
+                currentAnswers.Add(newAnswer);
 
                 var nextQuestion = this.QuestionService.GetNext(dbQuestion, possibleAnswerId);
 
@@ -94,10 +89,9 @@
                 }
                 else
                 {
-                    this.QuestionService.Update(dbQuestion);
+                    this.SaveToDb(dbQuestion.SurveyId);
                     this.TempData["fin"] = "Thank you";
                 }
-
 
                 return this.RedirectToActionPermanent("Index", "Home", new { area = String.Empty });
             }
@@ -105,46 +99,28 @@
             throw new HttpException(404, "Question not found");
         }
 
-        public ActionResult GetSurveys(int? pageNum)
+        private void SaveToDb(int surveyId)
         {
-            pageNum = pageNum ?? 0;
-            ViewBag.IsEndOfRecords = false;
-            if (Request.IsAjaxRequest())
+            var currentSurvey = this.SurveyService.GetById(surveyId);
+
+            var newResponse = new ResponseViewModel()
             {
-                var surveys = GetRecordsForPage(pageNum.Value);
-                ViewBag.IsEndOfRecords = (surveys.Any()) && ((pageNum.Value * RecordsPerPage) >= surveys.Last().Key);
-                return PartialView("_SurveysPartial", surveys);
-            }
-            else
-            {
-                LoadAllSurveysToSession();
-                ViewBag.Surveys = GetRecordsForPage(pageNum.Value);
-                return View("Index");
-            }
+                AuthorId = this.CurrentUser == null ? this.AnonimousUser.Id : this.CurrentUser.Id,
+                Answers = currentAnswers
+            };
+
+            var mapped = this.Mapper.Map<Response>(newResponse);
+            var saves = this.ResponseService.Add(mapped);
+            currentSurvey.Responses.Add(saves);
+            this.SurveyService.Update(currentSurvey);
+
+
         }
 
-        public Dictionary<int, SurveyViewModel> GetRecordsForPage(int pageNum)
+        protected override IQueryable<Survey> GetData()
         {
-            Dictionary<int, SurveyViewModel> surveys = (Session["Surveys"] as Dictionary<int, SurveyViewModel>);
-
-            int from = (pageNum * RecordsPerPage);
-            int to = from + RecordsPerPage;
-
-            return surveys
-                .Where(x => x.Key > from && x.Key <= to)
-                .OrderBy(x => x.Key)
-                .ToDictionary(x => x.Key, x => x.Value);
-        }
-
-        public void LoadAllSurveysToSession()
-        {
-            var surveys = this.SurveyService
-                              .GetAll()
-                              .To<SurveyViewModel>();
-
-            int surveyIndex = 1;
-            Session["Surveys"] = surveys.ToDictionary(x => surveyIndex++, x => x);
-            ViewBag.TotalNumberCustomers = surveys.Count();
+            return this.SurveyService
+                        .GetAll();
         }
     }
 }

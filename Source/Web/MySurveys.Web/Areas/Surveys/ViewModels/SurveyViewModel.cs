@@ -21,13 +21,21 @@
         [Required]
         [Display(Name = "Author")]
         [HiddenInput(DisplayValue = false)]
+        [UIHint("CustomString")]
         public string AuthorUsername { get; set; }
 
+        [UIHint("CustomBool")]
         public bool IsPublic { get; set; }
 
         public ICollection<QuestionViewModel> Questions { get; set; }
 
         public ICollection<ResponseViewModel> Responses { get; set; }
+
+        [Display(Name = "Total Questions")]
+        public int TotalQuestions { get; set; }
+
+        [Display(Name = "Total Participants")]
+        public int TotalResponses { get; set; }
 
         public string Url
         {
@@ -42,6 +50,8 @@
         {
             configuration.CreateMap<Survey, SurveyViewModel>()
                 .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
+                .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
+                .ForMember(s => s.TotalResponses, opt => opt.MapFrom(r => r.Responses.Count))
                 .ReverseMap();
         }
     }

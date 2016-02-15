@@ -20,8 +20,6 @@
 
         public virtual User Author { get; set; }
 
-        public string SurveyId { get; set; }
-
         public virtual Survey Survey { get; set; }
 
         public virtual ICollection<Answer> Answers

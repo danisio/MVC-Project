@@ -1,29 +1,17 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
+    using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using Web.ViewModels;
-    using Services.Contracts;
-    using Web.Controllers.Base;
-    using MvcTemplate.Web.Infrastructure.Mapping;
-    using System.Linq;
+    using Base;
     using Models;
-
-    public class PublicController : BaseController
+    using Services.Contracts;
+    using ViewModels;
+    public class PublicController : BaseScrollController
     {
         public PublicController(ISurveyService surveyService, IUserService userService)
             : base(surveyService, userService)
         {
-        }
-
-        //// GET: Surveys/Public/Index
-        public ActionResult Index()
-        {
-            var surveys = this.SurveyService
-                              .GetAllPublic()
-                              .To<ViewModels.SurveyViewModel>();
-
-            return this.View(surveys);
         }
 
         //// GET: Surveys/Public/Details
@@ -38,6 +26,12 @@
             var viewModel = this.Mapper.Map<SurveyViewModel>(survey);
 
             return this.View(viewModel);
+        }
+
+        protected override IQueryable<Survey> GetData()
+        {
+            return this.SurveyService
+                        .GetAllPublic();
         }
     }
 }

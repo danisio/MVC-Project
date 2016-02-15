@@ -29,8 +29,8 @@
                 @foreach (var item in Model.PossibleAnswers)
                 {
                     <div>
-                        @Html.RadioButtonFor(m => item.Id, item.Id, new { @checked = false})
-                        <label>@item.Content</label>
+                        @Html.RadioButtonFor(m => item.Id, item.Id, new { id = item.Id})
+                        <label for="@item.Id">@item.Content</label>
                     </div>
                 }
                 @*@Html.ValidationMessageFor(m => m.)*@

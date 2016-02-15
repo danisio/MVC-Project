@@ -2,13 +2,14 @@
 @foreach (var item in Model)
 {
     <tr>
-        <td>@item.Key</td>
+        <td class="text-center">@item.Key</td>
         <td>@item.Value.Title</td>
         <td>@item.Value.AuthorUsername</td>
-        <td>@item.Value.Questions.Count</td>
-        <td>@item.Value.Responses.Count</td>
+        <td class="text-center">@item.Value.Questions.Count</td>
+        <td class="text-center">@item.Value.Responses.Count</td>
+        <td class="text-center">@Html.DisplayFor(m=>item.Value.IsPublic)</td>
         <td>
-            <a href="@Url.Action("FillingUp", "Surveys", new { id = item.Value.Url.Substring(item.Value.Url.LastIndexOf('/')), area = "Surveys" })" class="btn btn-lg btn-primary btn-block">
+            <a href="@Url.Action("FillingUp", "Surveys", new { id = item.Value.Url.Substring(item.Value.Url.LastIndexOf('/') + 1), area = "Surveys" })" class="btn btn-md btn-primary btn-block">
                 <i class="glyphicon glyphicon-pencil">Start</i>
                 <span class="sr-only">Start</span>
             </a>
