@@ -5,7 +5,6 @@
     using System.Web.Mvc;
     using Base;
     using Models;
-    using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
     using ViewModels;
     public class PublicController : BaseScrollController

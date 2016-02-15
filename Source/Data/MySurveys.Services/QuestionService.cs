@@ -48,9 +48,10 @@
             }
             else
             {
-                //var all = this.questions.All();
-                //var possibleId = question.PossibleAnswers.First().Id;
-                return this.questions.All().FirstOrDefault(q => q.ParentPossibleAnswerId == question.PossibleAnswers.First().Id);
+                var all = this.questions.All();
+                var possibleId = question.PossibleAnswers.First().Id;
+
+                return all.FirstOrDefault(q => q.ParentPossibleAnswerId == possibleId);
             }
         }
     }

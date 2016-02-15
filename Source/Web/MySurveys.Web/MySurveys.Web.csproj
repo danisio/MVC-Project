@@ -255,7 +255,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Surveys\ViewModels\QuestionViewModel.cs" />
-    <Compile Include="ViewModels\SurveyViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangeEmailViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\ProfileViewModel.cs" />
