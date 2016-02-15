@@ -22,7 +22,7 @@
             <div>
                 @Html.LabelFor(m => m.TotalResponses)
                 @Html.DisplayFor(m => m.TotalResponses)
-            </div> <br /><br /><br />
+            </div><br /><br /><br />
             @if (Model.IsPublic || (!Model.IsPublic && this.User.Identity.IsAuthenticated))
             {
                 <div class="col-sm-offset-3 col-sm-6">

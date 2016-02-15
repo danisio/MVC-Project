@@ -10,14 +10,15 @@
 
     @using MySurveys.Web.Areas.Surveys.ViewModels
 
-    <table id="survey-list" class="table table-striped table-responsive table-hover table-bordered infinite-scroll">
-        <thead>
+    <table id="survey-list" class="table table-striped table-condensed table-responsive table-hover table-bordered infinite-scroll">
+        <thead class="text-center">
             <tr>
                 <th class="col-xs-1">№</th>
-                <th class="col-xs-4">Title</th>
+                <th class="col-xs-3">Title</th>
                 <th class="col-xs-3">Author</th>
                 <th class="col-xs-1">Total Questions</th>
                 <th class="col-xs-1">Total Participants</th>
+                <th class="col-xs-1">Public</th>
                 <th class="col-xs-2">Options</th>
             </tr>
         </thead>
@@ -30,8 +31,8 @@
 @Scripts.Render("~/bundles/infinityScroll")
 <script>
     $(function () {
-    $("div#loading").hide();
-});
-var moreRowsUrl = '@Url.RouteUrl("Surveys_Scroll")';
-$(window).scroll(scrollHandler);
+        $("div#loading").hide();
+    });
+    var moreRowsUrl = '@Url.RouteUrl("Surveys_Scroll")';
+    $(window).scroll(scrollHandler);
 </script>

@@ -24,6 +24,7 @@
         [UIHint("CustomString")]
         public string AuthorUsername { get; set; }
 
+        [UIHint("CustomBool")]
         public bool IsPublic { get; set; }
 
         public ICollection<QuestionViewModel> Questions { get; set; }

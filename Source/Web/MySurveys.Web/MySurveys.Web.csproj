@@ -785,11 +785,11 @@
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js.map" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Home\_MostPopularSurveysPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CustomBool.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Surveys\Views\BaseScroll\" />
     <Folder Include="Areas\Surveys\Views\Public\" />
-    <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
