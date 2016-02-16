@@ -17,8 +17,12 @@
         private static ICollection<AnswerViewModel> currentAnswers =
             new List<AnswerViewModel>();
 
-        public SurveysController(ISurveyService surveyService, IUserService userService, IQuestionService questionService, IResponseService responseService)
-            : base(surveyService, userService)
+        public SurveysController(
+            ISurveyService surveyService,
+            IUserService userService,
+            IQuestionService questionService,
+            IResponseService responseService)
+            : base(userService, surveyService)
         {
             this.QuestionService = questionService;
             this.ResponseService = responseService;
@@ -31,9 +35,9 @@
         //// GET: Surveys/Surveys/FillingUp
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult FillingUp(string Id)
+        public ActionResult FillingUp(string id)
         {
-            var survey = this.SurveyService.GetById(Id);
+            var survey = this.SurveyService.GetById(id);
             if (survey == null)
             {
                 throw new HttpException(404, "Survey not found");
@@ -41,7 +45,7 @@
 
             if (!survey.IsPublic && this.CurrentUser == null)
             {
-                return this.RedirectToAction("Login", "Account", new { area = String.Empty });
+                return this.RedirectToAction("Login", "Account", new { area = string.Empty });
             }
 
             var viewModel = this.Mapper.Map<SurveyViewModel>(survey);
@@ -77,7 +81,7 @@
                     QuestionId = dbQuestion.Id,
                     PossibleAnswerId = possibleAnswerId
                 };
-                
+
                 currentAnswers.Add(newAnswer);
 
                 var nextQuestion = this.QuestionService.GetNext(dbQuestion, possibleAnswerId);
@@ -93,10 +97,16 @@
                     this.TempData["fin"] = "Thank you";
                 }
 
-                return this.RedirectToActionPermanent("Index", "Home", new { area = String.Empty });
+                return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
             }
 
             throw new HttpException(404, "Question not found");
+        }
+
+        protected override IQueryable<Survey> GetData()
+        {
+            return this.SurveyService
+                        .GetAll();
         }
 
         private void SaveToDb(int surveyId)
@@ -113,14 +123,6 @@
             var saves = this.ResponseService.Add(mapped);
             currentSurvey.Responses.Add(saves);
             this.SurveyService.Update(currentSurvey);
-
-
-        }
-
-        protected override IQueryable<Survey> GetData()
-        {
-            return this.SurveyService
-                        .GetAll();
         }
     }
 }

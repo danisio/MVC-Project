@@ -7,10 +7,11 @@
     using Models;
     using Services.Contracts;
     using ViewModels;
+
     public class PublicController : BaseScrollController
     {
         public PublicController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+            : base(userService, surveyService)
         {
         }
 

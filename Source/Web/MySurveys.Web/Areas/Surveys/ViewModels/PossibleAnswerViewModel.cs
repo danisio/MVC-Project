@@ -4,8 +4,8 @@
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
     using AutoMapper;
-    using MvcTemplate.Web.Infrastructure.Mapping;
     using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
 
     public class PossibleAnswerViewModel : IMapFrom<PossibleAnswer>, IHaveCustomMappings
     {

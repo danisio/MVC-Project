@@ -1,10 +1,9 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
 {
     using System.Web.Mvc;
-    using MvcTemplate.Web.Infrastructure.Mapping;
-    using Models;
     using AutoMapper;
-    using System;
+    using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
 
     public class AnswerViewModel : IMapFrom<Answer>, IHaveCustomMappings
     {
@@ -20,9 +19,9 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Answer, AnswerViewModel>()
-               .ForMember(s => s.QuestionId, opt => opt.MapFrom(r=>r.QuestionId))
-               .ForMember(s => s.PossibleAnswerId, opt => opt.MapFrom(r=>r.PossibleAnswerId))
-               .ForMember(s => s.ResponseId, opt => opt.MapFrom(r=>r.ResponseId))
+               .ForMember(s => s.QuestionId, opt => opt.MapFrom(r => r.QuestionId))
+               .ForMember(s => s.PossibleAnswerId, opt => opt.MapFrom(r => r.PossibleAnswerId))
+               .ForMember(s => s.ResponseId, opt => opt.MapFrom(r => r.ResponseId))
                .ReverseMap();
         }
     }

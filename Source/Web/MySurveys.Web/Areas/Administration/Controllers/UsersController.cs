@@ -2,17 +2,15 @@
 {
     using System.Collections;
     using System.Web.Mvc;
-    using Infrastructure.Mapping;
     using Kendo.Mvc.UI;
-    using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
     using ViewModels;
 
     public class UsersController : AdminController
     {
-        public UsersController(ISurveyService surveyService, IUserService userService)
-              : base(surveyService, userService)
+        public UsersController(IUserService userService)
+              : base(userService)
         {
         }
 

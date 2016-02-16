@@ -14,7 +14,6 @@
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
-
             context.MapRoute(
                "Surveys_Scroll",
                "Surveys/{controller}/{action}",

@@ -26,7 +26,7 @@
         public int TotalQuestions { get; set; }
 
         [HiddenInput(DisplayValue = false)]
-        public int TotalResponses{ get; set; }
+        public int TotalResponses { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

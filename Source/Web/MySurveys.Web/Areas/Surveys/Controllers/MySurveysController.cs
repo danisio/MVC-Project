@@ -7,8 +7,8 @@
     [Authorize]
     public class MySurveysController : BaseController
     {
-        public MySurveysController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public MySurveysController(IUserService userService)
+            : base(userService)
         {
         }
 
