@@ -74,7 +74,7 @@
 
                 if (nextQuestion != null)
                 {
-                    if (!nextQuestion.Answers.Any())
+                    if (!nextQuestion.PossibleAnswers.Any())
                     {
                         this.TempData["fin"] = nextQuestion.Content;
                         return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
