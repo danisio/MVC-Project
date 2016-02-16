@@ -1,17 +1,18 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
     using AutoMapper;
     using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
 
     public class QuestionViewModel : IMapFrom<Question>, IHaveCustomMappings
     {
-        public int? Id { get; set; }
-
         [Required]
+        [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
+        
         [StringLength(200), MinLength(3)]
         public string Content { get; set; }
 

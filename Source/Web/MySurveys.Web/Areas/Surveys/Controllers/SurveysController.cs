@@ -74,6 +74,12 @@
 
                 if (nextQuestion != null)
                 {
+                    if (!nextQuestion.Answers.Any())
+                    {
+                        this.TempData["fin"] = nextQuestion.Content;
+                        return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
+                    }
+
                     var viewModel = this.Mapper.Map<QuestionViewModel>(nextQuestion);
                     return this.View(viewModel);
                 }

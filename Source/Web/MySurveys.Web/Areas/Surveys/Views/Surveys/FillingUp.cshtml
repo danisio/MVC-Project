@@ -6,19 +6,22 @@
 
 <div class="row">
     <div class="text-center">
-       <h2>@Model.SurveyTitle</h2>
+        <h2>@Model.SurveyTitle</h2>
         <h5>Questions</h5>
     </div>
     @using (Ajax.BeginForm("FillingUp", null,
-                                        new AjaxOptions
-                                        {
-                                            HttpMethod = "POST",
-                                            InsertionMode = InsertionMode.Replace
-                                        }, new { id = "fillingUpForm" }))
+                                                    new AjaxOptions
+                                                    {
+                                                        HttpMethod = "POST",
+                                                        InsertionMode = InsertionMode.Replace
+                                                    }, new { id = "fillingUpForm" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
+        <div class="col-md-offset-3 col-lg-6">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+        </div>
 
+        @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
         <div class="jumbotron col-md-offset-3 col-lg-6">
             <div>
                 <h4><u>@Html.DisplayFor(m => m.Content)</u></h4>
@@ -28,7 +31,7 @@
                 @foreach (var item in Model.PossibleAnswers)
                 {
                     <div>
-                        @Html.RadioButtonFor(m => item.Id, item.Id, new { id = item.Id})
+                        @Html.RadioButtonFor(m => item.Id, item.Id, new { id = item.Id })
                         <label for="@item.Id">@item.Content</label>
                     </div>
                 }
@@ -39,3 +42,9 @@
         </div>
     }
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('input:radio').attr('checked', false);
+    </script>
+}

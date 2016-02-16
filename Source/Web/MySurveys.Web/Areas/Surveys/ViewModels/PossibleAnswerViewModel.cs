@@ -13,7 +13,7 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200), MinLength(2)]
+        [StringLength(200), MinLength(2, ErrorMessage = "You should select one of the answers.")]
         public string Content { get; set; }
 
         public int QuestionId { get; set; }
