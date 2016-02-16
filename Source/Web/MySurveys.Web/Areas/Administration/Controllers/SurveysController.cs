@@ -9,10 +9,13 @@
 
     public class SurveysController : AdminController
     {
-        public SurveysController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public SurveysController(IUserService userService, ISurveyService surveyService)
+            : base(userService)
         {
+            this.SurveyService = surveyService;
         }
+
+        public ISurveyService SurveyService { get; set; }
 
         //// GET: Administration/Surveys
         public ActionResult Index()

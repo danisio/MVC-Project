@@ -4,8 +4,8 @@
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
     using AutoMapper;
-    using MvcTemplate.Web.Infrastructure.Mapping;
     using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
 
     public class PossibleAnswerViewModel : IMapFrom<PossibleAnswer>, IHaveCustomMappings
     {
@@ -13,7 +13,7 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200), MinLength(2)]
+        [StringLength(200), MinLength(2, ErrorMessage = "You should select one of the answers.")]
         public string Content { get; set; }
 
         public int QuestionId { get; set; }

@@ -15,14 +15,15 @@
     [HandleError]
     public class BaseController : Controller
     {
-        public BaseController(ISurveyService surveyService, IUserService userService)
+        public BaseController(IUserService userService)
         {
             this.UserService = userService;
-            this.SurveyService = surveyService;
         }
 
         [Inject]
         public ICacheService Cache { get; set; }
+
+        public IUserService UserService { get; set; }
 
         protected IMapper Mapper
         {
@@ -31,10 +32,6 @@
                 return AutoMapperConfig.Configuration.CreateMapper();
             }
         }
-
-        protected IUserService UserService { get; set; }
-
-        protected ISurveyService SurveyService { get; set; }
 
         protected User CurrentUser { get; private set; }
 

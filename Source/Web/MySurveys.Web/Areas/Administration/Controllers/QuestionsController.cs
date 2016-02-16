@@ -9,8 +9,8 @@
 
     public class QuestionsController : AdminController
     {
-        public QuestionsController(IQuestionService questionService, ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public QuestionsController(IUserService userService, IQuestionService questionService)
+            : base(userService)
         {
             this.QuestionService = questionService;
         }

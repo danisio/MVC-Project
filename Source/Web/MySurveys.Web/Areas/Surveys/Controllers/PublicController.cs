@@ -7,20 +7,25 @@
     using Models;
     using Services.Contracts;
     using ViewModels;
+
     public class PublicController : BaseScrollController
     {
         public PublicController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+            : base(userService, surveyService)
         {
         }
 
         //// GET: Surveys/Public/Details
         public ActionResult Details(string id)
         {
-            var survey = this.SurveyService.GetById(id);
-            if (survey == null)
+            Survey survey;
+            try
             {
-                throw new HttpException(404, "Survey not found");
+                survey = this.SurveyService.GetById(id);
+            }
+            catch (System.Exception)
+            {
+                throw new HttpException(404, "Survey not found.");
             }
 
             var viewModel = this.Mapper.Map<SurveyViewModel>(survey);

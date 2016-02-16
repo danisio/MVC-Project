@@ -5,23 +5,27 @@
     using System.Web.Mvc;
     using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
-    using MySurveys.Web.Controllers.Base;
     using Services.Contracts;
     using ViewModels;
+    using Web.Controllers.Base;
+
     public abstract class BaseScrollController : BaseController
     {
         public const int RecordsPerPage = 10;
 
-        public BaseScrollController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public BaseScrollController(IUserService userService, ISurveyService surveyService)
+            : base(userService)
         {
+            this.SurveyService = surveyService;
         }
+
+        protected ISurveyService SurveyService { get; set; }
 
         //// GET: Surveys/Surveys/Index
         public ActionResult Index()
         {
             ViewBag.RecordsPerPage = RecordsPerPage;
-            return RedirectToAction("GetSurveys");
+            return this.RedirectToAction("GetSurveys");
         }
 
         public ActionResult GetSurveys(int? pageNum)
@@ -30,23 +34,23 @@
             ViewBag.IsEndOfRecords = false;
             if (Request.IsAjaxRequest())
             {
-                var surveys = GetRecordsForPage(pageNum.Value);
-                ViewBag.IsEndOfRecords = (surveys.Any()) && ((pageNum.Value * RecordsPerPage) >= surveys.Last().Key);
-                return PartialView("_SurveysPartial", surveys);
+                var surveys = this.GetRecordsForPage(pageNum.Value);
+                ViewBag.IsEndOfRecords = surveys.Any() && ((pageNum.Value * RecordsPerPage) >= surveys.Last().Key);
+                return this.PartialView("_SurveysPartial", surveys);
             }
             else
             {
-                LoadAllSurveysToSession();
-                ViewBag.Surveys = GetRecordsForPage(pageNum.Value);
-                return View("Index");
+                this.LoadAllSurveysToSession();
+                ViewBag.Surveys = this.GetRecordsForPage(pageNum.Value);
+                return this.View("Index");
             }
         }
 
         public Dictionary<int, SurveyViewModel> GetRecordsForPage(int pageNum)
         {
-            Dictionary<int, SurveyViewModel> surveys = (Session["Surveys"] as Dictionary<int, SurveyViewModel>);
+            Dictionary<int, SurveyViewModel> surveys = Session["Surveys"] as Dictionary<int, SurveyViewModel>;
 
-            int from = (pageNum * RecordsPerPage);
+            int from = pageNum * RecordsPerPage;
             int to = from + RecordsPerPage;
 
             return surveys
@@ -57,11 +61,11 @@
 
         public void LoadAllSurveysToSession()
         {
-            var surveys = GetData()
+            var surveys = this.GetData()
                             .To<SurveyViewModel>();
 
             int surveyIndex = 1;
-            Session["Surveys"] = surveys.ToDictionary(x => surveyIndex++, x => x);
+            this.Session["Surveys"] = surveys.ToDictionary(x => surveyIndex++, x => x);
             ViewBag.TotalNumberCustomers = surveys.Count();
         }
 

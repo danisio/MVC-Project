@@ -17,8 +17,12 @@
         private static ICollection<AnswerViewModel> currentAnswers =
             new List<AnswerViewModel>();
 
-        public SurveysController(ISurveyService surveyService, IUserService userService, IQuestionService questionService, IResponseService responseService)
-            : base(surveyService, userService)
+        public SurveysController(
+            ISurveyService surveyService,
+            IUserService userService,
+            IQuestionService questionService,
+            IResponseService responseService)
+            : base(userService, surveyService)
         {
             this.QuestionService = questionService;
             this.ResponseService = responseService;
@@ -31,17 +35,21 @@
         //// GET: Surveys/Surveys/FillingUp
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult FillingUp(string Id)
+        public ActionResult FillingUp(string id)
         {
-            var survey = this.SurveyService.GetById(Id);
-            if (survey == null)
+            Survey survey;
+            try
             {
-                throw new HttpException(404, "Survey not found");
+                survey = this.SurveyService.GetById(id);
+            }
+            catch (Exception)
+            {
+                throw new HttpException(404, "Survey not found.");
             }
 
             if (!survey.IsPublic && this.CurrentUser == null)
             {
-                return this.RedirectToAction("Login", "Account", new { area = String.Empty });
+                return this.RedirectToAction("Login", "Account", new { area = string.Empty });
             }
 
             var viewModel = this.Mapper.Map<SurveyViewModel>(survey);
@@ -61,66 +69,82 @@
                 var questionId = Convert.ToInt32(form["Id"].ToString());
                 var possibleAnswerId = Convert.ToInt32(form["item.Id"].ToString());
 
-                var dbQuestion = this.QuestionService.GetById(questionId);
-                if (dbQuestion == null)
-                {
-                    throw new HttpException(404, "Question not found");
-                }
-
-                if (!dbQuestion.PossibleAnswers.Any(x => x.Id == possibleAnswerId))
-                {
-                    throw new HttpException(404, "Answer not found");
-                }
-
-                var newAnswer = new AnswerViewModel()
-                {
-                    QuestionId = dbQuestion.Id,
-                    PossibleAnswerId = possibleAnswerId
-                };
-                
-                currentAnswers.Add(newAnswer);
-
+                var dbQuestion = this.ValidateFormAndAddAnswer(questionId, possibleAnswerId);
                 var nextQuestion = this.QuestionService.GetNext(dbQuestion, possibleAnswerId);
 
                 if (nextQuestion != null)
                 {
+                    if (!nextQuestion.Answers.Any())
+                    {
+                        this.TempData["fin"] = nextQuestion.Content;
+                        return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
+                    }
+
                     var viewModel = this.Mapper.Map<QuestionViewModel>(nextQuestion);
                     return this.View(viewModel);
                 }
                 else
                 {
                     this.SaveToDb(dbQuestion.SurveyId);
-                    this.TempData["fin"] = "Thank you";
+                    this.TempData["fin"] = "Thank you!";
                 }
 
-                return this.RedirectToActionPermanent("Index", "Home", new { area = String.Empty });
+                return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
             }
 
             throw new HttpException(404, "Question not found");
         }
 
+        [NonAction]
+        protected override IQueryable<Survey> GetData()
+        {
+            return this.SurveyService
+                        .GetAll();
+        }
+
+        [NonAction]
+        private Question ValidateFormAndAddAnswer(int questionId, int possibleAnswerId)
+        {
+            Question dbQuestion;
+            try
+            {
+                dbQuestion = this.QuestionService.GetById(questionId);
+            }
+            catch (Exception)
+            {
+                throw new HttpException(404, "Question not found");
+            }
+
+            if (!dbQuestion.PossibleAnswers.Any(x => x.Id == possibleAnswerId))
+            {
+                throw new HttpException(404, "Answer not found");
+            }
+
+            var newAnswer = new AnswerViewModel()
+            {
+                QuestionId = dbQuestion.Id,
+                PossibleAnswerId = possibleAnswerId
+            };
+
+            currentAnswers.Add(newAnswer);
+            return dbQuestion;
+        }
+
+        [NonAction]
         private void SaveToDb(int surveyId)
         {
             var currentSurvey = this.SurveyService.GetById(surveyId);
-
             var newResponse = new ResponseViewModel()
             {
                 AuthorId = this.CurrentUser == null ? this.AnonimousUser.Id : this.CurrentUser.Id,
                 Answers = currentAnswers
             };
 
-            var mapped = this.Mapper.Map<Response>(newResponse);
-            var saves = this.ResponseService.Add(mapped);
-            currentSurvey.Responses.Add(saves);
+            var viewModel = this.Mapper.Map<Response>(newResponse);
+            var saved = this.ResponseService.Add(viewModel);
+
+            currentSurvey.Responses.Add(saved);
             this.SurveyService.Update(currentSurvey);
-
-
-        }
-
-        protected override IQueryable<Survey> GetData()
-        {
-            return this.SurveyService
-                        .GetAll();
         }
     }
 }

@@ -11,8 +11,8 @@
     [Authorize(Roles = GlobalConstants.AdminRoleName)]
     public abstract class AdminController : BaseController
     {
-        public AdminController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public AdminController(IUserService userService)
+            : base(userService)
         {
         }
 
