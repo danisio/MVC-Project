@@ -61,5 +61,13 @@
                                 .OrderByDescending(x => x.Responses.Count)
                                 .Take(numberOfSurveys);
         }
+
+        public Survey Add(Survey survey)
+        {
+            this.surveys.Add(survey);
+            this.surveys.SaveChanges();
+
+            return survey;
+        }
     }
 }

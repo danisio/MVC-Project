@@ -13,7 +13,8 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200), MinLength(2, ErrorMessage = "You should select one of the answers.")]
+        [Display(Name = "Possible answer")]
+        [StringLength(200), MinLength(5)]
         public string Content { get; set; }
 
         public int QuestionId { get; set; }

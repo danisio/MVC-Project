@@ -24,6 +24,8 @@
         [UIHint("CustomString")]
         public string AuthorUsername { get; set; }
 
+        public string AuthorId { get; set; }
+
         [UIHint("CustomBool")]
         public bool IsPublic { get; set; }
 

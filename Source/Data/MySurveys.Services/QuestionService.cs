@@ -43,7 +43,7 @@
             if (question.IsDependsOn)
             {
                 return this.questions.All()
-                                    .Where(q => q.ParentPossibleAnswerId == possibleAnswerId)
+                                    .Where(q => q.ParentId == possibleAnswerId)
                                     .FirstOrDefault();
             }
             else
@@ -51,7 +51,7 @@
                 var all = this.questions.All();
                 var possibleId = question.PossibleAnswers.First().Id;
 
-                return all.FirstOrDefault(q => q.ParentPossibleAnswerId == possibleId);
+                return all.FirstOrDefault(q => q.ParentId == possibleId);
             }
         }
     }

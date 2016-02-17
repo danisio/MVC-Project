@@ -741,6 +741,9 @@
     <Content Include="Areas\Surveys\Views\Surveys\FillingUp.cshtml" />
     <Content Include="Areas\Surveys\Views\Shared\_SurveysPartial.cshtml" />
     <Content Include="Areas\Surveys\Views\Shared\_Loading.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_AddNewQuestionPartial.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_EditQuestionPartial.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_SaveSurveyPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infiniteScroll.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

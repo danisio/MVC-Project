@@ -13,6 +13,8 @@
 
         Survey GetById(string id);
 
+        Survey Add(Survey survey);
+
         Survey Update(Survey survey);
 
         void Delete(object id);

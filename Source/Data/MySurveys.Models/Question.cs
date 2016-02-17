@@ -28,7 +28,7 @@
 
         public virtual Survey Survey { get; set; }
 
-        public int? ParentPossibleAnswerId { get; set; }
+        public int ParentId { get; set; }
 
         public bool IsDependsOn { get; set; }
 
