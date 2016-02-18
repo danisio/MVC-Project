@@ -12,13 +12,13 @@
         [Required]
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
-        
-        [StringLength(200), MinLength(3)]
+
+        //[StringLength(200), MinLength(3)]
         public string Content { get; set; }
 
         public int SurveyId { get; set; }
 
-        public int ParentId { get; set; }
+        public string ParentContent { get; set; }
 
         public string SurveyTitle { get; set; }
 
@@ -28,9 +28,9 @@
         [UIHint("CustomBool")]
         public bool IsDependsOn { get; set; }
 
-        public IList<AnswerViewModel> Answers { get; set; }
+        public List<AnswerViewModel> Answers { get; set; }
 
-        public IList<PossibleAnswerViewModel> PossibleAnswers { get; set; }
+        public List<PossibleAnswerViewModel> PossibleAnswers { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

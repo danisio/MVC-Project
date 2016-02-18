@@ -12,11 +12,13 @@
     {
         private static List<QuestionViewModel> questions = new List<QuestionViewModel>();
         private ISurveyService surveyService;
+        private IQuestionService questionService;
 
-        public MySurveysController(IUserService userService, ISurveyService surveyService)
+        public MySurveysController(IUserService userService, ISurveyService surveyService, IQuestionService questionService)
             : base(userService)
         {
             this.surveyService = surveyService;
+            this.questionService = questionService;
         }
 
         //// GET: Surveys/MySurveys/All
@@ -55,14 +57,7 @@
                 model.Index = (questions.Count == 0 ? 0 : questions.Where(q => q.IsDependsOn == false).Count()) + 1;
             }
 
-            for (int i = 0; i < model.PossibleAnswers.Count; i++)
-            {
-                var currentAnswer = model.PossibleAnswers[i];
-                if (currentAnswer.Content == null)
-                {
-                    model.PossibleAnswers.Remove(currentAnswer);
-                }
-            }
+            model.PossibleAnswers.RemoveAll(item => item.Content == null);
 
             questions.Add(model);
             //if (model.IsDependsOn==true || )
@@ -80,15 +75,17 @@
         }
 
         [HttpGet]
-        public ActionResult EditQuestion(int id)
+        public ActionResult EditQuestion(int id, string content)
         {
             List<SelectListItem> dropdownItems = questions
+               .Where(item => item.Content != content || item.ParentContent != null) // check
                .Select(item => new SelectListItem
                {
                    Value = item.Content,
                    Text = item.Content
                })
                .ToList();
+
             ViewBag.Questions = dropdownItems;
             var question = questions[id];
             return PartialView("_EditQuestionPartial", question);
@@ -96,8 +93,21 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditQuestion(QuestionViewModel model)
+        public ActionResult EditQuestion(QuestionViewModel model, FormCollection form)
         {
+            var answers = form["item.Content"].ToString().Split(',');
+            var selected = form["Questions"].ToString().Split(',');
+            if (answers.Length != selected.Length)
+            {
+                return PartialView("_EditQuestionPartial", model);
+            }
+
+            for (int i = 0; i < answers.Length; i++)
+            {
+                var answer = questions.SelectMany(q => q.PossibleAnswers).FirstOrDefault(a => a.Content == answers[0]);
+                var question = questions.Where(q => q.Content == selected[i]).FirstOrDefault();
+                question.ParentContent = answer.Content;
+            }
 
             return RedirectToAction("Create");
         }
@@ -111,6 +121,12 @@
         [HttpPost]
         public ActionResult SaveSurvey(SurveyViewModel model)
         {
+            if (questions.Where(q => q.ParentContent == null).Count() > 1)
+            {
+                this.TempData["error"] = "Please specify the next question for each answer from EDIT menu.";
+                return RedirectToAction("Create", model);
+            }
+
             var newSurvey = new SurveyViewModel()
             {
                 IsPublic = model.IsPublic,
@@ -120,10 +136,10 @@
             };
 
             var viewModel = this.Mapper.Map<Survey>(newSurvey);
-
             this.surveyService.Add(viewModel);
+
             questions.Clear();
-            return RedirectToAction("Create");
+            return RedirectToAction("Index", "Surveys", new { area = "Surveys" });
         }
     }
 }

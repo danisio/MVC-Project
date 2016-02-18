@@ -51,7 +51,7 @@ namespace MySurveys.Data.Migrations
                 var secondQuestion = new Question()
                 {
                     Content = "Do you smoke?",
-                    ParentId = firstQuestion.PossibleAnswers.FirstOrDefault().Id
+                    ParentContent = firstQuestion.PossibleAnswers.FirstOrDefault().Content
                 };
 
                 secondQuestion.IsDependsOn = true;
@@ -67,7 +67,7 @@ namespace MySurveys.Data.Migrations
                 var thirdQuestion = new Question()
                 {
                     Content = "What's your age?",
-                    ParentId = yesAnswer.Id
+                    ParentContent = yesAnswer.Content
                 };
 
                 var underAnswer = new PossibleAnswer() { Content = "Under 25" };
@@ -82,7 +82,7 @@ namespace MySurveys.Data.Migrations
                 var fourthQuestion = new Question()
                 {
                     Content = "Sorry, you are not suitable for this survey.",
-                    ParentId = noAnswer.Id
+                    ParentContent = noAnswer.Content
                 };
 
                 newSurvey.Questions.Add(fourthQuestion);
@@ -110,7 +110,7 @@ namespace MySurveys.Data.Migrations
                 var secondQuestion1 = new Question()
                 {
                     Content = "Do you smoke?",
-                    ParentId = firstQuestion1.PossibleAnswers.FirstOrDefault().Id
+                    ParentContent = firstQuestion1.PossibleAnswers.FirstOrDefault().Content
                 };
 
                 secondQuestion1.IsDependsOn = true;
@@ -126,7 +126,7 @@ namespace MySurveys.Data.Migrations
                 var thirdQuestion1 = new Question()
                 {
                     Content = "What's your age?",
-                    ParentId = yesAnswer1.Id
+                    ParentContent = yesAnswer1.Content
                 };
 
                 var underAnswer1 = new PossibleAnswer() { Content = "Under 25" };
@@ -141,7 +141,7 @@ namespace MySurveys.Data.Migrations
                 var fourthQuestion1 = new Question()
                 {
                     Content = "Sorry, you are not suitable for this survey.",
-                    ParentId = noAnswer1.Id
+                    ParentContent = noAnswer1.Content
                 };
 
                 newSurvey1.Questions.Add(fourthQuestion1);

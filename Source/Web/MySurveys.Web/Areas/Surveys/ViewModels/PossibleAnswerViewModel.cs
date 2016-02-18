@@ -14,7 +14,7 @@
 
         [Required]
         [Display(Name = "Possible answer")]
-        [StringLength(200), MinLength(5)]
+        [StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
         public int QuestionId { get; set; }

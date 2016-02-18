@@ -37,6 +37,10 @@
     {
         <div id="alert" class="alert alert-success text-center" role="alert"><h3>@TempData["fin"]</h3></div>
     }
+    @if (TempData["error"] != null)
+    {
+        <div id="alert" class="alert alert-danger text-center" role="alert"><h3>@TempData["error"]</h3></div>
+    }
     <div class="container body-content">
         @RenderBody()
         <div id="modal-container" class="modal fade"

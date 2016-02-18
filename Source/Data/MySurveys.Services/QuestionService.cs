@@ -24,6 +24,14 @@
             return this.questions.GetById(id);
         }
 
+        public Question Add(Question question)
+        {
+            this.questions.Add(question);
+            this.questions.SaveChanges();
+
+            return question;
+        }
+
         public Question Update(Question question)
         {
             this.questions.Update(question);
@@ -38,20 +46,20 @@
             this.questions.SaveChanges();
         }
 
-        public Question GetNext(Question question, int possibleAnswerId)
+        public Question GetNext(Question question, string possibleAnswerContent)
         {
             if (question.IsDependsOn)
             {
                 return this.questions.All()
-                                    .Where(q => q.ParentId == possibleAnswerId)
+                                    .Where(q => q.ParentContent == possibleAnswerContent)
                                     .FirstOrDefault();
             }
             else
             {
                 var all = this.questions.All();
-                var possibleId = question.PossibleAnswers.First().Id;
+                var possibleContent = question.PossibleAnswers.First().Content;
 
-                return all.FirstOrDefault(q => q.ParentId == possibleId);
+                return all.FirstOrDefault(q => q.ParentContent == possibleContent);
             }
         }
     }

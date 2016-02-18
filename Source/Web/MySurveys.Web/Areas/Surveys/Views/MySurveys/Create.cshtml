@@ -44,22 +44,19 @@
                                     <i class="glyphicon glyphicon-remove">Delete</i>
                                     <span class="sr-only">Delete</span>
                                 </a>
-                                @if (Model[i].IsDependsOn)
-                                {
-                                    <a href="@Url.Action("EditQuestion", "MySurveys", new { id = i })" class="modal-link btn btn-md btn-primary">
-                                        <i class="glyphicon glyphicon-pencil">Edit</i>
-                                        <span class="sr-only">Edit</span>
-                                    </a>
-                                }
+                                <a href="@Url.Action("EditQuestion", "MySurveys", new { id = i, content = Model[i].Content })" class="modal-link btn btn-md btn-primary">
+                                    <i class="glyphicon glyphicon-pencil">Edit</i>
+                                    <span class="sr-only">Edit</span>
+                                </a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            <br/><br /><br /><br />
+            <br /><br /><br /><br />
             <div class="form-group">
                 <div class="col-md-3 col-md-offset-4 text-center">
-                @Html.ActionLink("Save", "SaveSurvey", "MySurveys", null, new { @class = "modal-link btn btn-primary btn-block" })
+                    @Html.ActionLink("Save", "SaveSurvey", "MySurveys", null, new { @class = "modal-link btn btn-primary btn-block" })
                 </div>
             </div>
         }
