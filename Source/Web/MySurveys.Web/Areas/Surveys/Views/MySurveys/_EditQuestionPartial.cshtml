@@ -49,14 +49,10 @@
         </div>
     }
 </div>
+
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        $(function () {
-            $('#approve-btn').click(function () {
-                $('#modal-container').modal('hide');
-            });
-        });
-    </script>
+    @Scripts.Render("~/bundles/saveModal")
 }
+
 
