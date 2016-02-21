@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
-
+    using AutoMapper;
     using Base;
     using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
@@ -21,15 +21,9 @@
         [HiddenInput(DisplayValue = false)]
         public string SurveyTitle { get; set; }
 
-
         [Display(Name = "Parent")]
-        [HiddenInput(DisplayValue = false)]
-<<<<<<< HEAD
-		public int ParentId { get; set; }
+        [UIHint("CustomString")]
         public string ParentContent { get; set; }
-=======
-        public int ParentId { get; set; }
->>>>>>> 3ba4d80a94aa6ddc838c100443d476ce574c1299
 
         [Display(Name = "Total Answers")]
         [HiddenInput(DisplayValue = false)]

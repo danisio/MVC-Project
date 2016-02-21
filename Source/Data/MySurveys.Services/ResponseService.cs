@@ -22,6 +22,14 @@
             return response;
         }
 
+        public Response Update(Response response)
+        {
+            this.responses.Update(response);
+            this.responses.SaveChanges();
+
+            return response;
+        }
+
         public void Delete(object id)
         {
             this.responses.Delete(id);

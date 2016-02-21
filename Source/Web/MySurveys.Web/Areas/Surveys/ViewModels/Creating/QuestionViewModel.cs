@@ -20,8 +20,6 @@
 
         public string ParentContent { get; set; }
 
-        //public string SurveyTitle { get; set; }
-
         [Display(Name = "Is dynamic?")]
         [UIHint("CustomBool")]
         public bool IsDependsOn { get; set; }
@@ -31,7 +29,6 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Question, QuestionViewModel>()
-                 //.ForMember(s => s.SurveyTitle, opt => opt.MapFrom(q => q.Survey.Title))
                  .ReverseMap();
         }
     }
