@@ -5,23 +5,10 @@
     using AutoMapper;
     using Base;
     using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
 
-    public class SurveyViewModel : AdministrationViewModel
+    public class SurveyViewModel : AdministrationViewModel, IMapFrom<Survey>, IHaveCustomMappings
     {
-        public static MapperConfiguration Configuration
-        {
-            get
-            {
-                return new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<Survey, SurveyViewModel>()
-                        .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
-                        .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
-                        .ReverseMap();
-                });
-            }
-        }
-
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
@@ -37,5 +24,17 @@
 
         [HiddenInput(DisplayValue = false)]
         public int TotalQuestions { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public int TotalResponses { get; set; }
+
+        public void CreateMappings(IMapperConfiguration configuration)
+        {
+            configuration.CreateMap<Survey, SurveyViewModel>()
+                         .ForMember(s => s.TotalQuestions, opt => opt.MapFrom(q => q.Questions.Count))
+                         .ForMember(s => s.TotalResponses, opt => opt.MapFrom(q => q.Responses.Count))
+                         .ForMember(s => s.AuthorUsername, opt => opt.MapFrom(u => u.Author.UserName))
+                         .ReverseMap();
+        }
     }
 }

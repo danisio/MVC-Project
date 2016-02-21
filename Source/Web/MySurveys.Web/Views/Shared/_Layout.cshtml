@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - My surveys</title>
     @Styles.Render("~/Content/bootstrap")
     @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/modernizr")*@
     @RenderSection("styles", required: false)
     @Styles.Render("~/Content/custom")
 </head>
@@ -23,6 +22,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" id="menu">
+                    @if (!this.User.Identity.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("Surveys", "Index", "Public", new { area = "Surveys" }, null)</li>
+                    }
                     @Html.Partial("_LoggedInUsersNavPartial")
                     @Html.Partial("_AdminNavPartial")
                 </ul>
@@ -30,8 +33,21 @@
             </div>
         </div>
     </div>
+    @if (TempData["fin"] != null)
+    {
+        <div id="alert" class="alert alert-success text-center" role="alert"><h3>@TempData["fin"]</h3></div>
+    }
+    @if (TempData["error"] != null)
+    {
+        <div id="alert" class="alert alert-danger text-center" role="alert"><h3>@TempData["error"]</h3></div>
+    }
     <div class="container body-content">
         @RenderBody()
+        <div id="modal-container" class="modal fade"
+             tabindex="-1" role="dialog">
+            <div class="modal-content">
+            </div>
+        </div>
         <hr />
         <footer class="text-center">
             @RenderSection("disclaimer", required: false)
@@ -41,5 +57,43 @@
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+
+            // Initalize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });
+    </script>
+
+    @* tempdata message *@
+    <script>
+        $("#alert").fadeOut(3000);
+    </script>
 </body>
 </html>

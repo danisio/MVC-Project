@@ -12,12 +12,14 @@
     public class User : IdentityUser, IAuditInfo, IDeletableEntity
     {
         private ICollection<Survey> surveys;
+        private ICollection<Response> responses;
 
         public User()
         {
             // This will prevent UserManager.CreateAsync from causing exception
             this.CreatedOn = DateTime.Now;
             this.surveys = new HashSet<Survey>();
+            this.responses = new HashSet<Response>();
         }
 
         public DateTime CreatedOn { get; set; }
@@ -35,6 +37,12 @@
         {
             get { return this.surveys; }
             set { this.surveys = value; }
+        }
+
+        public ICollection<Response> Responses
+        {
+            get { return this.responses; }
+            set { this.responses = value; }
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)

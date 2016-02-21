@@ -1,14 +1,16 @@
 ﻿namespace MySurveys.Models
 {
-    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Data.Common;
 
     public class PossibleAnswer : DeletableEntity
     {
+        private ICollection<Answer> answers;
+
         public PossibleAnswer()
         {
-            this.CreatedOn = DateTime.Now;
+            this.answers = new HashSet<Answer>();
         }
 
         [Key]
@@ -18,9 +20,12 @@
         [StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
-        [Required]
-        public int QuestionId { get; set; }
-
         public virtual Question Question { get; set; }
+
+        public virtual ICollection<Answer> Answers
+        {
+            get { return this.answers; }
+            set { this.answers = value; }
+        }
     }
 }

@@ -20,7 +20,11 @@
         columns.Bound(model => model.Id);
         columns.Bound(model => model.Content);
         columns.Bound(model => model.SurveyTitle);
+<<<<<<< HEAD
         columns.Bound(model => model.ParentContent);
+=======
+        columns.Bound(model => model.ParentId);
+>>>>>>> 3ba4d80a94aa6ddc838c100443d476ce574c1299
         columns.Bound(model => model.IsDependsOn);
         columns.Bound(model => model.TotalPossibleAnswers);
         columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm}");
@@ -55,7 +59,11 @@
             {
                 m.Id(b => b.Id);
                 m.Field(b => b.TotalPossibleAnswers).Editable(false);
+<<<<<<< HEAD
                 m.Field(b => b.ParentContent).Editable(false);
+=======
+                m.Field(b => b.ParentId).Editable(false);
+>>>>>>> 3ba4d80a94aa6ddc838c100443d476ce574c1299
             })
             .PageSize(5)
             .ServerOperation(true)

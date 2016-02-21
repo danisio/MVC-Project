@@ -15,6 +15,12 @@
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+               "Surveys_Scroll",
+               "Surveys/{controller}/{action}",
+               new { controller = "Surveys", action = "GetSurveys" },
+               new string[] { "MySurveys.Web.Areas.Surveys.Controllers" });
+
+            context.MapRoute(
                "Surveys_default",
                "Surveys/{controller}/{action}/{id}",
                new { controller = "Surveys", action = "Index", id = UrlParameter.Optional },

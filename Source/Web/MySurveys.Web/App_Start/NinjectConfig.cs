@@ -8,6 +8,8 @@ namespace MySurveys.Web.App_Start
     using System.Web;
     using Data;
     using Data.Repository;
+    using Infrastructure.Caching;
+    using Infrastructure.IdBinder;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Extensions.Conventions;
@@ -66,6 +68,8 @@ namespace MySurveys.Web.App_Start
         {
             kernel.Bind<DbContext>().To<MySurveysDbContext>().InRequestScope();
             kernel.Bind(typeof(IRepository<>)).To(typeof(DeletableEntityRepository<>));
+            kernel.Bind<ICacheService>().To<HttpCacheService>().InRequestScope();
+            kernel.Bind<IIdentifierProvider>().To<IdentifierProvider>().InRequestScope();
 
             kernel.Bind(k => k.FromAssemblyContaining<IService>()
                                 .SelectAllClasses()

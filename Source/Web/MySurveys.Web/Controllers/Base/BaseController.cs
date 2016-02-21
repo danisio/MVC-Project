@@ -5,23 +5,45 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using AutoMapper;
+    using Infrastructure.Caching;
+    using Infrastructure.Mapping;
     using Models;
+    using Ninject;
     using Services.Contracts;
 
     [HandleError]
     public class BaseController : Controller
     {
-        public BaseController(ISurveyService surveyService, IUserService userService)
+        public BaseController(IUserService userService)
         {
             this.UserService = userService;
-            this.SurveyService = surveyService;
         }
 
-        protected IUserService UserService { get; set; }
+        [Inject]
+        public ICacheService Cache { get; set; }
 
-        protected ISurveyService SurveyService { get; set; }
+        public IUserService UserService { get; set; }
+
+        protected IMapper Mapper
+        {
+            get
+            {
+                return AutoMapperConfig.Configuration.CreateMapper();
+            }
+        }
 
         protected User CurrentUser { get; private set; }
+
+        protected User AnonimousUser
+        {
+            get
+            {
+                return this.UserService
+                           .GetAll()
+                           .FirstOrDefault(u => u.UserName == "AnonimousUser");
+            }
+        }
 
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {

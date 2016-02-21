@@ -25,10 +25,19 @@ textarea {
     width: 600px;
 }
 
-.validation-summary-errors > ul{
+.validation-summary-errors > ul {
     -webkit-padding-start: 15px;
 }
 
 .navbar-inverse .navbar-nav > li > a {
     color: #000000;
+}
+
+.modal-content {
+    width: 600px !important;
+    margin: 30px auto !important;
+}
+
+.table thead th{
+   text-align: center;   
 }

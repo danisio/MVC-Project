@@ -31,7 +31,8 @@ namespace MySurveys.Data.Migrations
                 var newSurvey = new Survey()
                 {
                     AuthorId = context.Users.FirstOrDefault().Id,
-                    Title = "Short Survey Test"
+                    Title = "Public survey",
+                    IsPublic = true
                 };
 
                 context.Surveys.Add(newSurvey);
@@ -50,7 +51,7 @@ namespace MySurveys.Data.Migrations
                 var secondQuestion = new Question()
                 {
                     Content = "Do you smoke?",
-                    ParentPossibleAnswerId = firstQuestion.PossibleAnswers.FirstOrDefault().Id
+                    ParentContent = firstQuestion.Content
                 };
 
                 secondQuestion.IsDependsOn = true;
@@ -66,7 +67,7 @@ namespace MySurveys.Data.Migrations
                 var thirdQuestion = new Question()
                 {
                     Content = "What's your age?",
-                    ParentPossibleAnswerId = yesAnswer.Id
+                    ParentContent = secondQuestion.Content + "|" + yesAnswer.Content
                 };
 
                 var underAnswer = new PossibleAnswer() { Content = "Under 25" };
@@ -81,10 +82,69 @@ namespace MySurveys.Data.Migrations
                 var fourthQuestion = new Question()
                 {
                     Content = "Sorry, you are not suitable for this survey.",
-                    ParentPossibleAnswerId = noAnswer.Id
+                    ParentContent = secondQuestion + "|" + noAnswer.Content
                 };
 
                 newSurvey.Questions.Add(fourthQuestion);
+                context.SaveChanges();
+
+                var newSurvey1 = new Survey()
+                {
+                    AuthorId = context.Users.FirstOrDefault().Id,
+                    Title = "Private survey"
+                };
+
+                context.Surveys.Add(newSurvey1);
+                context.SaveChanges();
+
+                var firstQuestion1 = new Question() { Content = "Male or Female?" };
+                var maleAnswer1 = new PossibleAnswer() { Content = "Male" };
+                var femaleAnswer1 = new PossibleAnswer() { Content = "Female" };
+
+                firstQuestion1.PossibleAnswers.Add(maleAnswer1);
+                firstQuestion1.PossibleAnswers.Add(femaleAnswer1);
+
+                newSurvey1.Questions.Add(firstQuestion1);
+                context.SaveChanges();
+
+                var secondQuestion1 = new Question()
+                {
+                    Content = "Do you smoke?",
+                    ParentContent = firstQuestion1.Content
+                };
+
+                secondQuestion1.IsDependsOn = true;
+                var yesAnswer1 = new PossibleAnswer() { Content = "Yes" };
+                var noAnswer1 = new PossibleAnswer() { Content = "No" };
+
+                secondQuestion1.PossibleAnswers.Add(yesAnswer1);
+                secondQuestion1.PossibleAnswers.Add(noAnswer1);
+
+                newSurvey1.Questions.Add(secondQuestion1);
+                context.SaveChanges();
+
+                var thirdQuestion1 = new Question()
+                {
+                    Content = "What's your age?",
+                    ParentContent = secondQuestion1.Content + "|" + yesAnswer1.Content
+                };
+
+                var underAnswer1 = new PossibleAnswer() { Content = "Under 25" };
+                var overAnswer1 = new PossibleAnswer() { Content = "Over 25" };
+
+                thirdQuestion1.PossibleAnswers.Add(underAnswer1);
+                thirdQuestion1.PossibleAnswers.Add(overAnswer1);
+
+                newSurvey1.Questions.Add(thirdQuestion1);
+                context.SaveChanges();
+
+                var fourthQuestion1 = new Question()
+                {
+                    Content = "Sorry, you are not suitable for this survey.",
+                    ParentContent = secondQuestion1.Content + "|" + noAnswer1.Content
+                };
+
+                newSurvey1.Questions.Add(fourthQuestion1);
                 context.SaveChanges();
             }
         }
@@ -103,9 +163,16 @@ namespace MySurveys.Data.Migrations
                 Email = "admin@site.com"
             };
 
-            userManager.Create(admin, "admin123456");
-            userManager.AddToRole(admin.Id, GlobalConstants.AdminRoleName);
+            var anonimous = new User()
+            {
+                UserName = "AnonimousUser",
+                Email = "AnonimousUser@site.com"
+            };
 
+            userManager.Create(admin, "admin123456");
+            userManager.Create(anonimous, "123456");
+
+            userManager.AddToRole(admin.Id, GlobalConstants.AdminRoleName);
             context.SaveChanges();
         }
 

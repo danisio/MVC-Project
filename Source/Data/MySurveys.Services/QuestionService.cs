@@ -24,6 +24,14 @@
             return this.questions.GetById(id);
         }
 
+        public Question Add(Question question)
+        {
+            this.questions.Add(question);
+            this.questions.SaveChanges();
+
+            return question;
+        }
+
         public Question Update(Question question)
         {
             this.questions.Update(question);
@@ -36,6 +44,23 @@
         {
             this.questions.Delete(id);
             this.questions.SaveChanges();
+        }
+
+        public Question GetNext(Question question, string possibleAnswerContent)
+        {
+            string nextQuestionContent;
+           
+            if (question.IsDependsOn)
+            {
+                nextQuestionContent = question.Content + "|" + possibleAnswerContent;
+            }
+            else
+            {
+                nextQuestionContent = question.Content;
+            }
+
+            return this.questions.All()
+                               .FirstOrDefault(q => q.ParentContent == nextQuestionContent && q.SurveyId == question.SurveyId);
         }
     }
 }

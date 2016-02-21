@@ -2,7 +2,6 @@
 {
     using System.Collections;
     using System.Web.Mvc;
-    using AutoMapper;
     using Common;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
@@ -12,16 +11,13 @@
     [Authorize(Roles = GlobalConstants.AdminRoleName)]
     public abstract class AdminController : BaseController
     {
-        public AdminController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public AdminController(IUserService userService)
+            : base(userService)
         {
         }
 
-        protected IMapper Mapper { get; set; }
-
         [HttpPost]
-        public ActionResult Read([DataSourceRequest]
-                                 DataSourceRequest request)
+        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var data = this.GetData()
                            .ToDataSourceResult(request);
@@ -30,7 +26,7 @@
         }
 
         [NonAction]
-        public ActionResult Destroy<TViewModel>([DataSourceRequest]DataSourceRequest request, TViewModel model, object id) 
+        public ActionResult Destroy<TViewModel>([DataSourceRequest]DataSourceRequest request, TViewModel model, object id)
             where TViewModel : class
         {
             if (model != null && this.ModelState.IsValid)

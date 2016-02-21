@@ -26,6 +26,13 @@
             this.SignInManager = signInManager;
         }
 
+        public enum ManageMessageId
+        {
+            ChangeEmailSuccess,
+            ChangePasswordSuccess,
+            Error
+        }
+
         public ApplicationSignInManager SignInManager
         {
             get
@@ -49,6 +56,14 @@
             private set
             {
                 this.userManager = value;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -138,7 +153,7 @@
 
             var user = this.UserManager.FindById(User.Identity.GetUserId());
 
-            var model = new IndexViewModel
+            var model = new ProfileViewModel
             {
                 UserName = user.UserName,
                 Email = user.Email,
@@ -226,16 +241,24 @@
             return this.View(model);
         }
 
-        #region Helpers
-        //// Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
+        protected override void Dispose(bool disposing)
         {
-            get
+            if (disposing)
             {
-                return HttpContext.GetOwinContext().Authentication;
+                if (this.userManager != null)
+                {
+                    this.userManager.Dispose();
+                    this.userManager = null;
+                }
+
+                if (this.signInManager != null)
+                {
+                    this.signInManager.Dispose();
+                    this.signInManager = null;
+                }
             }
+
+            base.Dispose(disposing);
         }
 
         private async Task SignInAsync(User user, bool isPersistent)
@@ -252,35 +275,6 @@
             }
         }
 
-        private bool HasPassword()
-        {
-            var user = this.UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-
-            return false;
-        }
-
-        private bool HasPhoneNumber()
-        {
-            var user = this.UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PhoneNumber != null;
-            }
-
-            return false;
-        }
-
-        public enum ManageMessageId
-        {
-            ChangeEmailSuccess,
-            ChangePasswordSuccess,
-            Error
-        }
-
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -293,6 +287,9 @@
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
+            //// Used for XSRF protection when adding external logins
+            private const string XsrfKey = "XsrfId";
+
             public ChallengeResult(string provider, string redirectUri)
                 : this(provider, redirectUri, null)
             {
@@ -322,26 +319,5 @@
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);
             }
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (this.userManager != null)
-                {
-                    this.userManager.Dispose();
-                    this.userManager = null;
-                }
-
-                if (this.signInManager != null)
-                {
-                    this.signInManager.Dispose();
-                    this.signInManager = null;
-                }
-            }
-
-            base.Dispose(disposing);
-        }
-        #endregion
     }
 }

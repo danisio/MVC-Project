@@ -7,10 +7,18 @@
     {
         IQueryable<Survey> GetAll();
 
-        Survey GetById(object id);
+        IQueryable<Survey> GetAllPublic();
+
+        Survey GetById(int id);
+
+        Survey GetById(string id);
+
+        Survey Add(Survey survey);
 
         Survey Update(Survey survey);
 
         void Delete(object id);
+
+        IQueryable<Survey> GetMostPopular(int numberOfSurveys);
     }
 }

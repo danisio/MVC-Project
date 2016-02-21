@@ -1,0 +1,34 @@
+﻿@model MySurveys.Web.Areas.Surveys.ViewModels.Filling.SurveyViewModel
+@{
+    ViewBag.Title = "Details";
+}
+<div class="jumbotron text-center">
+    <h1>Details <span class="glyphicon glyphicon-info-sign"></span></h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div>
+                @Html.LabelFor(m => m.Title)
+                @Html.DisplayFor(m => m.Title)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.AuthorUsername)
+                @Html.DisplayFor(m => m.AuthorUsername)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.TotalQuestions)
+                @Html.DisplayFor(m => m.TotalQuestions)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.TotalResponses)
+                @Html.DisplayFor(m => m.TotalResponses)
+            </div><br /><br /><br />
+            @if (Model.IsPublic || (!Model.IsPublic && this.User.Identity.IsAuthenticated))
+            {
+                <div class="col-sm-offset-3 col-sm-6">
+                    @Html.ActionLink("Start", "FillingUp", "Surveys", new { id = Model.Url.Substring(Model.Url.LastIndexOf('/') + 1), area = "Surveys" }, new { @class = "btn btn-lg btn-primary btn-block" })
+                </div>
+            }
+        </div>
+    </div>
+</div>

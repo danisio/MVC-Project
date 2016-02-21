@@ -2,19 +2,20 @@
 {
     using System.Collections;
     using System.Web.Mvc;
-    using AutoMapper.QueryableExtensions;
     using Kendo.Mvc.UI;
+    using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
-
-    using Model = Models.Survey;
-    using ViewModel = ViewModels.SurveyViewModel;
+    using ViewModels;
 
     public class SurveysController : AdminController
     {
-        public SurveysController(ISurveyService surveyService, IUserService userService)
-            : base(surveyService, userService)
+        public SurveysController(IUserService userService, ISurveyService surveyService)
+            : base(userService)
         {
+            this.SurveyService = surveyService;
         }
+
+        public ISurveyService SurveyService { get; set; }
 
         //// GET: Administration/Surveys
         public ActionResult Index()
@@ -23,13 +24,13 @@
         }
 
         [HttpPost]
-        public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, SurveyViewModel model)
         {
             if (model != null && this.ModelState.IsValid)
             {
                 var dbModel = this.SurveyService.GetById(model.Id);
-                this.Mapper = ViewModel.Configuration.CreateMapper();
-                var mapped = Mapper.Map<ViewModel, Model>(model, dbModel);
+                var mapped = this.Mapper.Map(model, dbModel);
+
                 this.SurveyService.Update(mapped);
             }
 
@@ -37,9 +38,9 @@
         }
 
         [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, SurveyViewModel model)
         {
-            base.Destroy<ViewModel>(request, model, model.Id);
+            base.Destroy<SurveyViewModel>(request, model, model.Id);
 
             return this.GridOperation(model, request);
         }
@@ -48,7 +49,7 @@
         {
             return this.SurveyService
                        .GetAll()
-                       .ProjectTo<ViewModel>(ViewModel.Configuration);
+                       .To<SurveyViewModel>();
         }
 
         protected override void Delete<T>(object id)
