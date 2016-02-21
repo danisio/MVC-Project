@@ -11,6 +11,8 @@
 
         Response Add(Response response);
 
+        Response Update(Response response);
+
         void Delete(object id);
     }
 }

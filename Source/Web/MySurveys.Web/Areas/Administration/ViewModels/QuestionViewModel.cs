@@ -21,9 +21,9 @@
         [HiddenInput(DisplayValue = false)]
         public string SurveyTitle { get; set; }
 
-        [Display(Name = "Parent Answer Id")]
-        [HiddenInput(DisplayValue = false)]
-        public int ParentId { get; set; }
+        [Display(Name = "Parent")]
+        [UIHint("CustomString")]
+        public string ParentContent { get; set; }
 
         [Display(Name = "Total Answers")]
         [HiddenInput(DisplayValue = false)]

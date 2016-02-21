@@ -58,11 +58,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IPossibleAnswerService.cs" />
     <Compile Include="Contracts\IQuestionService.cs" />
     <Compile Include="Contracts\IResponseService.cs" />
     <Compile Include="Contracts\IService.cs" />
     <Compile Include="Contracts\ISurveyService.cs" />
     <Compile Include="Contracts\IUserService.cs" />
+    <Compile Include="PossibleAnswerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionService.cs" />
     <Compile Include="ResponseService.cs" />
