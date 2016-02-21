@@ -9,6 +9,7 @@
     @using (Html.BeginForm("EditQuestion", "MySurveys", new { area = "Surveys" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model=>model.Content)
         <div class="form-group">
             <div class="col-md-offset-4 col-md-7">
                 @Html.ValidationSummary("", new { @class = "text-danger" })

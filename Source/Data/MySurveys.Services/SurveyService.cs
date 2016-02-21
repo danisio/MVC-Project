@@ -19,14 +19,17 @@
 
         public IQueryable<Survey> GetAll()
         {
-            return this.surveys.All();
+            return this.surveys
+                       .All()
+                       .OrderByDescending(s => s.Responses.Count);
         }
 
         public IQueryable<Survey> GetAllPublic()
         {
             return this.surveys
                        .All()
-                       .Where(s => s.IsPublic == true);
+                       .Where(s => s.IsPublic == true)
+                       .OrderByDescending(s => s.Responses.Count);
         }
 
         public Survey GetById(int id)

@@ -792,7 +792,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Surveys\Views\BaseScroll\" />
-    <Folder Include="Areas\Surveys\Views\Public\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>

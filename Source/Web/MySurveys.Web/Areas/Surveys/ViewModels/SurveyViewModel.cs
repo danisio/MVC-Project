@@ -29,7 +29,7 @@
         [UIHint("CustomBool")]
         public bool IsPublic { get; set; }
 
-        public ICollection<QuestionViewModel> Questions { get; set; }
+        public IList<QuestionViewModel> Questions { get; set; }
 
         public ICollection<ResponseViewModel> Responses { get; set; }
 

@@ -76,6 +76,7 @@
                 {
                     if (!nextQuestion.PossibleAnswers.Any())
                     {
+                        this.SaveToDb(dbQuestion.SurveyId);
                         this.TempData["fin"] = nextQuestion.Content;
                         return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
                     }

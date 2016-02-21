@@ -25,7 +25,8 @@
                 <thead class="text-center">
                     <tr>
                         <th class="col-md-1">№</th>
-                        <th class="col-md-4">Content</th>
+                        <th class="col-md-3">Content</th>
+                        <th class="col-md-4">Parent</th>
                         <th class="col-md-1">IsDependsOn</th>
                         <th class="col-md-1">Total Answers</th>
                         <th class="col-md-2">Options</th>
@@ -37,6 +38,7 @@
                         <tr>
                             <td class="text-center">@(i + 1)</td>
                             <td>@Model[i].Content</td>
+                            <td>@Model[i].ParentContent</td>
                             <td class="text-center">@Html.DisplayFor(m => Model[i].IsDependsOn)</td>
                             <td class="text-center">@Model[i].PossibleAnswers.Count</td>
                             <td class="text-center">

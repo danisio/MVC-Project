@@ -48,19 +48,19 @@
 
         public Question GetNext(Question question, string possibleAnswerContent)
         {
+            string nextQuestionContent;
+           
             if (question.IsDependsOn)
             {
-                return this.questions.All()
-                                    .Where(q => q.ParentContent == possibleAnswerContent)
-                                    .FirstOrDefault();
+                nextQuestionContent = question.Content + "|" + possibleAnswerContent;
             }
             else
             {
-                var all = this.questions.All();
-                var possibleContent = question.PossibleAnswers.First().Content;
-
-                return all.FirstOrDefault(q => q.ParentContent == possibleContent);
+                nextQuestionContent = question.Content;
             }
+
+            return this.questions.All()
+                               .FirstOrDefault(q => q.ParentContent == nextQuestionContent);
         }
     }
 }

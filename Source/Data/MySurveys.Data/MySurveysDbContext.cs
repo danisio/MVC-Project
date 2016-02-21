@@ -13,7 +13,6 @@
         public MySurveysDbContext()
             : base("MySurveys", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySurveysDbContext, Configuration>());
         }
 
         public virtual IDbSet<Question> Questions { get; set; }

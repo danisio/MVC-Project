@@ -8,6 +8,7 @@
     using Web.Controllers.Base;
     using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
+
     [Authorize]
     public class MySurveysController : BaseController
     {
@@ -35,15 +36,6 @@
             return this.View(questions);
         }
 
-        //// POST: Surveys/MySurveys/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(dynamic model)
-        //{
-
-        //    return RedirectToAction("Create");
-        //}
-
         public ActionResult ViewForm()
         {
             return PartialView("_AddNewQuestionPartial");
@@ -53,18 +45,11 @@
         [ValidateAntiForgeryToken]
         public ActionResult AddNew(QuestionViewModel model)
         {
-            //if (!model.IsDependsOn)
-            //{
-            //    model.Index = (questions.Count == 0 ? 0 : questions.Where(q => q.IsDependsOn == false).Count()) + 1;
-            //}
-
-            model.PossibleAnswers.RemoveAll(item => item.Content == null);
-
-            questions.Add(model);
-            //if (model.IsDependsOn==true || )
-            //{
-            //    return PartialView("_AddNewQuestionPartial");
-            //}
+            if (model != null && ModelState.IsValid)
+            {
+                model.PossibleAnswers.RemoveAll(item => item.Content == null);
+                questions.Add(model);
+            }
 
             return RedirectToAction("Create");
         }
@@ -89,6 +74,7 @@
 
             ViewBag.Questions = dropdownItems;
             var question = questions[id];
+
             return PartialView("_EditQuestionPartial", question);
         }
 
@@ -105,9 +91,9 @@
 
             for (int i = 0; i < answers.Length; i++)
             {
-                var answer = questions.SelectMany(q => q.PossibleAnswers).FirstOrDefault(a => a.Content == answers[0]);
+                var answer = questions.SelectMany(q => q.PossibleAnswers).FirstOrDefault(a => a.Content == answers[i]);
                 var question = questions.Where(q => q.Content == selected[i]).FirstOrDefault();
-                question.ParentContent = answer.Content;
+                question.ParentContent = model.Content + "|" + answer.Content;
             }
 
             return RedirectToAction("Create");
@@ -138,7 +124,6 @@
 
             var viewModel = this.Mapper.Map<Survey>(newSurvey);
             this.surveyService.Add(viewModel);
-            var mapperdQuestions = this.surveyService.GetAll().To<SurveyViewModel>().FirstOrDefault(s => s.Id == viewModel.Id).Questions;
 
             questions.Clear();
             return RedirectToAction("Index", "Surveys", new { area = "Surveys" });

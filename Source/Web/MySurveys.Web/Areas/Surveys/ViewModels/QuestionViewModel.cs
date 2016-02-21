@@ -9,12 +9,11 @@
 
     public class QuestionViewModel : IMapFrom<Question>, IHaveCustomMappings
     {
-        [Required]
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         [Required]
-        ///[StringLength(200), MinLength(2)]
+        //[StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
         public int SurveyId { get; set; }
@@ -27,7 +26,7 @@
         [UIHint("CustomBool")]
         public bool IsDependsOn { get; set; }
 
-        public List<AnswerViewModel> Answers { get; set; }
+        //public List<AnswerViewModel> Answers { get; set; }
 
         public List<PossibleAnswerViewModel> PossibleAnswers { get; set; }
 

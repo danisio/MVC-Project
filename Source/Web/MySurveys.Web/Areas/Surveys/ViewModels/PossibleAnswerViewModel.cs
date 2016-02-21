@@ -12,12 +12,14 @@
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Possible answer")]
         [StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
         public int QuestionId { get; set; }
+
+        public virtual Question Question { get; set; }
 
         public ICollection<AnswerViewModel> Answers { get; set; }
 
