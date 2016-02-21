@@ -31,7 +31,19 @@
         private static void RegisterScripts(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/infinityScroll")
-                 .Include("~/Scripts/infiniteScroll.js"));
+                 .Include("~/Scripts/other/infiniteScroll.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/modalMain")
+               .Include("~/Scripts/other/modalMain.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/saveModal")
+                 .Include("~/Scripts/other/saveModal.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tempdata")
+               .Include("~/Scripts/other/tempdata.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/radioUncheck")
+                .Include("~/Scripts/other/radioUncheck.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                    .Include("~/Scripts/kendo/jquery.min.js"));

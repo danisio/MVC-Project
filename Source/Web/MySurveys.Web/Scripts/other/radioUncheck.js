@@ -1,0 +1,1 @@
+﻿$('input:radio').attr('checked', false);

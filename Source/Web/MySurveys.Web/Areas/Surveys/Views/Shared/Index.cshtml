@@ -25,11 +25,14 @@
     </table>
 </div>
 @Html.Partial("_Loading")
-@Scripts.Render("~/bundles/infinityScroll")
-<script>
-    $(function () {
-        $("div#loading").hide();
-    });
-    var moreRowsUrl = '@Url.RouteUrl("Surveys_Scroll")';
-    $(window).scroll(scrollHandler);
-</script>
+
+@section scripts{
+    @Scripts.Render("~/bundles/infinityScroll")
+    <script>
+        $(function () {
+            $("div#loading").hide();
+        });
+        var moreRowsUrl = '@Url.RouteUrl("Surveys_Scroll")';
+        $(window).scroll(scrollHandler);
+    </script>
+}
