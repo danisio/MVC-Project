@@ -2,27 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
-    using AutoMapper;
+
     using Base;
     using Models;
 
-    public class QuestionViewModel : AdministrationViewModel
+    public class QuestionViewModel : AdministrationViewModel, IMapFrom<Question>, IHaveCustomMappings
     {
-        public static MapperConfiguration Configuration
-        {
-            get
-            {
-                return new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<Question, QuestionViewModel>()
-                        .ForMember(s => s.SurveyTitle, opt => opt.MapFrom(q => q.Survey.Title))
-                        .ForMember(s => s.TotalPossibleAnswers, opt => opt.MapFrom(a => a.PossibleAnswers.Count))
-                        .ForMember(s => s.PossibleParentId, opt => opt.MapFrom(p => p.ParentPossibleAnswerId))
-                        .ReverseMap();
-                });
-            }
-        }
-
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
@@ -35,9 +20,11 @@
         [HiddenInput(DisplayValue = false)]
         public string SurveyTitle { get; set; }
 
-        [Display(Name = "Parent Answer Id")]
+
+        [Display(Name = "Parent")]
         [HiddenInput(DisplayValue = false)]
-        public int? PossibleParentId { get; set; }
+		public int ParentId { get; set; }
+        public string ParentContent { get; set; }
 
         [Display(Name = "Total Answers")]
         [HiddenInput(DisplayValue = false)]
