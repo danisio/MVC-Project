@@ -21,133 +21,133 @@ namespace MySurveys.Data.Migrations
         {
             this.SeedRoles(context);
             this.SeedUsers(context);
-            this.SeedSurveys(context);
+            //this.SeedSurveys(context);
         }
 
-        private void SeedSurveys(MySurveysDbContext context)
-        {
-            if (!context.Surveys.Any())
-            {
-                var newSurvey = new Survey()
-                {
-                    AuthorId = context.Users.FirstOrDefault().Id,
-                    Title = "Public survey",
-                    IsPublic = true
-                };
+        //private void SeedSurveys(MySurveysDbContext context)
+        //{
+        //    if (!context.Surveys.Any())
+        //    {
+        //        var newSurvey = new Survey()
+        //        {
+        //            AuthorId = context.Users.FirstOrDefault().Id,
+        //            Title = "Public survey",
+        //            IsPublic = true
+        //        };
 
-                context.Surveys.Add(newSurvey);
-                context.SaveChanges();
+        //        context.Surveys.Add(newSurvey);
+        //        context.SaveChanges();
 
-                var firstQuestion = new Question() { Content = "Male or Female?" };
-                var maleAnswer = new PossibleAnswer() { Content = "Male" };
-                var femaleAnswer = new PossibleAnswer() { Content = "Female" };
+        //        var firstQuestion = new Question() { Content = "Male or Female?" };
+        //        var maleAnswer = new PossibleAnswer() { Content = "Male" };
+        //        var femaleAnswer = new PossibleAnswer() { Content = "Female" };
 
-                firstQuestion.PossibleAnswers.Add(maleAnswer);
-                firstQuestion.PossibleAnswers.Add(femaleAnswer);
+        //        firstQuestion.PossibleAnswers.Add(maleAnswer);
+        //        firstQuestion.PossibleAnswers.Add(femaleAnswer);
 
-                newSurvey.Questions.Add(firstQuestion);
-                context.SaveChanges();
+        //        newSurvey.Questions.Add(firstQuestion);
+        //        context.SaveChanges();
 
-                var secondQuestion = new Question()
-                {
-                    Content = "Do you smoke?",
-                    ParentContent = firstQuestion.PossibleAnswers.FirstOrDefault().Content
-                };
+        //        var secondQuestion = new Question()
+        //        {
+        //            Content = "Do you smoke?",
+        //            ParentContent = firstQuestion.PossibleAnswers.FirstOrDefault().Content
+        //        };
 
-                secondQuestion.IsDependsOn = true;
-                var yesAnswer = new PossibleAnswer() { Content = "Yes" };
-                var noAnswer = new PossibleAnswer() { Content = "No" };
+        //        secondQuestion.IsDependsOn = true;
+        //        var yesAnswer = new PossibleAnswer() { Content = "Yes" };
+        //        var noAnswer = new PossibleAnswer() { Content = "No" };
 
-                secondQuestion.PossibleAnswers.Add(yesAnswer);
-                secondQuestion.PossibleAnswers.Add(noAnswer);
+        //        secondQuestion.PossibleAnswers.Add(yesAnswer);
+        //        secondQuestion.PossibleAnswers.Add(noAnswer);
 
-                newSurvey.Questions.Add(secondQuestion);
-                context.SaveChanges();
+        //        newSurvey.Questions.Add(secondQuestion);
+        //        context.SaveChanges();
 
-                var thirdQuestion = new Question()
-                {
-                    Content = "What's your age?",
-                    ParentContent = yesAnswer.Content
-                };
+        //        var thirdQuestion = new Question()
+        //        {
+        //            Content = "What's your age?",
+        //            ParentContent = yesAnswer.Content
+        //        };
 
-                var underAnswer = new PossibleAnswer() { Content = "Under 25" };
-                var overAnswer = new PossibleAnswer() { Content = "Over 25" };
+        //        var underAnswer = new PossibleAnswer() { Content = "Under 25" };
+        //        var overAnswer = new PossibleAnswer() { Content = "Over 25" };
 
-                thirdQuestion.PossibleAnswers.Add(underAnswer);
-                thirdQuestion.PossibleAnswers.Add(overAnswer);
+        //        thirdQuestion.PossibleAnswers.Add(underAnswer);
+        //        thirdQuestion.PossibleAnswers.Add(overAnswer);
 
-                newSurvey.Questions.Add(thirdQuestion);
-                context.SaveChanges();
+        //        newSurvey.Questions.Add(thirdQuestion);
+        //        context.SaveChanges();
 
-                var fourthQuestion = new Question()
-                {
-                    Content = "Sorry, you are not suitable for this survey.",
-                    ParentContent = noAnswer.Content
-                };
+        //        var fourthQuestion = new Question()
+        //        {
+        //            Content = "Sorry, you are not suitable for this survey.",
+        //            ParentContent = noAnswer.Content
+        //        };
 
-                newSurvey.Questions.Add(fourthQuestion);
-                context.SaveChanges();
+        //        newSurvey.Questions.Add(fourthQuestion);
+        //        context.SaveChanges();
 
-                var newSurvey1 = new Survey()
-                {
-                    AuthorId = context.Users.FirstOrDefault().Id,
-                    Title = "Private survey"
-                };
+        //        var newSurvey1 = new Survey()
+        //        {
+        //            AuthorId = context.Users.FirstOrDefault().Id,
+        //            Title = "Private survey"
+        //        };
 
-                context.Surveys.Add(newSurvey1);
-                context.SaveChanges();
+        //        context.Surveys.Add(newSurvey1);
+        //        context.SaveChanges();
 
-                var firstQuestion1 = new Question() { Content = "Male or Female?" };
-                var maleAnswer1 = new PossibleAnswer() { Content = "Male" };
-                var femaleAnswer1 = new PossibleAnswer() { Content = "Female" };
+        //        var firstQuestion1 = new Question() { Content = "Male or Female?" };
+        //        var maleAnswer1 = new PossibleAnswer() { Content = "Male" };
+        //        var femaleAnswer1 = new PossibleAnswer() { Content = "Female" };
 
-                firstQuestion1.PossibleAnswers.Add(maleAnswer1);
-                firstQuestion1.PossibleAnswers.Add(femaleAnswer1);
+        //        firstQuestion1.PossibleAnswers.Add(maleAnswer1);
+        //        firstQuestion1.PossibleAnswers.Add(femaleAnswer1);
 
-                newSurvey1.Questions.Add(firstQuestion1);
-                context.SaveChanges();
+        //        newSurvey1.Questions.Add(firstQuestion1);
+        //        context.SaveChanges();
 
-                var secondQuestion1 = new Question()
-                {
-                    Content = "Do you smoke?",
-                    ParentContent = firstQuestion1.PossibleAnswers.FirstOrDefault().Content
-                };
+        //        var secondQuestion1 = new Question()
+        //        {
+        //            Content = "Do you smoke?",
+        //            ParentContent = firstQuestion1.PossibleAnswers.FirstOrDefault().Content
+        //        };
 
-                secondQuestion1.IsDependsOn = true;
-                var yesAnswer1 = new PossibleAnswer() { Content = "Yes" };
-                var noAnswer1 = new PossibleAnswer() { Content = "No" };
+        //        secondQuestion1.IsDependsOn = true;
+        //        var yesAnswer1 = new PossibleAnswer() { Content = "Yes" };
+        //        var noAnswer1 = new PossibleAnswer() { Content = "No" };
 
-                secondQuestion1.PossibleAnswers.Add(yesAnswer1);
-                secondQuestion1.PossibleAnswers.Add(noAnswer1);
+        //        secondQuestion1.PossibleAnswers.Add(yesAnswer1);
+        //        secondQuestion1.PossibleAnswers.Add(noAnswer1);
 
-                newSurvey1.Questions.Add(secondQuestion1);
-                context.SaveChanges();
+        //        newSurvey1.Questions.Add(secondQuestion1);
+        //        context.SaveChanges();
 
-                var thirdQuestion1 = new Question()
-                {
-                    Content = "What's your age?",
-                    ParentContent = yesAnswer1.Content
-                };
+        //        var thirdQuestion1 = new Question()
+        //        {
+        //            Content = "What's your age?",
+        //            ParentContent = yesAnswer1.Content
+        //        };
 
-                var underAnswer1 = new PossibleAnswer() { Content = "Under 25" };
-                var overAnswer1 = new PossibleAnswer() { Content = "Over 25" };
+        //        var underAnswer1 = new PossibleAnswer() { Content = "Under 25" };
+        //        var overAnswer1 = new PossibleAnswer() { Content = "Over 25" };
 
-                thirdQuestion1.PossibleAnswers.Add(underAnswer1);
-                thirdQuestion1.PossibleAnswers.Add(overAnswer1);
+        //        thirdQuestion1.PossibleAnswers.Add(underAnswer1);
+        //        thirdQuestion1.PossibleAnswers.Add(overAnswer1);
 
-                newSurvey1.Questions.Add(thirdQuestion1);
-                context.SaveChanges();
+        //        newSurvey1.Questions.Add(thirdQuestion1);
+        //        context.SaveChanges();
 
-                var fourthQuestion1 = new Question()
-                {
-                    Content = "Sorry, you are not suitable for this survey.",
-                    ParentContent = noAnswer1.Content
-                };
+        //        var fourthQuestion1 = new Question()
+        //        {
+        //            Content = "Sorry, you are not suitable for this survey.",
+        //            ParentContent = noAnswer1.Content
+        //        };
 
-                newSurvey1.Questions.Add(fourthQuestion1);
-                context.SaveChanges();
-            }
-        }
+        //        newSurvey1.Questions.Add(fourthQuestion1);
+        //        context.SaveChanges();
+        //    }
+        //}
 
         private void SeedUsers(MySurveysDbContext context)
         {

@@ -13,7 +13,8 @@
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        //[StringLength(200), MinLength(3)]
+        [Required]
+        ///[StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
         public int SurveyId { get; set; }
@@ -21,8 +22,6 @@
         public string ParentContent { get; set; }
 
         public string SurveyTitle { get; set; }
-
-        public int Index { get; set; }
 
         [Display(Name = "Is dynamic?")]
         [UIHint("CustomBool")]

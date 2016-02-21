@@ -7,6 +7,7 @@
     using ViewModels;
     using Web.Controllers.Base;
     using Models;
+    using MvcTemplate.Web.Infrastructure.Mapping;
     [Authorize]
     public class MySurveysController : BaseController
     {
@@ -31,7 +32,7 @@
         [HttpGet]
         public ActionResult Create()
         {
-            return this.View(questions.OrderBy(q => q.Index).ToList());
+            return this.View(questions);
         }
 
         //// POST: Surveys/MySurveys/Create
@@ -52,10 +53,10 @@
         [ValidateAntiForgeryToken]
         public ActionResult AddNew(QuestionViewModel model)
         {
-            if (!model.IsDependsOn)
-            {
-                model.Index = (questions.Count == 0 ? 0 : questions.Where(q => q.IsDependsOn == false).Count()) + 1;
-            }
+            //if (!model.IsDependsOn)
+            //{
+            //    model.Index = (questions.Count == 0 ? 0 : questions.Where(q => q.IsDependsOn == false).Count()) + 1;
+            //}
 
             model.PossibleAnswers.RemoveAll(item => item.Content == null);
 
@@ -137,6 +138,7 @@
 
             var viewModel = this.Mapper.Map<Survey>(newSurvey);
             this.surveyService.Add(viewModel);
+            var mapperdQuestions = this.surveyService.GetAll().To<SurveyViewModel>().FirstOrDefault(s => s.Id == viewModel.Id).Questions;
 
             questions.Clear();
             return RedirectToAction("Index", "Surveys", new { area = "Surveys" });
