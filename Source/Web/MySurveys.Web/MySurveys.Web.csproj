@@ -228,11 +228,13 @@
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\PossibleAnswersController.cs" />
     <Compile Include="Areas\Administration\Controllers\QuestionsController.cs" />
     <Compile Include="Areas\Administration\Controllers\ResponsesController.cs" />
     <Compile Include="Areas\Administration\Controllers\SurveysController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
     <Compile Include="Areas\Administration\ViewModels\Base\AdministrationViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\PossibleAnswerViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\QuestionViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\ResponseViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\SurveyViewModel.cs" />
@@ -750,6 +752,7 @@
     <Content Include="Areas\Surveys\Views\MySurveys\_EditQuestionPartial.cshtml" />
     <Content Include="Areas\Surveys\Views\MySurveys\_SaveSurveyPartial.cshtml" />
     <Content Include="Areas\Administration\Views\Responses\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\PossibleAnswers\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infiniteScroll.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

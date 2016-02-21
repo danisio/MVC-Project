@@ -1,25 +1,25 @@
 ﻿@using Kendo.Mvc.UI;
 @functions{
-    private const string ControllerName = "Responses";
+    private const string ControllerName = "PossibleAnswers";
 }
 @{
-    ViewBag.Title = "Responses";
+    ViewBag.Title = "PossibleAnswers";
 }
 
 <div class="row">
     <div class="text-center">
-        <h2>Responses</h2>
+        <h2>Possible Answers</h2>
     </div>
 
     <div>
         @(Html.Kendo()
-    .Grid<MySurveys.Web.Areas.Administration.ViewModels.ResponseViewModel>()
-    .Name("grid-responses")
+    .Grid<MySurveys.Web.Areas.Administration.ViewModels.PossibleAnswerViewModel>()
+    .Name("grid-answers")
     .Columns(columns =>
     {
         columns.Bound(model => model.Id);
-        columns.Bound(model => model.SurveyTitle);
-        columns.Bound(model => model.AuthorUserName);
+        columns.Bound(model => model.Content);
+        columns.Bound(model => model.QuestionContent);
         columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Command(command =>
@@ -65,7 +65,7 @@
 
 <script>
     function errorAlert(err) {
-        // console.log(err);
+        //// console.log(err);
         alert("An error occurred");
     }
 </script>
