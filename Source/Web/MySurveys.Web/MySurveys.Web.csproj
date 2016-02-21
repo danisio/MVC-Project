@@ -749,7 +749,7 @@
     <Content Include="Areas\Surveys\Views\MySurveys\_EditQuestionPartial.cshtml" />
     <Content Include="Areas\Surveys\Views\MySurveys\_SaveSurveyPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\infiniteScroll.js" />
+    <Content Include="Scripts\other\infiniteScroll.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -765,6 +765,10 @@
     <Content Include="Scripts\kendo\jquery.min.js" />
     <Content Include="Scripts\kendo\kendo.all.min.js" />
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\other\modalMain.js" />
+    <Content Include="Scripts\other\radioUncheck.js" />
+    <Content Include="Scripts\other\saveModal.js" />
+    <Content Include="Scripts\other\tempdata.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -795,7 +799,6 @@
     <Content Include="Views\Shared\DisplayTemplates\CustomBool.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Surveys\Views\BaseScroll\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
