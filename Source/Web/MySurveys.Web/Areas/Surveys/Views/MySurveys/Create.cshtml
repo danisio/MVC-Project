@@ -1,11 +1,73 @@
-﻿@{
+﻿@model IList<MySurveys.Web.Areas.Surveys.ViewModels.Creating.QuestionViewModel>
+@{
     ViewBag.Title = "Create";
 }
 
 <div class="row">
-    <div class="text-center">
+    <div class="col-md-6 col-md-offset-3 text-center">
         <h2><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Create new survey</h2>
     </div>
-    <hr/>
+    <div class="col-md-2 col-md-push-1">
+        @Html.ActionLink("Add new question ", "ViewForm", "MySurveys", null, new { @class = "modal-link btn btn-primary btn-block" })
+    </div>
+    <hr />
+    @if (Model.Count > 0)
+    {
+        using (Html.BeginForm("Create", "MySurveys", new { area = "Surveys" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-7">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                </div>
+            </div>
+            <table id="questions-list" class="table table-striped table-condensed table-responsive table-hover table-bordered">
+                <thead class="text-center">
+                    <tr>
+                        <th class="col-md-1">№</th>
+                        <th class="col-md-3">Content</th>
+                        <th class="col-md-4">Parent</th>
+                        <th class="col-md-1">IsDependsOn</th>
+                        <th class="col-md-1">Total Answers</th>
+                        <th class="col-md-2">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="text-center">@(i + 1)</td>
+                            <td>@Model[i].Content</td>
+                            <td>@Model[i].ParentContent</td>
+                            <td class="text-center">@Html.DisplayFor(m => Model[i].IsDependsOn)</td>
+                            <td class="text-center">@Model[i].PossibleAnswers.Count</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("DeleteQuestion", "MySurveys", new { id = i })" class="btn btn-md btn-default">
+                                    <i class="glyphicon glyphicon-remove">Delete</i>
+                                    <span class="sr-only">Delete</span>
+                                </a>
+                                <a href="@Url.Action("EditQuestion", "MySurveys", new { id = i, content = Model[i].Content })" class="modal-link btn btn-md btn-primary">
+                                    <i class="glyphicon glyphicon-pencil">Edit</i>
+                                    <span class="sr-only">Edit</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br /><br /><br /><br />
+            <div class="form-group">
+                <div class="col-md-3 col-md-offset-4 text-center">
+                    @Html.ActionLink("Save", "SaveSurvey", "MySurveys", null, new { @class = "modal-link btn btn-primary btn-block" })
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <br /><br />
+        <div class="col-md-6 col-md-offset-3 text-center">
+            Start your new survey!
+        </div>
+    }
 </div>
-

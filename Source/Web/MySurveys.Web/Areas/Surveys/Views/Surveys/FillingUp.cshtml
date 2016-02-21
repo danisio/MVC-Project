@@ -1,4 +1,4 @@
-﻿@using MySurveys.Web.Areas.Surveys.ViewModels
+﻿@using MySurveys.Web.Areas.Surveys.ViewModels.Filling
 @model QuestionViewModel
 @{
     ViewBag.Title = "FillingUp";
@@ -10,11 +10,11 @@
         <h5>Questions</h5>
     </div>
     @using (Ajax.BeginForm("FillingUp", null,
-                                                    new AjaxOptions
-                                                    {
-                                                        HttpMethod = "POST",
-                                                        InsertionMode = InsertionMode.Replace
-                                                    }, new { id = "fillingUpForm" }))
+                new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace
+                }, new { id = "fillingUpForm" }))
     {
         @Html.AntiForgeryToken()
         <div class="col-md-offset-3 col-lg-6">
@@ -31,11 +31,10 @@
                 @foreach (var item in Model.PossibleAnswers)
                 {
                     <div>
-                        @Html.RadioButtonFor(m => item.Id, item.Id, new { id = item.Id })
-                        <label for="@item.Id">@item.Content</label>
+                        @Html.RadioButtonFor(m => m.Content, item.Content)
+                        <label for="@item.Content">@item.Content</label>
                     </div>
                 }
-                @*@Html.ValidationMessageFor(m => m.)*@
             </div>
             <br />
             <input type="submit" value="Next" />

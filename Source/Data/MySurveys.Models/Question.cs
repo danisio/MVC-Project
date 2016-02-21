@@ -21,14 +21,14 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200), MinLength(3)]
+        [StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
         public int SurveyId { get; set; }
 
         public virtual Survey Survey { get; set; }
 
-        public int? ParentPossibleAnswerId { get; set; }
+        public string ParentContent { get; set; }
 
         public bool IsDependsOn { get; set; }
 

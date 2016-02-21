@@ -1,6 +1,5 @@
-﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
+﻿namespace MySurveys.Web.Areas.Surveys.ViewModels.Filling
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using AutoMapper;

@@ -9,9 +9,11 @@
 
         Question GetById(object id);
 
+        Question Add(Question question);
+
         Question Update(Question question);
 
-        Question GetNext(Question question, int possibleAnswerId);
+        Question GetNext(Question question, string possibleAnswerContent);
 
         void Delete(object id);
     }

@@ -23,7 +23,7 @@
 
         [Display(Name = "Parent Answer Id")]
         [HiddenInput(DisplayValue = false)]
-        public int? PossibleParentId { get; set; }
+        public int ParentId { get; set; }
 
         [Display(Name = "Total Answers")]
         [HiddenInput(DisplayValue = false)]
@@ -38,7 +38,6 @@
             configuration.CreateMap<Question, QuestionViewModel>()
                          .ForMember(s => s.SurveyTitle, opt => opt.MapFrom(q => q.Survey.Title))
                          .ForMember(s => s.TotalPossibleAnswers, opt => opt.MapFrom(a => a.PossibleAnswers.Count))
-                         .ForMember(s => s.PossibleParentId, opt => opt.MapFrom(p => p.ParentPossibleAnswerId))
                          .ReverseMap();
         }
     }

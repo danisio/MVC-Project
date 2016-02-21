@@ -6,7 +6,7 @@
     using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
     using Services.Contracts;
-    using ViewModels;
+    using ViewModels.Filling;
     using Web.Controllers.Base;
 
     public abstract class BaseScrollController : BaseController

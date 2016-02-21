@@ -10,7 +10,7 @@
     using Models;
     using Services.Contracts;
     using ViewModels;
-
+    using ViewModels.Filling;
     [Authorize]
     public class SurveysController : BaseScrollController
     {
@@ -67,15 +67,16 @@
             if (form != null && ModelState.IsValid)
             {
                 var questionId = Convert.ToInt32(form["Id"].ToString());
-                var possibleAnswerId = Convert.ToInt32(form["item.Id"].ToString());
+                var possibleAnswerContent = form["Content"].ToString();
 
-                var dbQuestion = this.ValidateFormAndAddAnswer(questionId, possibleAnswerId);
-                var nextQuestion = this.QuestionService.GetNext(dbQuestion, possibleAnswerId);
+                var dbQuestion = this.ValidateFormAndAddAnswer(questionId, possibleAnswerContent);
+                var nextQuestion = this.QuestionService.GetNext(dbQuestion, possibleAnswerContent);
 
                 if (nextQuestion != null)
                 {
-                    if (!nextQuestion.Answers.Any())
+                    if (!nextQuestion.PossibleAnswers.Any())
                     {
+                        this.SaveToDb(dbQuestion.SurveyId);
                         this.TempData["fin"] = nextQuestion.Content;
                         return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
                     }
@@ -103,7 +104,7 @@
         }
 
         [NonAction]
-        private Question ValidateFormAndAddAnswer(int questionId, int possibleAnswerId)
+        private Question ValidateFormAndAddAnswer(int questionId, string possibleAnswerContent)
         {
             Question dbQuestion;
             try
@@ -115,15 +116,16 @@
                 throw new HttpException(404, "Question not found");
             }
 
-            if (!dbQuestion.PossibleAnswers.Any(x => x.Id == possibleAnswerId))
+            if (!dbQuestion.PossibleAnswers.Any(x => x.Content == possibleAnswerContent))
             {
                 throw new HttpException(404, "Answer not found");
             }
 
+            var possibleAnswer = dbQuestion.PossibleAnswers.FirstOrDefault(a => a.Content == possibleAnswerContent);
             var newAnswer = new AnswerViewModel()
             {
                 QuestionId = dbQuestion.Id,
-                PossibleAnswerId = possibleAnswerId
+                PossibleAnswerId = possibleAnswer.Id
             };
 
             currentAnswers.Add(newAnswer);

@@ -24,6 +24,14 @@
             return this.questions.GetById(id);
         }
 
+        public Question Add(Question question)
+        {
+            this.questions.Add(question);
+            this.questions.SaveChanges();
+
+            return question;
+        }
+
         public Question Update(Question question)
         {
             this.questions.Update(question);
@@ -38,21 +46,21 @@
             this.questions.SaveChanges();
         }
 
-        public Question GetNext(Question question, int possibleAnswerId)
+        public Question GetNext(Question question, string possibleAnswerContent)
         {
+            string nextQuestionContent;
+           
             if (question.IsDependsOn)
             {
-                return this.questions.All()
-                                    .Where(q => q.ParentPossibleAnswerId == possibleAnswerId)
-                                    .FirstOrDefault();
+                nextQuestionContent = question.Content + "|" + possibleAnswerContent;
             }
             else
             {
-                var all = this.questions.All();
-                var possibleId = question.PossibleAnswers.First().Id;
-
-                return all.FirstOrDefault(q => q.ParentPossibleAnswerId == possibleId);
+                nextQuestionContent = question.Content;
             }
+
+            return this.questions.All()
+                               .FirstOrDefault(q => q.ParentContent == nextQuestionContent && q.SurveyId == question.SurveyId);
         }
     }
 }

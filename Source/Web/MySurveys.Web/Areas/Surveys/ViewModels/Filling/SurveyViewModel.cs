@@ -1,4 +1,4 @@
-﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
+﻿namespace MySurveys.Web.Areas.Surveys.ViewModels.Filling
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -13,21 +13,20 @@
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(100), MinLength(3)]
         [UIHint("CustomString")]
         public string Title { get; set; }
 
-        [Required]
         [Display(Name = "Author")]
         [HiddenInput(DisplayValue = false)]
         [UIHint("CustomString")]
         public string AuthorUsername { get; set; }
 
+        public string AuthorId { get; set; }
+
         [UIHint("CustomBool")]
         public bool IsPublic { get; set; }
 
-        public ICollection<QuestionViewModel> Questions { get; set; }
+        public IList<QuestionViewModel> Questions { get; set; }
 
         public ICollection<ResponseViewModel> Responses { get; set; }
 
