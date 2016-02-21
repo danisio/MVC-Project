@@ -1,4 +1,4 @@
-﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
+﻿namespace MySurveys.Web.Areas.Surveys.ViewModels.Filling
 {
     using System.Web.Mvc;
     using AutoMapper;

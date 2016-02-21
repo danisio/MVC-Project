@@ -60,7 +60,7 @@
             }
 
             return this.questions.All()
-                               .FirstOrDefault(q => q.ParentContent == nextQuestionContent);
+                               .FirstOrDefault(q => q.ParentContent == nextQuestionContent && q.SurveyId == question.SurveyId);
         }
     }
 }

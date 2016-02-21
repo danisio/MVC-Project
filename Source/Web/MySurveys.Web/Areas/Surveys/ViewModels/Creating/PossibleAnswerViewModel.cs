@@ -1,9 +1,10 @@
-﻿namespace MySurveys.Web.Areas.Surveys.ViewModels
+﻿namespace MySurveys.Web.Areas.Surveys.ViewModels.Creating
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
     using AutoMapper;
+    using Filling;
     using Models;
     using MvcTemplate.Web.Infrastructure.Mapping;
 
@@ -12,16 +13,15 @@
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        //[Required]
         [Display(Name = "Possible answer")]
         [StringLength(200), MinLength(2)]
         public string Content { get; set; }
 
         public int QuestionId { get; set; }
 
-        public virtual Question Question { get; set; }
+        //public virtual Question Question { get; set; }
 
-        public ICollection<AnswerViewModel> Answers { get; set; }
+        //public ICollection<AnswerViewModel> Answers { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

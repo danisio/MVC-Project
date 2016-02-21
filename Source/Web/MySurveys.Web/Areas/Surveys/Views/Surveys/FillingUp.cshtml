@@ -1,4 +1,4 @@
-﻿@using MySurveys.Web.Areas.Surveys.ViewModels
+﻿@using MySurveys.Web.Areas.Surveys.ViewModels.Filling
 @model QuestionViewModel
 @{
     ViewBag.Title = "FillingUp";
@@ -35,7 +35,6 @@
                         <label for="@item.Content">@item.Content</label>
                     </div>
                 }
-                @*@Html.ValidationMessageFor(m => m.)*@
             </div>
             <br />
             <input type="submit" value="Next" />

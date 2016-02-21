@@ -1,8 +1,8 @@
-﻿@model MySurveys.Web.Areas.Surveys.ViewModels.QuestionViewModel
+﻿@model MySurveys.Web.Areas.Surveys.ViewModels.Creating.QuestionViewModel
 
 <div class="modal-body">
-    <div class="alert alert-danger">
-        <span class="glyphicon glyphicon-question-sign"></span>
+    <div class="alert alert-success text-center">
+        <span class="glyphicon glyphicon-plus-sign pull-left"></span>
         <span class="text-center">Add new question:</span>
     </div>
 
@@ -26,7 +26,7 @@
                 @Html.EditorFor(model => model.IsDependsOn, new { @class = "form-control" })
             </div>
         </div>
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 5; i++)
         {
             <div class="form-group">
                 @Html.LabelFor(model => Model.PossibleAnswers[i].Content, new { @class = "control-label col-md-4" })

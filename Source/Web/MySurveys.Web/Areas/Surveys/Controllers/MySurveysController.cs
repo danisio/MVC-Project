@@ -1,13 +1,12 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
-    using Services.Contracts;
-    using ViewModels;
-    using Web.Controllers.Base;
     using Models;
-    using MvcTemplate.Web.Infrastructure.Mapping;
+    using Services.Contracts;
+    using ViewModels.Creating;
+    using Web.Controllers.Base;
 
     [Authorize]
     public class MySurveysController : BaseController
@@ -36,11 +35,13 @@
             return this.View(questions);
         }
 
+        //// GET: Surveys/MySurveys/AddNew
         public ActionResult ViewForm()
         {
-            return PartialView("_AddNewQuestionPartial");
+            return this.PartialView("_AddNewQuestionPartial");
         }
 
+        //// POST: Surveys/MySurveys/AddNew
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddNew(QuestionViewModel model)
@@ -51,20 +52,22 @@
                 questions.Add(model);
             }
 
-            return RedirectToAction("Create");
+            return this.RedirectToAction("Create");
         }
 
+        [HttpGet]
         public ActionResult DeleteQuestion(int id)
         {
             questions.RemoveAt(id);
-            return RedirectToAction("Create");
+            return this.RedirectToAction("Create");
         }
 
+        //// GET: Surveys/MySurveys/EditQuestion
         [HttpGet]
         public ActionResult EditQuestion(int id, string content)
         {
             List<SelectListItem> dropdownItems = questions
-               .Where(item => item.Content != content || item.ParentContent != null) // check
+               .Where(item => item.Content != content && item.ParentContent == null)
                .Select(item => new SelectListItem
                {
                    Value = item.Content,
@@ -75,58 +78,79 @@
             ViewBag.Questions = dropdownItems;
             var question = questions[id];
 
-            return PartialView("_EditQuestionPartial", question);
+            return this.PartialView("_EditQuestionPartial", question);
         }
 
+        //// POST: Surveys/MySurveys/EditQuestion
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditQuestion(QuestionViewModel model, FormCollection form)
         {
-            var answers = form["item.Content"].ToString().Split(',');
-            var selected = form["Questions"].ToString().Split(',');
-            if (answers.Length != selected.Length)
+            if (model != null && ModelState.IsValid)
             {
-                return PartialView("_EditQuestionPartial", model);
+                var answers = form["item.Content"].ToString().Split(',');
+                if (model.IsDependsOn)
+                {
+                    var selected = form["Questions"].ToString().Split(',');
+                    if (answers.Length != selected.Length)
+                    {
+                        return this.PartialView("_EditQuestionPartial", model);
+                    }
+
+                    for (int i = 0; i < answers.Length; i++)
+                    {
+                        var answer = questions.SelectMany(q => q.PossibleAnswers).FirstOrDefault(a => a.Content == answers[i]);
+                        var question = questions.Where(q => q.Content == selected[i]).FirstOrDefault();
+                        question.ParentContent = model.Content + "|" + answer.Content;
+                    }
+                }
+                else
+                {
+                    var selected = form["Questions"].ToString();
+                    var question = questions.FirstOrDefault(q => q.Content == selected);
+                    question.ParentContent = model.Content;
+                }
             }
 
-            for (int i = 0; i < answers.Length; i++)
-            {
-                var answer = questions.SelectMany(q => q.PossibleAnswers).FirstOrDefault(a => a.Content == answers[i]);
-                var question = questions.Where(q => q.Content == selected[i]).FirstOrDefault();
-                question.ParentContent = model.Content + "|" + answer.Content;
-            }
-
-            return RedirectToAction("Create");
+            return this.RedirectToAction("Create");
         }
 
+        //// GET:Surveys/MySuerveys/SaveSurvey
         [HttpGet]
         public ActionResult SaveSurvey()
         {
-            return PartialView("_SaveSurveyPartial");
+            return this.PartialView("_SaveSurveyPartial");
         }
 
+        //// POST:Surveys/MySuerveys/SaveSurvey
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveSurvey(SurveyViewModel model)
         {
-            if (questions.Where(q => q.ParentContent == null).Count() > 1)
+            if (model != null && ModelState.IsValid)
             {
-                this.TempData["error"] = "Please specify the next question for each answer from EDIT menu.";
-                return RedirectToAction("Create", model);
+                if (questions.Where(q => q.ParentContent == null).Count() > 1)
+                {
+                    this.TempData["error"] = "Please specify the next question for each answer from EDIT menu.";
+                    return this.RedirectToAction("Create", model);
+                }
+
+                var newSurvey = new SurveyViewModel()
+                {
+                    IsPublic = model.IsPublic,
+                    Title = model.Title,
+                    AuthorId = this.CurrentUser.Id,
+                    Questions = questions
+                };
+
+                var viewModel = this.Mapper.Map<Survey>(newSurvey);
+                this.surveyService.Add(viewModel);
+
+                questions.Clear();
+                return this.RedirectToAction("Index", "Surveys", new { area = "Surveys" });
             }
 
-            var newSurvey = new SurveyViewModel()
-            {
-                IsPublic = model.IsPublic,
-                Title = model.Title,
-                AuthorId = this.CurrentUser.Id,
-                Questions = questions
-            };
-
-            var viewModel = this.Mapper.Map<Survey>(newSurvey);
-            this.surveyService.Add(viewModel);
-
-            questions.Clear();
-            return RedirectToAction("Index", "Surveys", new { area = "Surveys" });
+            return this.RedirectToAction("Create");
         }
     }
 }

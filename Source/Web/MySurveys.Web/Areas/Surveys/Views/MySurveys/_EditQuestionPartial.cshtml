@@ -1,4 +1,4 @@
-﻿@model MySurveys.Web.Areas.Surveys.ViewModels.QuestionViewModel
+﻿@model MySurveys.Web.Areas.Surveys.ViewModels.Creating.QuestionViewModel
 
 <div class="modal-body">
     <div class="alert alert-danger">
@@ -9,13 +9,13 @@
     @using (Html.BeginForm("EditQuestion", "MySurveys", new { area = "Surveys" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(model=>model.Content)
+        @Html.HiddenFor(model => model.Content)
+        @Html.HiddenFor(model => model.IsDependsOn)
         <div class="form-group">
             <div class="col-md-offset-4 col-md-7">
                 @Html.ValidationSummary("", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="col-md-4 col-md-offset-3 text-center">Choose next question:</div><br />
         foreach (var item in Model.PossibleAnswers)
         {
             <div class="form-group">
@@ -23,9 +23,21 @@
                     @Html.DisplayFor(model => item.Content, new { @class = "control-label col-md-4" })
                     @Html.HiddenFor(model => item.Content)
                 </div>
-                <div class="col-md-7">
-                    @Html.DropDownList("Questions", ViewData["Questions"] as SelectListItem[], "-- None -- ")
-                </div>
+                @if (Model.IsDependsOn)
+                {
+                    <div class="col-md-7">
+                        next question -> @Html.DropDownList("Questions", ViewData["Questions"] as SelectListItem[])
+                    </div>
+                }
+            </div>
+        }
+        if (!Model.IsDependsOn && Model.PossibleAnswers.Any())
+        {
+            <div class="col-md-4">
+                Choose next question:
+            </div>
+            <div class="col-md-7">
+                @Html.DropDownList("Questions", ViewData["Questions"] as SelectListItem[], "-- None -- ")
             </div>
         }
         <br /><br /><br />
@@ -37,11 +49,14 @@
         </div>
     }
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        $('#approve-btn').click(function () {
-            $('#modal-container').modal('hide');
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $('#approve-btn').click(function () {
+                $('#modal-container').modal('hide');
+            });
         });
-    });
-</script>
+    </script>
+}
+
