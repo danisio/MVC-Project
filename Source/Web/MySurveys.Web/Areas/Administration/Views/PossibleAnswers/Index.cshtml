@@ -20,6 +20,7 @@
         columns.Bound(model => model.Id);
         columns.Bound(model => model.Content);
         columns.Bound(model => model.QuestionContent);
+        columns.Bound(model => model.SurveyTitle);
         columns.Bound(model => model.CreatedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Bound(model => model.ModifiedOn).Format("{0:dd/MM/yyyy HH:mm}");
         columns.Command(command =>
@@ -51,6 +52,8 @@
             .Model(m =>
             {
                 m.Id(b => b.Id);
+                m.Field(b => b.SurveyTitle).Editable(false);
+                m.Field(b => b.QuestionContent).Editable(false);
             })
             .PageSize(5)
             .ServerOperation(true)

@@ -1,10 +1,11 @@
 ﻿namespace MySurveys.Services
 {
     using System.Linq;
+    using Contracts;
     using Data.Repository;
     using Models;
 
-    public class PossibleAnswerService
+    public class PossibleAnswerService : IPossibleAnswerService
     {
         private IRepository<PossibleAnswer> possibleAnswers;
 

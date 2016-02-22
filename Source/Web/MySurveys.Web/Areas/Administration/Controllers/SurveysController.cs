@@ -9,13 +9,13 @@
 
     public class SurveysController : AdminController
     {
+        private ISurveyService surveyService;
+
         public SurveysController(IUserService userService, ISurveyService surveyService)
             : base(userService)
         {
-            this.SurveyService = surveyService;
+            this.surveyService = surveyService;
         }
-
-        public ISurveyService SurveyService { get; set; }
 
         //// GET: Administration/Surveys
         public ActionResult Index()
@@ -28,10 +28,10 @@
         {
             if (model != null && this.ModelState.IsValid)
             {
-                var dbModel = this.SurveyService.GetById(model.Id);
+                var dbModel = this.surveyService.GetById(model.Id);
                 var mapped = this.Mapper.Map(model, dbModel);
 
-                this.SurveyService.Update(mapped);
+                this.surveyService.Update(mapped);
             }
 
             return this.GridOperation(model, request);
@@ -47,14 +47,14 @@
 
         protected override IEnumerable GetData()
         {
-            return this.SurveyService
+            return this.surveyService
                        .GetAll()
                        .To<SurveyViewModel>();
         }
 
         protected override void Delete<T>(object id)
         {
-            this.SurveyService.Delete(id);
+            this.surveyService.Delete(id);
         }
     }
 }
