@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Areas.Surveys.ViewModels;
     using Areas.Surveys.ViewModels.Filling;
     using Base;
     using MvcTemplate.Web.Infrastructure.Mapping;

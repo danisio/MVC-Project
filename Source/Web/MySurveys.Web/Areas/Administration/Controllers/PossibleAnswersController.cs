@@ -9,7 +9,7 @@
 
     public class PossibleAnswersController : AdminController
     {
-        public IPossibleAnswerService possibleAnswers;
+        private IPossibleAnswerService possibleAnswers;
 
         public PossibleAnswersController(IUserService userService, IPossibleAnswerService possibleAnswers)
             : base(userService)

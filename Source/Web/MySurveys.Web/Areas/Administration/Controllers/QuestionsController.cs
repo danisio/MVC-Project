@@ -9,13 +9,13 @@
 
     public class QuestionsController : AdminController
     {
+        private IQuestionService questionService;
+
         public QuestionsController(IUserService userService, IQuestionService questionService)
             : base(userService)
         {
-            this.QuestionService = questionService;
+            this.questionService = questionService;
         }
-
-        public IQuestionService QuestionService { get; set; }
 
         //// GET: Administration/Questions
         public ActionResult Index()
@@ -28,10 +28,10 @@
         {
             if (model != null && this.ModelState.IsValid)
             {
-                var dbModel = this.QuestionService.GetById(model.Id);
+                var dbModel = this.questionService.GetById(model.Id);
                 var mapped = this.Mapper.Map(model, dbModel);
 
-                this.QuestionService.Update(mapped);
+                this.questionService.Update(mapped);
             }
 
             return this.GridOperation(model, request);
@@ -47,14 +47,14 @@
 
         protected override IEnumerable GetData()
         {
-            return this.QuestionService
+            return this.questionService
                        .GetAll()
                        .To<QuestionViewModel>();
         }
 
         protected override void Delete<T>(object id)
         {
-            this.QuestionService.Delete(id);
+            this.questionService.Delete(id);
         }
     }
 }

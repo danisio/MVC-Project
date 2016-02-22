@@ -1,6 +1,5 @@
 ﻿namespace MySurveys.Web.Areas.Administration.ViewModels
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
     using AutoMapper;
@@ -14,9 +13,11 @@
         public int Id { get; set; }
 
         [Display(Name = "User")]
+        [UIHint("CustomString")]
         public string AuthorUserName { get; set; }
 
         [Display(Name = "Survey Title")]
+        [UIHint("CustomString")]
         public string SurveyTitle { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
