@@ -4,12 +4,12 @@
     using System.Web.Mvc;
     using Kendo.Mvc.UI;
     using MvcTemplate.Web.Infrastructure.Mapping;
-    using MySurveys.Services.Contracts;
+    using Services.Contracts;
     using ViewModels;
 
     public class PossibleAnswersController : AdminController
     {
-        private IPossibleAnswerService possibleAnswers;
+        public IPossibleAnswerService possibleAnswers;
 
         public PossibleAnswersController(IUserService userService, IPossibleAnswerService possibleAnswers)
             : base(userService)
