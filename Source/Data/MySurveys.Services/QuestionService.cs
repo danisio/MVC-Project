@@ -8,10 +8,12 @@
     public class QuestionService : IQuestionService
     {
         private IRepository<Question> questions;
+        private IRepository<PossibleAnswer> possibleAnswers;
 
-        public QuestionService(IRepository<Question> questions)
+        public QuestionService(IRepository<Question> questions, IRepository<PossibleAnswer> possibleAnswers)
         {
             this.questions = questions;
+            this.possibleAnswers = possibleAnswers;
         }
 
         public IQueryable<Question> GetAll()
@@ -42,14 +44,22 @@
 
         public void Delete(object id)
         {
+            var question = this.questions.GetById(id);
             this.questions.Delete(id);
+
+            foreach (var ans in question.PossibleAnswers)
+            {
+                this.possibleAnswers.Delete(ans.Id);
+            }
+
+            this.possibleAnswers.SaveChanges();
             this.questions.SaveChanges();
         }
 
         public Question GetNext(Question question, string possibleAnswerContent)
         {
             string nextQuestionContent;
-           
+
             if (question.IsDependsOn)
             {
                 nextQuestionContent = question.Content + "|" + possibleAnswerContent;

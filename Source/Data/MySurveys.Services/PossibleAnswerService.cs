@@ -45,6 +45,5 @@
             this.possibleAnswers.Delete(id);
             this.possibleAnswers.SaveChanges();
         }
-
     }
 }

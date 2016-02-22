@@ -6,8 +6,8 @@
     using Base;
     using Models;
     using Services.Contracts;
-    using ViewModels;
     using ViewModels.Filling;
+
     public class PublicController : BaseScrollController
     {
         public PublicController(ISurveyService surveyService, IUserService userService)

@@ -9,11 +9,16 @@
     public class SurveyService : ISurveyService
     {
         private IRepository<Survey> surveys;
+        private IRepository<Question> questions;
+        private IRepository<PossibleAnswer> possibleAnswers;
+
         private IIdentifierProvider identifierProvider;
 
-        public SurveyService(IRepository<Survey> surveys, IIdentifierProvider identifierProvider)
+        public SurveyService(IRepository<Survey> surveys, IRepository<Question> questions, IIdentifierProvider identifierProvider, IRepository<PossibleAnswer> possibleAnswers)
         {
             this.surveys = surveys;
+            this.questions = questions;
+            this.possibleAnswers = possibleAnswers;
             this.identifierProvider = identifierProvider;
         }
 
@@ -53,7 +58,22 @@
 
         public void Delete(object id)
         {
+            var survey = this.surveys.GetById(id);
             this.surveys.Delete(id);
+
+            foreach (var quest in survey.Questions)
+            {
+                var question = this.questions.GetById(quest.Id);
+                this.questions.Delete(quest.Id);
+
+                foreach (var amswer in question.PossibleAnswers)
+                {
+                    this.possibleAnswers.Delete(amswer.Id);
+                }
+            }
+
+            this.possibleAnswers.SaveChanges();
+            this.questions.SaveChanges();
             this.surveys.SaveChanges();
         }
 
