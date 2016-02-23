@@ -103,6 +103,10 @@
       <Project>{4b71d543-7340-42a8-9940-43d06204faac}</Project>
       <Name>MySurveys.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Web\MySurveys.Web.Infrastructure\MySurveys.Web.Infrastructure.csproj">
+      <Project>{c2370768-4539-4d6e-856c-d94f830b59f7}</Project>
+      <Name>MySurveys.Web.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Web\MySurveys.Web\MySurveys.Web.csproj">
       <Project>{416406eb-fbcf-4be7-a643-f360c3c2218b}</Project>
       <Name>MySurveys.Web</Name>
