@@ -14,8 +14,9 @@
     [Authorize]
     public class SurveysController : BaseScrollController
     {
-        private static ICollection<AnswerViewModel> currentAnswers =
-            new List<AnswerViewModel>();
+        private static ICollection<AnswerViewModel> currentAnswers = new List<AnswerViewModel>();
+        private IQuestionService questionService;
+        private IResponseService responseService;
 
         public SurveysController(
             ISurveyService surveyService,
@@ -24,13 +25,9 @@
             IResponseService responseService)
             : base(userService, surveyService)
         {
-            this.QuestionService = questionService;
-            this.ResponseService = responseService;
+            this.questionService = questionService;
+            this.responseService = responseService;
         }
-
-        public IQuestionService QuestionService { get; set; }
-
-        public IResponseService ResponseService { get; set; }
 
         //// GET: Surveys/Surveys/FillingUp
         [HttpGet]
@@ -70,7 +67,7 @@
                 var possibleAnswerContent = form["Content"].ToString();
 
                 var dbQuestion = this.ValidateFormAndAddAnswer(questionId, possibleAnswerContent);
-                var nextQuestion = this.QuestionService.GetNext(dbQuestion, possibleAnswerContent);
+                var nextQuestion = this.questionService.GetNext(dbQuestion, possibleAnswerContent);
 
                 if (nextQuestion != null)
                 {
@@ -109,7 +106,7 @@
             Question dbQuestion;
             try
             {
-                dbQuestion = this.QuestionService.GetById(questionId);
+                dbQuestion = this.questionService.GetById(questionId);
             }
             catch (Exception)
             {
@@ -143,7 +140,7 @@
             };
 
             var viewModel = this.Mapper.Map<Response>(newResponse);
-            var saved = this.ResponseService.Add(viewModel);
+            var saved = this.responseService.Add(viewModel);
 
             currentSurvey.Responses.Add(saved);
             this.SurveyService.Update(currentSurvey);
