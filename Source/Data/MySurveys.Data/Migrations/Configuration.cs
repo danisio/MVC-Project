@@ -1,7 +1,5 @@
 namespace MySurveys.Data.Migrations
 {
-    using System;
-    using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Microsoft.AspNet.Identity;
@@ -13,8 +11,8 @@ namespace MySurveys.Data.Migrations
     {
         public Configuration()
         {
-            this.AutomaticMigrationsEnabled = true;
-            this.AutomaticMigrationDataLossAllowed = true;
+            this.AutomaticMigrationsEnabled = false;
+            this.AutomaticMigrationDataLossAllowed = false;
         }
 
         protected override void Seed(MySurveysDbContext context)
