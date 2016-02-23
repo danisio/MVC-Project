@@ -1,0 +1,26 @@
+﻿@model Dictionary<int, MySurveys.Web.Areas.Surveys.ViewModels.Filling.SurveyViewModel>
+@foreach (var item in Model)
+{
+    <tr>
+        <td class="text-center">@item.Key</td>
+        <td>@item.Value.Title</td>
+        <td class="text-center">@item.Value.Questions.Count</td>
+        <td class="text-center">@item.Value.Responses.Count</td>
+        <td class="text-center">@Html.DisplayFor(m => item.Value.IsPublic)</td>
+        <td class="text-center">
+            <a href="@Url.Action("DeleteSurvey", "MySurveys", new { id = item.Value.Id })" class="modal-link btn btn-md btn-default">
+                <i class="glyphicon glyphicon-remove">Delete</i>
+                <span class="sr-only">Delete</span>
+            </a>
+            <a href="@Url.Action("DetailsMySurvey", "MySurveys", new { id = item.Value.Id })" class="btn btn-md btn-info">
+                <i class="glyphicon glyphicon-pencil">Details</i>
+                <span class="sr-only">Details</span>
+            </a>
+            <a href="@Url.Action("EditSurvey", "MySurveys", new { id = item.Value.Id })" class="modal-link btn btn-md btn-primary">
+                <i class="glyphicon glyphicon-pencil">Edit</i>
+                <span class="sr-only">Edit</span>
+            </a>
+        </td>
+    </tr>
+}
+

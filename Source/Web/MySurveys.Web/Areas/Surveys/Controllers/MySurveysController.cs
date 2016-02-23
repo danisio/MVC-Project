@@ -1,31 +1,26 @@
 ﻿namespace MySurveys.Web.Areas.Surveys.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
+    using Base;
     using Models;
     using Services.Contracts;
     using ViewModels.Creating;
     using Web.Controllers.Base;
 
     [Authorize]
-    public class MySurveysController : BaseController
+    public class MySurveysController : BaseScrollController
     {
         private static List<QuestionViewModel> questions = new List<QuestionViewModel>();
-        private ISurveyService surveyService;
         private IQuestionService questionService;
 
         public MySurveysController(IUserService userService, ISurveyService surveyService, IQuestionService questionService)
-            : base(userService)
+            : base(userService, surveyService)
         {
-            this.surveyService = surveyService;
             this.questionService = questionService;
-        }
-
-        //// GET: Surveys/MySurveys/All
-        public ActionResult Index()
-        {
-            return this.View(questions);
         }
 
         //// GET: Surveys/MySurveys/Create
@@ -125,7 +120,7 @@
         //// POST:Surveys/MySuerveys/SaveSurvey
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveSurvey(SurveyViewModel model)
+        public ActionResult SaveSurvey(ViewModels.Creating.SurveyViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -144,13 +139,76 @@
                 };
 
                 var viewModel = this.Mapper.Map<Survey>(newSurvey);
-                this.surveyService.Add(viewModel);
+                this.SurveyService.Add(viewModel);
 
                 questions.Clear();
                 return this.RedirectToAction("Index", "Surveys", new { area = "Surveys" });
             }
 
             return this.RedirectToAction("Create");
+        }
+
+        //// GET: Surveys/MySurveys/EditSurvey
+        [HttpGet]
+        public ActionResult EditSurvey(int id)
+        {
+            var survey = this.SurveyService.GetById(id);
+            if (survey != null)
+            {
+                var viewModel = this.Mapper.Map<ViewModels.Editing.SurveyViewModel>(survey);
+                return this.PartialView("_EditSurveyPartial", viewModel);
+            }
+
+            return this.View();
+        }
+
+        //// POST: Surveys/MySurveys/EditQuestion
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSurvey(ViewModels.Editing.SurveyViewModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                var dbModel = this.SurveyService.GetById(model.Id);
+                var mapped = this.Mapper.Map(model, dbModel);
+
+                this.SurveyService.Update(mapped);
+            }
+
+            return this.RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteSurvey(int id)
+        {
+            return this.PartialView("_DeleteSurveyPartial", id);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteSurveyConfirmation()
+        {
+            int idAsInt;
+            try
+            {
+                idAsInt = int.Parse(Request.Form["id"]);
+                var survey = this.SurveyService.GetById(idAsInt);
+            }
+            catch (Exception)
+            {
+                throw new HttpException(404, "Survey not found");
+            }
+
+            this.SurveyService.Delete(idAsInt);
+
+            return this.RedirectToAction("Index");
+        }
+
+        protected override IQueryable<Survey> GetData()
+        {
+            return this.SurveyService
+                        .GetAll()
+                        .Where(s => s.AuthorId == this.CurrentUser.Id);
         }
     }
 }

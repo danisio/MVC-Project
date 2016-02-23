@@ -247,6 +247,8 @@
     <Compile Include="Areas\Surveys\ViewModels\Creating\PossibleAnswerViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Creating\QuestionViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Creating\SurveyViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\Editing\DetailsSurveyViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\Editing\SurveyViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Filling\AnswerViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Filling\PossibleAnswerViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Filling\ResponseViewModel.cs" />
@@ -755,6 +757,9 @@
     <Content Include="Areas\Surveys\Views\MySurveys\_SaveSurveyPartial.cshtml" />
     <Content Include="Areas\Administration\Views\Responses\Index.cshtml" />
     <Content Include="Areas\Administration\Views\PossibleAnswers\Index.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_MySurveysPartial.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_EditSurveyPartial.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_DeleteSurveyPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\other\infiniteScroll.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
