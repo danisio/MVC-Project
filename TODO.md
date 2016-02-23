@@ -42,7 +42,7 @@
 - ~~Use caching of data where it makes sense (e.g. starting page)~~
 - ~~Use Ninject (or any other dependency container) and Automapper~~
 - **Write at least 30 unit tests for your logic, controllers, actions, helpers, routes, etc.**
-- **Apply error handling and data validation to avoid crashes when invalid data is entered (both client-side and server-side)**
+- ~~Apply error handling and data validation to avoid crashes when invalid data is entered (both client-side and server-side)~~
 - ~~Prevent yourself from security holes (XSS, XSRF, Parameter Tampering, etc.)~~
 	- ~~Handle correctly the special HTML characters and tags~~
 - ~~Use GitHub and take advantage of the branches for writing your features.~~
