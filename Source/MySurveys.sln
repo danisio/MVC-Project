@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Common", "Common\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8CAB772B-D369-4CBE-A9DC-0CD4AB315C62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Controllers.Tests", "Tests\MySurveys.Controllers.Tests\MySurveys.Controllers.Tests.csproj", "{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,5 +77,6 @@ Global
 		{4B71D543-7340-42A8-9940-43D06204FAAC} = {26A24783-E19E-47B4-95A3-0E8F78525971}
 		{416406EB-FBCF-4BE7-A643-F360C3C2218B} = {3967935B-AD30-4F68-A14E-C3A49AB4EC6A}
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89} = {AA050394-5EE0-4DD6-841C-D80E4A56846F}
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC} = {8CAB772B-D369-4CBE-A9DC-0CD4AB315C62}
 	EndGlobalSection
 EndGlobal
