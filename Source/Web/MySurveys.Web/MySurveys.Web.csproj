@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -803,8 +804,6 @@
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Home\_MostPopularSurveysPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CustomBool.cshtml" />
-    <Content Include="Views\Shared\Error404.cshtml" />
-    <Content Include="Views\Shared\Error500.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\EditorTemplates\" />
