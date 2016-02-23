@@ -803,6 +803,8 @@
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Home\_MostPopularSurveysPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CustomBool.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Shared\Error500.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\EditorTemplates\" />

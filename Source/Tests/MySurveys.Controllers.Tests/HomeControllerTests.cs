@@ -5,23 +5,23 @@
     using NUnit.Framework;
     using Services.Contracts;
     using TestStack.FluentMVCTesting;
-    using Web.Areas.Surveys.Controllers;
-    using Web.Areas.Surveys.ViewModels.Filling;
+    using Web.Controllers;
     using Web.Infrastructure.Mapping;
 
     [TestFixture]
-    public class PublicControllerTests
+    public class HomeControllerTests
     {
         private const string SurveyTitle = "Test survey title";
         private const string UserEmail = "user@test.com";
         private const string UserName = "user";
-        private PublicController controller;
+
+        private HomeController controller;
 
         [SetUp]
         public void SetUp()
         {
             var autoMapperConfig = new AutoMapperConfig();
-            autoMapperConfig.Execute(typeof(PublicController).Assembly);
+            autoMapperConfig.Execute(typeof(HomeController).Assembly);
             var surveysServiceMock = new Mock<ISurveyService>();
             var userServiceMock = new Mock<IUserService>();
 
@@ -33,28 +33,15 @@
                 .Setup(x => x.GetById(It.IsAny<string>()))
                 .Returns(new Survey { Id = 1, Title = SurveyTitle, Author = userServiceMock.Object.GetById("dsds"), AuthorId = userServiceMock.Object.GetById("dsss").Id, IsPublic = true });
 
-            this.controller = new PublicController(surveysServiceMock.Object, userServiceMock.Object);
+            this.controller = new HomeController(userServiceMock.Object, surveysServiceMock.Object);
         }
 
         [Test]
-        public void DetailsShouldRenderCorrectView()
+        public void IndexShouldRenderCorrectView()
         {
             this.controller
-                .WithCallTo(x => x.Details("fslf"))
-                .ShouldRenderView("Details");
-        }
-
-        [Test]
-        public void DetailsShouldRenderCorrectViewModel()
-        {
-            this.controller
-                .WithCallTo(x => x.Details("fslf"))
-                .ShouldRenderView("Details")
-                .WithModel<SurveyViewModel>(
-                    viewModel =>
-                    {
-                        Assert.AreEqual(SurveyTitle, viewModel.Title);
-                    }).AndNoModelErrors();
+                .WithCallTo(c => c.Index())
+                .ShouldRenderDefaultView();
         }
     }
 }

@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HomeControllerTests.cs" />
     <Compile Include="PublicControllerTests.cs" />
     <Compile Include="SurveysControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

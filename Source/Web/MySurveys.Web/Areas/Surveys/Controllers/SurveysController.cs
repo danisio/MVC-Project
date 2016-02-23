@@ -14,8 +14,7 @@
     [Authorize]
     public class SurveysController : BaseScrollController
     {
-        private static ICollection<AnswerViewModel> currentAnswers =
-            new List<AnswerViewModel>();
+        private static ICollection<AnswerViewModel> currentAnswers = new List<AnswerViewModel>();
         private IQuestionService questionService;
         private IResponseService responseService;
 

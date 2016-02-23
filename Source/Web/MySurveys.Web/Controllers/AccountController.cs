@@ -135,7 +135,6 @@
                 {
                     ModelState.AddModelError("reCaptcha", "Please verify that you are a human!");
                 }
-            
             }
 
             //// If we got this far, something failed, redisplay form

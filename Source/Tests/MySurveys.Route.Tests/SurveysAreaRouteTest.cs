@@ -12,23 +12,23 @@
     public class SurveysAreaRouteTest
     {
         private RouteCollection routes;
-        SurveysAreaRegistration areaRegistration;
+        private SurveysAreaRegistration areaRegistration;
 
         [SetUp]
         public void AreaRegistration()
         {
-            routes = new RouteCollection();
+            this.routes = new RouteCollection();
 
-            areaRegistration = new SurveysAreaRegistration();
-            AreaRegistrationContext context = new AreaRegistrationContext(areaRegistration.AreaName, routes);
-            areaRegistration.RegisterArea(context);
+            this.areaRegistration = new SurveysAreaRegistration();
+            AreaRegistrationContext context = new AreaRegistrationContext(this.areaRegistration.AreaName, this.routes);
+            this.areaRegistration.RegisterArea(context);
         }
 
         [Test]
         public void SurveysRouteById()
         {
             const string Url = "/Surveys/Public/Details/My4xMjMxMjMxMzEyMw==";
-            routes
+            this.routes
                 .ShouldMap(Url)
                 .To<PublicController>(HttpMethod.Get, c => c.Details("My4xMjMxMjMxMzEyMw=="));
         }
@@ -36,7 +36,7 @@
         [Test]
         public void PublicIndexAreaRegistration()
         {
-            routes
+            this.routes
                 .ShouldMap("/Surveys/Public")
                 .To<PublicController>(HttpMethod.Get, x => x.GetSurveys((int?)null));
         }
@@ -44,84 +44,84 @@
         [Test]
         public void SurveysFillingAreaRegistration()
         {
-            const string url = "/Surveys/Surveys/FillingUp?id=My4xMjMxMjMxMzEyMw%3D%3D";
-            routes
-                .ShouldMap(url)
+            const string Url = "/Surveys/Surveys/FillingUp?id=My4xMjMxMjMxMzEyMw%3D%3D";
+            this.routes
+                .ShouldMap(Url)
                 .To<SurveysController>(HttpMethod.Get, x => x.FillingUp("My4xMjMxMjMxMzEyMw%3D%3D"));
         }
 
         [Test]
         public void HasDefaultRouteToArea()
         {
-            RouteAssert.HasRoute(routes, "/Surveys");
-            RouteAssert.HasRoute(routes, "/Surveys/Public");
+            RouteAssert.HasRoute(this.routes, "/Surveys");
+            RouteAssert.HasRoute(this.routes, "/Surveys/Public");
         }
 
         [Test]
         public void AreaRouteHasControllerAndAction()
         {
-            RouteAssert.HasRoute(routes, "/Surveys", new { Controller = "Surveys", Action = "GetSurveys" });
-            RouteAssert.HasRoute(routes, "/Surveys/Public", new { Controller = "Public", Action = "GetSurveys" });
+            RouteAssert.HasRoute(this.routes, "/Surveys", new { Controller = "Surveys", Action = "GetSurveys" });
+            RouteAssert.HasRoute(this.routes, "/Surveys/Public", new { Controller = "Public", Action = "GetSurveys" });
         }
 
         [Test]
         public void AreaRouteHasAreaName()
         {
-            RouteAssert.HasRoute(routes, "/Surveys", new { Area = "Surveys", Controller = "Surveys", Action = "GetSurveys" });
-            RouteAssert.HasRoute(routes, "/Surveys/Public", new { Area = "Surveys", Controller = "Public", Action = "GetSurveys" });
+            RouteAssert.HasRoute(this.routes, "/Surveys", new { Area = "Surveys", Controller = "Surveys", Action = "GetSurveys" });
+            RouteAssert.HasRoute(this.routes, "/Surveys/Public", new { Area = "Surveys", Controller = "Public", Action = "GetSurveys" });
         }
 
         [Test]
         public void CreateSurveyActionShoulMapCorrectly()
         {
-            const string createUrl = "/Surveys/MySurveys/Create";
-            routes
-                .ShouldMap(createUrl)
+            const string Url = "/Surveys/MySurveys/Create";
+            this.routes
+                .ShouldMap(Url)
                 .To<MySurveysController>(HttpMethod.Get, x => x.Create());
         }
 
         [Test]
         public void AddNewQuestionActionShoulMapCorrectly()
         {
-            const string createUrl = "/Surveys/MySurveys/ViewForm";
-            routes
-                .ShouldMap(createUrl)
+            const string Url = "/Surveys/MySurveys/ViewForm";
+            this.routes
+                .ShouldMap(Url)
                 .To<MySurveysController>(HttpMethod.Get, x => x.ViewForm());
         }
 
         [Test]
         public void SaveNewQuestionActionShoulMapCorrectly()
         {
-            const string createUrl = "/Surveys/MySurveys/AddNew";
-            routes
-                .ShouldMap(createUrl)
+            const string Url = "/Surveys/MySurveys/AddNew";
+            this.routes
+                .ShouldMap(Url)
                 .To<MySurveysController>(HttpMethod.Post, x => x.AddNew(null));
         }
 
         [Test]
         public void EditQuestionActionShoulMapCorrectly()
         {
-            const string createUrl = "/Surveys/MySurveys/EditQuestion";
-            routes
-                .ShouldMap(createUrl)
+            const string Url = "/Surveys/MySurveys/EditQuestion";
+            this.routes
+                .ShouldMap(Url)
                 .To<MySurveysController>(HttpMethod.Get, x => x.EditQuestion(null, null));
         }
 
         [Test]
         public void StartCreatingSurveyActionShoulMapCorrectly()
         {
-            const string createUrl = "/Surveys/MySurveys/SaveSurvey";
-            routes
-                .ShouldMap(createUrl)
+            const string Url = "/Surveys/MySurveys/SaveSurvey";
+            this.routes
+                .ShouldMap(Url)
                 .To<MySurveysController>(HttpMethod.Get, x => x.SaveSurvey());
         }
 
         [Test]
         public void SaveCreatingSurveyActionShoulMapCorrectly()
         {
-            const string createUrl = "/Surveys/MySurveys/SaveSurvey";
-            routes
-                .ShouldMap(createUrl)
+            const string Url = "/Surveys/MySurveys/SaveSurvey";
+            this.routes
+                .ShouldMap(Url)
                 .To<MySurveysController>(HttpMethod.Post, x => x.SaveSurvey(null));
         }
     }

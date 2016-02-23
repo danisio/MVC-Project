@@ -15,47 +15,47 @@
         [SetUp]
         public void RoutesRegistration()
         {
-            routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes);
+            this.routes = new RouteCollection();
+            RouteConfig.RegisterRoutes(this.routes);
         }
 
         [Test]
         public void IndexActionShoulMapCorrectly()
         {
-            const string createUrl = "/";
-            routes
-                .ShouldMap(createUrl)
+            const string CreateUrl = "/";
+            this.routes
+                .ShouldMap(CreateUrl)
                 .To<HomeController>(HttpMethod.Get, x => x.Index());
         }
 
         [Test]
         public void IndexActionShoulMapCorrectly2()
         {
-            const string createUrl = "/Home";
-            routes
-                .ShouldMap(createUrl)
+            const string CcreateUrl = "/Home";
+            this.routes
+                .ShouldMap(CcreateUrl)
                 .To<HomeController>(HttpMethod.Get, x => x.Index());
         }
 
         [Test]
         public void IndexActionShoulMapCorrectly3()
         {
-            const string createUrl = "/Home/Index";
-            routes
-                .ShouldMap(createUrl)
+            const string CreateUrl = "/Home/Index";
+            this.routes
+                .ShouldMap(CreateUrl)
                 .To<HomeController>(HttpMethod.Get, x => x.Index());
         }
 
         [Test]
         public void HasRouteWithoutController()
         {
-            RouteAssert.HasRoute(routes, "/foo/bar/1");
+            RouteAssert.HasRoute(this.routes, "/foo/bar/1");
         }
 
         [Test]
         public void DoesNotHaveOtherRoute()
         {
-            RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
+            RouteAssert.NoRoute(this.routes, "/foo/bar/fish/spon");
         }
     }
 }
