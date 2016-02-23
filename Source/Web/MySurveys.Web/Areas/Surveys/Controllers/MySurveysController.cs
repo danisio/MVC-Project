@@ -35,7 +35,7 @@
             return this.View(questions);
         }
 
-        //// GET: Surveys/MySurveys/AddNew
+        //// GET: Surveys/MySurveys/ViewForm
         public ActionResult ViewForm()
         {
             return this.PartialView("_AddNewQuestionPartial");

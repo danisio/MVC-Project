@@ -9,7 +9,6 @@
     using Microsoft.Owin.Security;
     using Models;
     using ViewModels.Account;
-
     [Authorize]
     public class AccountController : Controller
     {
@@ -117,16 +116,25 @@
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.UserName, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                string EncodedResponse = Request.Form["g-Recaptcha-Response"];
+                bool IsCaptchaValid = ReCaptcha.Validate(EncodedResponse);
+                if (IsCaptchaValid)
                 {
-                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var user = new User { UserName = model.UserName, Email = model.Email };
+                    var result = await this.UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    return this.RedirectToAction("Index", "Home");
+                        return this.RedirectToAction("Index", "Home");
+                    }
+
+                    this.AddErrors(result);
                 }
-
-                this.AddErrors(result);
+                else
+                {
+                    ModelState.AddModelError("reCaptcha", "Please verify that you are a human!");
+                }
             }
 
             //// If we got this far, something failed, redisplay form

@@ -267,6 +267,7 @@
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\ReCaptcha.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -802,6 +803,8 @@
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Home\_MostPopularSurveysPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CustomBool.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Shared\Error500.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\EditorTemplates\" />

@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Register";
 }
+@section captcha{
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+}
 
 <div class="text-center">
     <h2>Create your personal account.</h2>
@@ -41,6 +44,11 @@
                 @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-3 control-label" })
                 <div class="col-md-9">
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <div class="g-recaptcha" data-sitekey="6LeI7RgTAAAAAGl5HOTOAz1x4tlETIQmgs2KRS9E"></div>
                 </div>
             </div>
             <div class="form-group">
