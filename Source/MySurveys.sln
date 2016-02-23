@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{26A24783-E19E-47B4-95A3-0E8F78525971}"
 EndProject
@@ -22,6 +22,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AA050394-5EE0-4DD6-841C-D80E4A56846F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Common", "Common\MySurveys.Common\MySurveys.Common.csproj", "{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8CAB772B-D369-4CBE-A9DC-0CD4AB315C62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Services.Tests", "Tests\MySurveys.Services.Tests\MySurveys.Services.Tests.csproj", "{5BF6E2C5-9BB6-4543-870B-F94B2BF7458E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Route.Tests", "Tests\MySurveys.Route.Tests\MySurveys.Route.Tests.csproj", "{E9FFC7A8-6737-42E6-8B5B-7177B0845360}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySurveys.Controllers.Tests", "Tests\MySurveys.Controllers.Tests\MySurveys.Controllers.Tests.csproj", "{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +65,18 @@ Global
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BF6E2C5-9BB6-4543-870B-F94B2BF7458E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BF6E2C5-9BB6-4543-870B-F94B2BF7458E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BF6E2C5-9BB6-4543-870B-F94B2BF7458E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BF6E2C5-9BB6-4543-870B-F94B2BF7458E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9FFC7A8-6737-42E6-8B5B-7177B0845360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9FFC7A8-6737-42E6-8B5B-7177B0845360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9FFC7A8-6737-42E6-8B5B-7177B0845360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9FFC7A8-6737-42E6-8B5B-7177B0845360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,5 +89,8 @@ Global
 		{4B71D543-7340-42A8-9940-43D06204FAAC} = {26A24783-E19E-47B4-95A3-0E8F78525971}
 		{416406EB-FBCF-4BE7-A643-F360C3C2218B} = {3967935B-AD30-4F68-A14E-C3A49AB4EC6A}
 		{5ACB35A6-EBE2-4B56-BA1C-E6F2E1AABB89} = {AA050394-5EE0-4DD6-841C-D80E4A56846F}
+		{5BF6E2C5-9BB6-4543-870B-F94B2BF7458E} = {8CAB772B-D369-4CBE-A9DC-0CD4AB315C62}
+		{E9FFC7A8-6737-42E6-8B5B-7177B0845360} = {8CAB772B-D369-4CBE-A9DC-0CD4AB315C62}
+		{6AD9BB7E-5E7B-4111-8D41-04E515528AFC} = {8CAB772B-D369-4CBE-A9DC-0CD4AB315C62}
 	EndGlobalSection
 EndGlobal

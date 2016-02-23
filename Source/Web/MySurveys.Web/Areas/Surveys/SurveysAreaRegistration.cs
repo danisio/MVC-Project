@@ -21,6 +21,12 @@
                new string[] { "MySurveys.Web.Areas.Surveys.Controllers" });
 
             context.MapRoute(
+               "Surveys_Details",
+               "Surveys/Public/Details/{id}",
+               new { controller = "Public", action = "Details" },
+               new string[] { "MySurveys.Web.Areas.Surveys.Controllers" });
+
+            context.MapRoute(
                "Surveys_default",
                "Surveys/{controller}/{action}/{id}",
                new { controller = "Surveys", action = "Index", id = UrlParameter.Optional },
