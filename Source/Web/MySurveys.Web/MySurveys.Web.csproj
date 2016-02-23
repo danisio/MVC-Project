@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -246,6 +247,8 @@
     <Compile Include="Areas\Surveys\ViewModels\Creating\PossibleAnswerViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Creating\QuestionViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Creating\SurveyViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\Editing\DetailsSurveyViewModel.cs" />
+    <Compile Include="Areas\Surveys\ViewModels\Editing\SurveyViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Filling\AnswerViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Filling\PossibleAnswerViewModel.cs" />
     <Compile Include="Areas\Surveys\ViewModels\Filling\ResponseViewModel.cs" />
@@ -754,6 +757,9 @@
     <Content Include="Areas\Surveys\Views\MySurveys\_SaveSurveyPartial.cshtml" />
     <Content Include="Areas\Administration\Views\Responses\Index.cshtml" />
     <Content Include="Areas\Administration\Views\PossibleAnswers\Index.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_MySurveysPartial.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_EditSurveyPartial.cshtml" />
+    <Content Include="Areas\Surveys\Views\MySurveys\_DeleteSurveyPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\other\infiniteScroll.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -803,8 +809,6 @@
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Home\_MostPopularSurveysPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CustomBool.cshtml" />
-    <Content Include="Views\Shared\Error404.cshtml" />
-    <Content Include="Views\Shared\Error500.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\EditorTemplates\" />
