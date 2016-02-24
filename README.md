@@ -13,8 +13,6 @@ The requirements for the project can be found [here](Documentation/Requirements.
 ## Documentation
 The documentation can be found [here](Documentation/Documentation.md).
 
-## TODO
-do [HERE](./TODO.md)
 
 
 
