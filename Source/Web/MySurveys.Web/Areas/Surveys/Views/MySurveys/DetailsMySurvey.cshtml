@@ -1,0 +1,22 @@
+﻿@model MySurveys.Web.Areas.Surveys.ViewModels.Details.DetailsSurveyViewModel
+
+<div class="row">
+    <div class="text-center">
+        <h2>Survey "@Model.Title"</h2>
+    </div>
+
+    <div class="row">
+        @foreach (var question in Model.Questions)
+        {
+            <div class="col-md-4">
+                @question.Content
+            </div>
+            <div class="col-md-8">
+                @if (question.PossibleAnswers.Any())
+                {
+                    <img src="@Url.Action("CreateBar", "MySurveys", new { area = "Surveys", @id = question.Id})" alt="Bar Chart using MVC" />
+                }
+            </div>
+        }
+    </div>
+</div>
