@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
     using Base;
     using Models;
@@ -178,13 +179,14 @@
             return this.RedirectToAction("Index");
         }
 
+        //// GET: Surveys/MySurveys/Index/DeleteSurvey
         [HttpGet]
         public ActionResult DeleteSurvey(int id)
         {
             return this.PartialView("_DeleteSurveyPartial", id);
         }
 
-
+        //// POST: Surveys/MySurveys/Index/DeleteSurvey
         [HttpPost]
         public ActionResult DeleteSurveyConfirmation()
         {
@@ -204,6 +206,43 @@
             return this.RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult DetailsMySurvey(int id)
+        {
+            var survey = this.SurveyService.GetById(id);
+            if (survey != null)
+            {
+                var mapped = this.Mapper.Map<ViewModels.Details.DetailsSurveyViewModel>(survey);
+                return this.View(mapped);
+            }
+
+            throw new HttpException(404, "Survey not found");
+        }
+
+        public ActionResult CreateBar(int id)
+        {
+            var question = this.questionService.GetById(id);
+            var mapped = this.Mapper.Map<ViewModels.Details.QuestionViewModel>(question);
+            var possAnswers = mapped.PossibleAnswers.Select(a => a.Content).ToArray();
+            List<string> answers = new List<string>();
+
+            foreach (var item in possAnswers)
+            {
+                var possAnswer = mapped.PossibleAnswers.FirstOrDefault(p => p.Content == item);
+                var count = mapped.Answers.Where(a => a.PossibleAnswerId == possAnswer.Id && a.QuestionId == question.Id).ToList();
+                answers.Add(count.Count.ToString());
+            }
+
+            //Create bar chart
+            var chart = new Chart(750, 150, ChartTheme.Blue)
+            .AddSeries(chartType: "bar",
+                             xValue: possAnswers,
+                            yValues: answers.ToArray())
+                            .GetBytes("png");
+            return File(chart, "image/bytes");
+        }
+
+        [NonAction]
         protected override IQueryable<Survey> GetData()
         {
             return this.SurveyService
