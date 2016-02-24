@@ -233,13 +233,14 @@
                 answers.Add(count.Count.ToString());
             }
 
-            //Create bar chart
+            //// Create bar chart
             var chart = new Chart(750, 150, ChartTheme.Blue)
-            .AddSeries(chartType: "bar",
-                             xValue: possAnswers,
-                            yValues: answers.ToArray())
-                            .GetBytes("png");
-            return File(chart, "image/bytes");
+            .AddSeries(
+                chartType: "bar",
+                xValue: possAnswers,
+                yValues: answers.ToArray())
+                .GetBytes("png");
+            return this.File(chart, "image/bytes");
         }
 
         [NonAction]

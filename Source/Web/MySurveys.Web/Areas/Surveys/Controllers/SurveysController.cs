@@ -74,6 +74,7 @@
                     if (!nextQuestion.PossibleAnswers.Any())
                     {
                         this.SaveToDb(dbQuestion.SurveyId);
+                        currentAnswers.Clear();
                         this.TempData["fin"] = nextQuestion.Content;
                         return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
                     }
@@ -84,9 +85,11 @@
                 else
                 {
                     this.SaveToDb(dbQuestion.SurveyId);
+                    currentAnswers.Clear();
                     this.TempData["fin"] = "Thank you!";
                 }
 
+                currentAnswers.Clear();
                 return this.RedirectToActionPermanent("Index", "Home", new { area = string.Empty });
             }
 

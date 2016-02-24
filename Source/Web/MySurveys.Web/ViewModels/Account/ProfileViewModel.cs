@@ -13,8 +13,5 @@
 
         [Display(Name = "Registration date")]
         public DateTime CreateOn { get; set; }
-        
-        [Display(Name = "Total surveys")]
-        public int TotalSurveys { get; set; }
     }
 }
