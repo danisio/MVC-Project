@@ -165,8 +165,7 @@
             {
                 UserName = user.UserName,
                 Email = user.Email,
-                CreateOn = user.CreatedOn,
-                TotalSurveys = user.Surveys.Count
+                CreateOn = user.CreatedOn
             };
 
             return this.View(model);
